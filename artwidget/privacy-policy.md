@@ -23,7 +23,7 @@ https://foundation.wikimedia.org/wiki/Policy:Privacy_policy.
 
 **Children.** The app is not directed at children under 13.
 
-**Contact.** https://forio-dk.github.io/forio.dk/README.md
+**Contact.** https://forio-dk.github.io/README.md
 
 ## Changes
 
