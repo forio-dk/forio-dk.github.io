@@ -1,4 +1,6 @@
-**Effective date:** 08.10.2026
+# Privacy Policy: Art Widget
+
+**Effective date:** 16.10.2026
 
 **Developer:** forio.dk@gmail.com
 
