@@ -1,14 +1,14 @@
 # Privacy Policy: Atlas Hunt
 
-**Effective date:** 27.10.2026
+**Effective date:** 2026-11-02
 
 **Developer:** forio.dk@gmail.com
 
 Atlas Hunt (`dk.forio.atlashunt`) is a geography game for Android.
 
 **What the app itself collects.** Nothing. It has no accounts and sends no analytics of its own. It stores on your
-phone whether you own the full version, your best result in each game, which games you have played perfectly and your
-language choice; none of this leaves the phone except as described below.
+phone whether you own the full version, your best result and last run in each game, which games you have played
+perfectly and your language choice; none of this leaves the phone except as described below.
 
 **Wikipedia and Wikimedia Commons.** When you open a card, the app asks Wikipedia for the start of the article and
 Wikimedia Commons for the picture and its credit. These requests name the object and carry the app's name and version
@@ -17,11 +17,14 @@ address; its handling is described at https://foundation.wikimedia.org/wiki/Poli
 games work without these requests.
 
 **Google Play Games.** If your phone is signed in to Google Play Games, the app unlocks achievements through Google
-Play Games Services. Google then handles your gamer profile (gamertag and avatar), your unlocked achievements and
-progress, and diagnostic and analytics data of the Play Games SDK, under Google's privacy policy,
-https://policies.google.com/privacy. The app learns only whether you are signed in and keeps nothing of your
-profile. Profile visibility and deletion of your Play Games data are managed in your Play Games profile
-or your Google Account. If you do not sign in, the app works without achievements.
+Play Games Services and keeps a copy of your results there, in Saved Games: your best result and last run in each game
+and which games you have played perfectly, so that they reach your other devices and come back after a reinstall.
+Google then handles your gamer profile (gamertag and avatar), your unlocked achievements and progress, the saved
+results, and diagnostic and analytics data of the Play Games SDK, under Google's privacy policy,
+https://policies.google.com/privacy. The app learns only whether you are signed in and its saved results, and keeps
+nothing of your profile. Profile visibility and deletion of your Play Games data are managed in your Play Games profile
+or your Google Account. If you do not sign in, the app works without achievements, and your results stay on the
+phone.
 
 **Advertising.** The app shows one banner from Google AdMob. Google's ads SDK may collect your device's advertising
 ID, IP address, approximate location derived from it, information about the app and your device, and how you interact
