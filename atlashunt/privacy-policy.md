@@ -1,6 +1,6 @@
 # Privacy Policy: Atlas Hunt
 
-**Effective date:** 2026-11-06
+**Effective date:** 2026-11-07
 
 **Developer:** forio.dk@gmail.com
 
@@ -23,12 +23,15 @@ which games you have finished and played perfectly, and when you finished each g
 devices and come back after a reinstall. After each finished game it also sends Google Play Games that game's numbers
 (which game it was, its kind and part of the world, how many places it asked, how many you found and found on the first
 try, and your longest run of first-try finds), from which Google shows your game stats on your Play Games profile.
-Google then handles your gamer profile (gamertag and avatar), your unlocked achievements and progress, the saved
-results, your game stats, and diagnostic and analytics data of the Play Games SDK, under Google's privacy policy,
+It also sends your leaderboard scores: the first-try finds of your best result in each game, summed over all games,
+over each part of the world's games and over each kind of place's, which Google ranks on the game's leaderboards with
+your gamer profile, as your profile's visibility allows. Google then handles your gamer profile (gamertag and avatar),
+your unlocked achievements and progress, the saved results, your game stats and leaderboard scores, and diagnostic and
+analytics data of the Play Games SDK, under Google's privacy policy,
 https://policies.google.com/privacy. The app learns only whether you are signed in and its saved results, and keeps
 nothing of your profile. Profile visibility and deletion of your Play Games data are managed in your Play Games profile
-or your Google Account. If you do not sign in, the app works without achievements and game stats, and your
-results stay on the phone.
+or your Google Account. If you do not sign in, the app works without achievements, game stats and leaderboards,
+and your results stay on the phone.
 
 **Advertising.** The app shows one banner from Google AdMob. Google's ads SDK may collect your device's advertising
 ID, IP address, approximate location derived from it, information about the app and your device, and how you interact
