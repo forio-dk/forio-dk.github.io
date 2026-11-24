@@ -15,7 +15,7 @@ facts = "Gratis · 130+ spil · Seks sprog · Virker offline"  # new
 badge_alt = "Hent i Google Play"  # new
 alts = [
     "Et spil med flag: vælg flagets land blandt fire svar",  # new
-    "Et spil om Europas lande, hvert farvet efter forsøget",  # new
+    "Et spil om Europas lande, hvert land farvet efter, hvor mange forsøg det tog",  # new
     "Et spil om nattehimlens stjernebilleder",  # new
 ]
 
@@ -121,7 +121,7 @@ text = "Et bitte lille land er en cirkel, du kan ramme; et tryk tæt på den flo
 
 [[features.items]]
 heading = "Præstationer og ranglister"  # new
-text = "Med Google Play Spil: perfekte spil, dage i træk, Globetrotter og ranglister for hver verdensdel."  # new
+text = "Med Google Play Spil: perfekte spil, spil mange dage i træk, Globetrotter og ranglister for hver verdensdel."  # new
 
 [[features.items]]
 heading = "Dine resultater overalt"  # new

@@ -185,6 +185,17 @@ class AtlasTranslationTest(TranslationChecks, unittest.TestCase):
         self.assertIn("130+ de jocuri", ro["levels"]["sub"])
         self.assertIn("30+ de țări", ro["levels"]["items"][0]["text"])
 
+    def test_streaks_say_many_days(self):
+        # "Daily streaks": games on many days in a row, as the listings put the 7- and 30-day achievements.
+        streaks = {"en": "daily streaks", "da": "spil mange dage i træk", "it": "partite per più giorni di fila",
+                   "ro": "jocuri mai multe zile la rând", "ru": "игры много дней подряд", "uk": "ігри багато днів поспіль"}
+        for code, words in streaks.items():
+            with self.subTest(code=code):
+                self.assertIn(words, self.strings[code]["features"]["items"][3]["text"])
+
+    def test_danish_hero_alt_says_what_the_colours_mean(self):
+        self.assertIn("hvor mange forsøg det tog", self.strings["da"]["hero"]["alts"][1])
+
     def test_shared_words_match_art_widget(self):
         art = load_strings(CODES, ART_WIDGET.strings)
         for code in CODES:
