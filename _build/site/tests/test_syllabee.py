@@ -63,6 +63,37 @@ class StoreProblemsTest(unittest.TestCase):
         (self.repo / "tools" / "store_assets.py").unlink()
         self.assertEqual(store_problems(self.repo, {}), ["tools/store_assets.py: missing"])
 
+    def test_tools_fail_to_load(self):
+        (self.repo / "tools" / "store_assets.py").write_text("import no_such_module_here\n", encoding="utf-8")
+        errors = store_problems(self.repo, {})
+        self.assertEqual(len(errors), 1)
+        self.assertTrue(errors[0].startswith("tools/store_assets.py: ModuleNotFoundError: "), errors)
+        self.assertIn("no_such_module_here", errors[0])
+
+    def test_words_and_cards_cover_every_language(self):
+        tools = self.repo / "tools" / "store_assets.py"
+        tools.write_text(tools.read_text(encoding="utf-8") + 'del WORDS["da"]\ndel CARDS["uk"]\n', encoding="utf-8")
+        self.assertEqual(store_problems(self.repo, {}),
+                         ["tools/store_assets.py: no WORDS for da", "tools/store_assets.py: no CARDS for uk"])
+
+    def test_missing_colour(self):
+        tools = self.repo / "tools" / "store_assets.py"
+        tools.write_text(tools.read_text(encoding="utf-8") + (
+            "\n\ndef colour(name):\n"
+            "    if name == \"cat_birds\":\n"
+            "        raise KeyError(name)\n"
+            "    return \"#123456\"\n"), encoding="utf-8")
+        self.assertEqual(store_problems(self.repo, {}), ["app/src/main/res/values/colors.xml: no cat_birds"])
+
+    def test_colours_unreadable(self):
+        tools = self.repo / "tools" / "store_assets.py"
+        tools.write_text(tools.read_text(encoding="utf-8") + (
+            "\n\ndef colour(name):\n"
+            "    import pathlib\n"
+            "    path = pathlib.Path(__file__).parents[1] / 'app' / 'src' / 'main' / 'res' / 'values' / 'colors.xml'\n"
+            "    return path.read_text()\n"), encoding="utf-8")
+        self.assertEqual(store_problems(self.repo, {}), ["app/src/main/res/values/colors.xml: missing"])
+
     def test_attribution(self):
         (self.repo / "app" / "src" / "main" / "res" / "drawable" / "ic_word_pigeon.xml").write_text("<vector/>")
         with mock.patch.dict(syllabee.THEMES, {"birds": "ic_word_pigeon"}):

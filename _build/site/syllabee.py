@@ -37,6 +37,7 @@ COLOURING_SHOT = {"colouring": "phone-6-colouring-shapes.png"}
 STORE_FILES = ("listing.md", "icon-512.png", "feature-graphic.png", "video.mp4", *HERO.values(), *GAMES.values(),
                *COLOURING_SHOT.values())
 TOOLS = Path("tools") / "store_assets.py"
+COLOURS = Path("app") / "src" / "main" / "res" / "values" / "colors.xml"  # the theme colours store_assets reads
 ART = "img/art"
 
 
@@ -91,17 +92,38 @@ def tiles(keys: dict[str, str], urls: dict[str, str], tools: ModuleType) -> list
 
 
 def store_problems(repo: Path, strings: dict[str, dict]) -> list[str]:
-    """What stops the build in the reading app's repository: a store file, the tools or a drawing that is missing, or a
-    drawing whose licence needs an attribution. One line per problem, the path relative to the repository."""
+    """What stops the build, before it writes anything, in the reading app's repository: a store file, a drawing or a
+    theme colour that is missing, tools that don't load or lack a language, or a drawing whose licence needs an
+    attribution. One line per problem, the path relative to the repository."""
     errors = [f"{(SYLLABEE.listing(repo, lang) / name).relative_to(repo).as_posix()}: missing"
               for lang in SYLLABEE.langs for name in STORE_FILES if not (SYLLABEE.listing(repo, lang) / name).is_file()]
     if not (repo / TOOLS).is_file():
         return errors + [f"{TOOLS.as_posix()}: missing"]
-    names = drawables(store_tools(repo))
+    try:
+        tools = store_tools(repo)
+    except (ImportError, SyntaxError, OSError) as error:
+        return errors + [f"{TOOLS.as_posix()}: {type(error).__name__}: {error}"]
+    errors += [f"{TOOLS.as_posix()}: no {table} for {lang.code}" for table in ("WORDS", "CARDS")
+               for lang in SYLLABEE.langs if lang.code not in getattr(tools, table)]
+    names = drawables(tools)
     errors += [f"{drawable(repo, name).relative_to(repo).as_posix()}: missing" for name in sorted(names)
                if not drawable(repo, name).is_file()]
+    errors += colour_problems(repo, tools)
     errors += [f"{name}: its licence needs an attribution the page doesn't give"
                for name in sorted(names & NEEDS_ATTRIBUTION)]
+    return errors
+
+
+def colour_problems(repo: Path, tools: ModuleType) -> list[str]:
+    """The themes whose cat_<key> colour the app doesn't define, or the colours file the tools can't read."""
+    errors = []
+    for key in (*THEMES, *COLOURING):
+        try:
+            tools.colour(f"cat_{key}")
+        except KeyError:
+            errors.append(f"{COLOURS.as_posix()}: no cat_{key}")
+        except OSError as error:
+            return [f"{Path(error.filename).resolve().relative_to(repo.resolve()).as_posix()}: missing"]
     return errors
 
 

@@ -71,6 +71,17 @@ class TranslationChecks:
             with self.subTest(code=code):
                 self.assertTrue((self.app.strings / f"{code}.toml").read_text(encoding="utf-8").startswith(MARKER))
 
+    def test_shared_words_match_art_widget(self):
+        # The words every app page shares (the badge, the language menu, the footer) read the same on every page.
+        art = load_strings(self.codes, ART_WIDGET.strings)
+        for code in self.codes:
+            with self.subTest(code=code):
+                s, a = self.strings[code], art[code]
+                self.assertEqual((s["hero"]["badge_alt"], s["nav"]["languages"], s["footer"]["privacy"],
+                                  s["footer"]["contact"]),
+                                 (a["hero"]["badge_alt"], a["nav"]["languages"], a["footer"]["privacy"],
+                                  a["footer"]["contact"]))
+
     def test_title_and_lead_from_listing(self):
         sibling = ROOT.parent / self.app.repo
         if not sibling.is_dir():
@@ -198,15 +209,6 @@ class AtlasTranslationTest(TranslationChecks, unittest.TestCase):
     def test_danish_hero_alt_says_what_the_colours_mean(self):
         self.assertIn("hvor mange forsøg det tog", self.strings["da"]["hero"]["alts"][1])
 
-    def test_shared_words_match_art_widget(self):
-        art = load_strings(CODES, ART_WIDGET.strings)
-        for code in CODES:
-            with self.subTest(code=code):
-                s, a = self.strings[code], art[code]
-                self.assertEqual((s["hero"]["badge_alt"], s["nav"]["languages"], s["footer"]["privacy"],
-                                  s["footer"]["contact"]),
-                                 (a["hero"]["badge_alt"], a["nav"]["languages"], a["footer"]["privacy"],
-                                  a["footer"]["contact"]))
 
 
 def app_names(code: str) -> dict[str, str] | None:
@@ -279,12 +281,3 @@ class SyllabeeTranslationTest(TranslationChecks, unittest.TestCase):
                     self.assertIn(alphabet[code], s["colouring"]["items"][0]["text"].lower())
                     self.assertIn(alphabet[code], s["plans"]["full"]["items"][-1].lower())
 
-    def test_shared_words_match_art_widget(self):
-        art = load_strings(self.codes, ART_WIDGET.strings)
-        for code in self.codes:
-            with self.subTest(code=code):
-                s, a = self.strings[code], art[code]
-                self.assertEqual((s["hero"]["badge_alt"], s["nav"]["languages"], s["footer"]["privacy"],
-                                  s["footer"]["contact"]),
-                                 (a["hero"]["badge_alt"], a["nav"]["languages"], a["footer"]["privacy"],
-                                  a["footer"]["contact"]))

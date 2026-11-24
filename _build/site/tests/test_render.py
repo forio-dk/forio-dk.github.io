@@ -512,7 +512,8 @@ class SyllabeeRenderTest(unittest.TestCase):
         group = self.html.split('<ul class="ctiles">', 1)[1].split("</ul>", 1)[0]
         self.assertEqual(re.findall(r"<h4>([^<]*)", group), ["Letters", "Numbers", "Shapes", "Math"])
         self.assertEqual(group.count('class="free-tag"'), 1)
-        self.assertIn('<span class="free-tag">Free</span>', group.split("<h4>Math", 1)[1])
+        # The tag may go to the next line: "МатематикаБесплатно" in one unbreakable run clipped narrow phones.
+        self.assertIn('<h4>Math<wbr><span class="free-tag">Free</span></h4>', group)
 
     def test_footer_and_policy(self):
         footer = Tags(self.html.split("<footer", 1)[1])

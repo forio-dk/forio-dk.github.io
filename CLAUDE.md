@@ -72,7 +72,8 @@ them are generated; never edit them by hand.
   `../learn_to_read/tools/vd2svg.py` through `tools/store_assets.py`, which also gives the hero's split word and cards
   (the feature graphic's `WORDS` and `CARDS`) and the theme colours. Each theme's drawing is one that every language's
   pack uses in that theme (`tests/test_syllabee.py` checks), and never the pigeon or the pepper, whose licences ask for
-  an attribution. The build stops on a missing store file, tool or drawing.
+  an attribution. Before writing anything, the build stops on a store file, drawing or theme colour that is
+  missing, or on `store_assets.py` failing to load or lacking a language.
 - **Atlas Hunt's pictures:** each language's page shows its own listing's Play screenshots (`phone-2/3/4/5/6/8`),
   `feature-graphic.png` (the share image) and `video.mp4`; the level tiles use the en-US `leaderboard-*-512.png` icons
   (they have no text). The `home-N-<screen>.png` shots appear as the "A closer look" gallery on a page only when that

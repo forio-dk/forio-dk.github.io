@@ -136,23 +136,22 @@ class SiteTest(unittest.TestCase):
         self.assertEqual(self.css.count("@font-face"), 9)
         self.assertEqual(self.css.count("font-display: swap"), 9)
 
-    def test_theme_fonts(self):
-        theme = ATLAS_THEME.read_text(encoding="utf-8")
-        self.assertEqual(theme.count("@font-face"), 3)
-        self.assertEqual(theme.count("font-display: swap"), 3)
-        faces = theme.split("@font-face")[1:]
-        cyrillic = [face for face in faces if "montserrat-cyrillic-700-normal.woff2" in face]
+    def assert_heading_font_faces(self, theme: Path, cyrillic_file: str) -> None:
+        """A theme's heading font: three faces (latin, latin-ext, cyrillic) that swap, the cyrillic one covering
+        Russian and Ukrainian."""
+        css = theme.read_text(encoding="utf-8")
+        self.assertEqual(css.count("@font-face"), 3)
+        self.assertEqual(css.count("font-display: swap"), 3)
+        cyrillic = [face for face in css.split("@font-face")[1:] if cyrillic_file in face]
         self.assertEqual(len(cyrillic), 1)
         self.assertIn("U+0400-045F", cyrillic[0])
 
+    def test_theme_fonts(self):
+        self.assert_heading_font_faces(ATLAS_THEME, "montserrat-cyrillic-700-normal.woff2")
+
     def test_syllabee_theme_rules(self):
+        self.assert_heading_font_faces(SYLLABEE_THEME, "nunito-cyrillic-800-normal.woff2")
         theme = SYLLABEE_THEME.read_text(encoding="utf-8")
-        self.assertEqual(theme.count("@font-face"), 3)
-        self.assertEqual(theme.count("font-display: swap"), 3)
-        faces = theme.split("@font-face")[1:]
-        cyrillic = [face for face in faces if "nunito-cyrillic-800-normal.woff2" in face]
-        self.assertEqual(len(cyrillic), 1)
-        self.assertIn("U+0400-045F", cyrillic[0])
         # The hero's tilted cards stay inside the page; long theme names wrap inside their tiles.
         self.assertRegex(theme, r"(?m)^body \{[^}]*overflow-x: clip;")
         self.assertRegex(theme, r"\.tile \.name \{[^}]*overflow-wrap: anywhere;")
@@ -166,6 +165,18 @@ class SiteTest(unittest.TestCase):
         # top bar's language menu, which they once covered.
         theme = SYLLABEE_THEME.read_text(encoding="utf-8")
         self.assertRegex(theme, r"(?m)^\.stage \{[^}]*isolation: isolate;")
+
+    def test_syllabee_names_fit_their_tiles(self):
+        # In the 8-column grid a tile is about 115 px wide: "Инструменты" and "Вперемешку" fit whole only in smaller
+        # type with less side padding (the colour bar's bleed follows the padding).
+        theme = SYLLABEE_THEME.read_text(encoding="utf-8")
+        wide = theme.split("@media (min-width: 1060px) {", 1)[1].split("\n}", 1)[0]
+        self.assertIn(".tile { --tile-pad: 6px; }", wide)
+        self.assertIn(".tile .name { font-size: .875rem; }", wide)
+        self.assertRegex(theme, r"(?m)^\.tile::after \{[^}]*margin: auto calc\(-1 \* var\(--tile-pad\)\) 0;")
+        # The Math tile's tag wraps as a whole, and the text column may shrink below its longest word.
+        self.assertRegex(theme, r"(?m)^\.free-tag \{[^}]*display: inline-block;")
+        self.assertRegex(theme, r"(?m)^\.ctile \{[^}]*grid-template-columns: 64px minmax\(0, 1fr\);")
 
     def test_syllabee_panel_classes_style_only_panels(self):
         # A game's panel carries the game's key as a class ("panel colouring"); a rule for that class alone would

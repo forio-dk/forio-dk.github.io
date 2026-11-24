@@ -61,7 +61,7 @@
         <ul class="ctiles">
         {% for tile in colouring %}
           {% for item in s.colouring["items"] if item.key == tile.key %}
-          <li class="ctile" style="--bar: {{ tile.colour }}">{{ drawing(tile.drawing) }}<div><h4>{{ item.heading }}{% if tile.key == "math" %}<span class="free-tag">{{ s.colouring.free }}</span>{% endif %}</h4><p>{{ item.text }}</p></div></li>
+          <li class="ctile" style="--bar: {{ tile.colour }}">{{ drawing(tile.drawing) }}<div><h4>{{ item.heading }}{% if tile.key == "math" %}<wbr><span class="free-tag">{{ s.colouring.free }}</span>{% endif %}</h4><p>{{ item.text }}</p></div></li>
           {% endfor %}
         {% endfor %}
         </ul>
