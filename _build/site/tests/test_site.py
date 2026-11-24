@@ -49,6 +49,20 @@ def requested_urls(tags: Tags) -> list[str]:
     return urls
 
 
+def foreign_assets(slug: str, code: str, urls: list[str]) -> list[str]:
+    """The URLs among a page's that belong to another language: an image in /<slug>/assets/img/<other code>/, or a
+    video in /<slug>/assets/video/ named for another code. Shared images (the icon, the levels) are in neither."""
+    codes = {lang.code for lang in LANGS}
+    foreign = []
+    for url in urls:
+        parts = urlsplit(url).path.split("/")
+        if parts[1:4] == [slug, "assets", "img"] and len(parts) > 5 and parts[4] in codes - {code}:
+            foreign.append(url)
+        elif parts[1:4] == [slug, "assets", "video"] and parts[4].split(".")[0].split("-")[0] in codes - {code}:
+            foreign.append(url)
+    return foreign
+
+
 def css_urls(css: Path) -> list[str]:
     return re.findall(r"""url\(\s*["']?([^"')]+)["']?\s*\)""", css.read_text(encoding="utf-8"))
 
@@ -170,6 +184,35 @@ class SiteTest(unittest.TestCase):
 
     def test_atlas_card_links_page(self):
         self.assertEqual(len(self.tags["home"].find("a", href="/atlashunt/")), 1)
+
+    def test_foreign_assets(self):
+        urls = ["/atlashunt/assets/img/da/hero-left-200.webp", "/atlashunt/assets/img/levels/earth-64.webp",
+                "/atlashunt/assets/img/icon-64.webp", "/atlashunt/assets/img/en/gallery/dark-160.webp",
+                "/atlashunt/assets/video/en.mp4", "/atlashunt/assets/video/da-poster.webp", "/assets/badges/en.png"]
+        self.assertEqual(foreign_assets("atlashunt", "da", urls),
+                         ["/atlashunt/assets/img/en/gallery/dark-160.webp", "/atlashunt/assets/video/en.mp4"])
+
+    def test_each_page_shows_its_own_language(self):
+        # The spec's anti-goal: a page in one language showing the app in another.
+        for key, tags in self.tags.items():
+            if key == "home":
+                continue
+            slug, code = key.split("/")
+            urls = requested_urls(tags)
+            urls += [a["content"] for t, a in tags.tags if t == "meta" and a.get("property") == "og:image"]
+            with self.subTest(page=key):
+                self.assertEqual(foreign_assets(slug, code, urls), [])
+                if slug == ATLAS_HUNT.slug:
+                    self.assertIn(f"/atlashunt/assets/video/{code}.mp4", urls)
+
+    def test_no_stale_generator_path(self):
+        # The generator moved to _build/site; no kept file should name its old folder.
+        old = "/".join(("_build", "artwidget"))
+        files = subprocess.run(["git", "ls-files"], cwd=ROOT, check=True, capture_output=True, text=True).stdout
+        for name in files.splitlines():
+            path = ROOT / name
+            if path.suffix in {".py", ".html", ".css", ".md", ".toml", ".yml", ".txt", ".xml"} and path.is_file():
+                self.assertFalse(old in path.read_text(encoding="utf-8"), f"{name} names {old}")
 
     def test_gallery_has_large_shots(self):
         # The strip's thumbnails at 160 and 320; each popover's shot at 540 and 1080, as tall as the screen allows.

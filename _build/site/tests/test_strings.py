@@ -1,6 +1,6 @@
 import unittest
 
-from config import ART_WIDGET, ATLAS_HUNT, LANGS, ROOT
+from config import ART_WIDGET, ATLAS_HUNT, LANGS, ROOT, App
 from plural import CATEGORIES
 from strings import load_strings, shape_errors
 
@@ -31,7 +31,6 @@ class ShapeTest(unittest.TestCase):
         self.assertEqual(len(en["features"]["items"]), 6)
 
 
-SIBLING = ROOT.parent / "art_widget"
 CODES = [lang.code for lang in LANGS]
 COUNTS = {"en": "9,000", "da": "1.000", "it": "7.000", "ro": "1000", "ru": "4500", "uk": "1600"}
 ART = {  # code: (starry.title, pearl.year), from the app's library and its year_circa format
@@ -51,23 +50,38 @@ def listing_block(md: str, heading: str) -> str:
     return after.split("```text\n", 1)[1].split("\n```", 1)[0]
 
 
-class TranslationTest(unittest.TestCase):
+class TranslationChecks:
+    """What every app page's translations must hold: English's keys in every language, the review marker on each
+    translation, and the title and lead of the language's store listing. A test case mixes this in and names its app."""
+    app: App
+
     @classmethod
     def setUpClass(cls):
-        cls.strings = load_strings(CODES, ART_WIDGET.strings)
+        cls.strings = load_strings(CODES, cls.app.strings)
 
     def test_all_languages_match_english(self):
         for code in CODES[1:]:
             with self.subTest(code=code):
                 self.assertEqual(shape_errors(self.strings["en"], self.strings[code]), [])
 
-    @unittest.skipUnless(SIBLING.is_dir(), "needs ../art_widget")
+    def test_review_markers(self):
+        for code in CODES[1:]:
+            with self.subTest(code=code):
+                self.assertTrue((self.app.strings / f"{code}.toml").read_text(encoding="utf-8").startswith(MARKER))
+
     def test_title_and_lead_from_listing(self):
+        sibling = ROOT.parent / self.app.repo
+        if not sibling.is_dir():
+            self.skipTest(f"needs ../{self.app.repo}")
         for lang in LANGS:
-            md = (SIBLING / "docs" / "listings" / lang.listing / "listing.md").read_text(encoding="utf-8")
+            md = (sibling / "docs" / "listings" / lang.listing / "listing.md").read_text(encoding="utf-8")
             with self.subTest(code=lang.code):
                 self.assertEqual(self.strings[lang.code]["meta"]["title"], listing_block(md, "App name"))
                 self.assertEqual(self.strings[lang.code]["hero"]["lead"], listing_block(md, "Short description"))
+
+
+class TranslationTest(TranslationChecks, unittest.TestCase):
+    app = ART_WIDGET
 
     def test_collection_count(self):
         for code in CODES:
@@ -79,11 +93,6 @@ class TranslationTest(unittest.TestCase):
             with self.subTest(code=code):
                 art = self.strings[code]["art"]
                 self.assertEqual((art["starry"]["title"], art["pearl"]["year"]), ART[code])
-
-    def test_review_markers(self):
-        for code in CODES[1:]:
-            with self.subTest(code=code):
-                self.assertTrue((ART_WIDGET.strings / f"{code}.toml").read_text(encoding="utf-8").startswith(MARKER))
 
 
 class EnglishClaimsTest(unittest.TestCase):
@@ -150,25 +159,9 @@ class AtlasEnglishTest(unittest.TestCase):
         self.assertEqual(self.en["gallery"]["close"], "Close")
 
 
-ATLAS_SIBLING = ROOT.parent / "atlas_hunt"
-
-
-class AtlasTranslationTest(unittest.TestCase):
-    """Every language of the Atlas Hunt page has English's keys, its listing's name and pitch, and the same counts."""
-
-    @classmethod
-    def setUpClass(cls):
-        cls.strings = load_strings(CODES, ATLAS_HUNT.strings)
-
-    def test_all_languages_match_english(self):
-        for code in CODES[1:]:
-            with self.subTest(code=code):
-                self.assertEqual(shape_errors(self.strings["en"], self.strings[code]), [])
-
-    def test_review_markers(self):
-        for code in CODES[1:]:
-            with self.subTest(code=code):
-                self.assertTrue((ATLAS_HUNT.strings / f"{code}.toml").read_text(encoding="utf-8").startswith(MARKER))
+class AtlasTranslationTest(TranslationChecks, unittest.TestCase):
+    """Every language of the Atlas Hunt page also has the same counts, placeholders and shared words."""
+    app = ATLAS_HUNT
 
     def test_counts_and_placeholders(self):
         for code in CODES:
@@ -201,11 +194,3 @@ class AtlasTranslationTest(unittest.TestCase):
                                   s["footer"]["contact"]),
                                  (a["hero"]["badge_alt"], a["nav"]["languages"], a["footer"]["privacy"],
                                   a["footer"]["contact"]))
-
-    @unittest.skipUnless(ATLAS_SIBLING.is_dir(), "needs ../atlas_hunt")
-    def test_title_and_lead_from_listing(self):
-        for lang in LANGS:
-            md = (ATLAS_SIBLING / "docs" / "listings" / lang.listing / "listing.md").read_text(encoding="utf-8")
-            with self.subTest(code=lang.code):
-                self.assertEqual(self.strings[lang.code]["meta"]["title"], listing_block(md, "App name"))
-                self.assertEqual(self.strings[lang.code]["hero"]["lead"], listing_block(md, "Short description"))
