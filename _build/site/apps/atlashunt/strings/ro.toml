@@ -11,7 +11,7 @@ languages = "Limba"  # new
 
 [hero]
 lead = "Găsește țări, râuri și munți pe hartă, apoi citește despre fiecare."
-facts = "Gratuit · 130+ jocuri · Șase limbi · Funcționează offline"  # new
+facts = "Gratuit · 130+ de jocuri · Șase limbi · Funcționează offline"  # new
 badge_alt = "Descarcă de pe Google Play"  # new
 alts = [
     "Un joc cu steaguri: alege țara steagului dintre patru răspunsuri",  # new
@@ -40,12 +40,12 @@ alt = "Rezultatele unui joc: locurile găsite din prima încercare și timpul"  
 
 [levels]
 heading = "Un atlas întreg de jucat"  # new
-sub = "130+ jocuri pe șase niveluri, și urmează altele."  # new
+sub = "130+ de jocuri pe șase niveluri, și urmează altele."  # new
 
 [[levels.items]]
 key = "earth"
 heading = "Pământul"  # new
-text = "Țări, capitale, râuri, lanțuri muntoase, lacuri, mări, insule, deșerturi și peninsule din fiecare parte a lumii, plus regiunile din 30+ țări."  # new
+text = "Țări, capitale, râuri, lanțuri muntoase, lacuri, mări, insule, deșerturi și peninsule din fiecare parte a lumii, plus regiunile din 30+ de țări."  # new
 
 [[levels.items]]
 key = "space"

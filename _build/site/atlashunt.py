@@ -8,11 +8,10 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 
-from assets import favicons, og_jpeg, transcode_video
-from assets import Picture
-from config import ATLAS_HUNT, LANGS, page_file
-from output import app_webp, badge, write_text
-from render import render_page
+from assets import Picture, transcode_video
+from config import ATLAS_HUNT, LANGS
+from output import app_webp, badge
+from pages import app_icon, listing_graphics, phone_shots, write_page
 
 ASSETS = ATLAS_HUNT.assets
 # Picture key: the listing's Play screenshot it shows.
@@ -40,14 +39,10 @@ def gallery_shots(graphics: Path) -> list[tuple[str, Path]]:
     return [(screen, path) for _, screen, path in sorted(found)]
 
 
-def graphics(repo: Path, listing: str) -> Path:
-    return repo / "docs" / "listings" / listing / "graphics"
-
-
 def gallery_problems(repo: Path, strings: dict[str, dict]) -> list[str]:
     """A shot in a listing whose screen has no caption in that language's strings stops the build."""
     return [f"apps/atlashunt/strings/{lang.code}.toml: no caption for {path.name}"
-            for lang in LANGS for screen, path in gallery_shots(graphics(repo, lang.listing))
+            for lang in LANGS for screen, path in gallery_shots(listing_graphics(repo, lang))
             if screen not in strings[lang.code]["gallery"]["captions"]]
 
 
@@ -59,24 +54,18 @@ def gallery_shot(screen: str, path: Path, folder: str) -> Shot:
 
 
 def build_pages(repo: Path, strings: dict[str, dict]) -> None:
-    default = graphics(repo, LANGS[0].listing)
-    favicons(default / "icon-512.png", ASSETS / "img")
-    shared = {"icon": app_webp(ATLAS_HUNT, default / "icon-512.png", "img", "icon", (64, 128))}
+    default = listing_graphics(repo, LANGS[0])
+    shared = {"icon": app_icon(ATLAS_HUNT, default)}
     for key, name in LEVELS.items():
         shared[key] = app_webp(ATLAS_HUNT, default / name, "img/levels", key.removeprefix("level_"), (64, 128))
 
     for lang in LANGS:
-        listing = graphics(repo, lang.listing)
-        pictures = dict(shared, badge=badge(lang))
-        for key, name in (HERO | STEPS).items():
-            pictures[key] = app_webp(ATLAS_HUNT, listing / name, f"img/{lang.code}", key.replace("_", "-"),
-                                     (200, 400))
-        gallery = [gallery_shot(screen, path, f"img/{lang.code}/gallery") for screen, path in gallery_shots(listing)]
-        og_jpeg(listing / "feature-graphic.png", ASSETS / "img" / lang.code / "og.jpg")
+        graphics = listing_graphics(repo, lang)
+        pictures = shared | phone_shots(ATLAS_HUNT, graphics, lang, HERO | STEPS) | {"badge": badge(lang)}
+        gallery = [gallery_shot(screen, path, f"img/{lang.code}/gallery") for screen, path in gallery_shots(graphics)]
         video = ASSETS / "video" / f"{lang.code}.mp4"
         poster = ASSETS / "video" / f"{lang.code}-poster.webp"
-        transcode_video(listing.parent / "video.mp4", video, poster)
-        html = render_page(ATLAS_HUNT, lang, strings[lang.code], pictures, gallery=gallery,
-                           video=f"{ATLAS_HUNT.assets_url}/video/{video.name}",
-                           poster=f"{ATLAS_HUNT.assets_url}/video/{poster.name}")
-        write_text(page_file(ATLAS_HUNT, lang), html)
+        transcode_video(graphics.parent / "video.mp4", video, poster)
+        write_page(ATLAS_HUNT, lang, graphics, strings[lang.code], pictures, gallery=gallery,
+                   video=f"{ATLAS_HUNT.assets_url}/video/{video.name}",
+                   poster=f"{ATLAS_HUNT.assets_url}/video/{poster.name}")

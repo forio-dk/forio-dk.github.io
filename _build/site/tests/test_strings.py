@@ -181,6 +181,13 @@ class AtlasTranslationTest(unittest.TestCase):
                 for text in all_strings(s):
                     self.assertNotIn("139", text)
 
+    def test_romanian_numbers_take_de(self):
+        # Romanian puts "de" between a number of 20 or more and its noun, as the ro listing does ("160 de jocuri").
+        ro = self.strings["ro"]
+        self.assertIn("130+ de jocuri", ro["hero"]["facts"])
+        self.assertIn("130+ de jocuri", ro["levels"]["sub"])
+        self.assertIn("30+ de țări", ro["levels"]["items"][0]["text"])
+
     def test_shared_words_match_art_widget(self):
         art = load_strings(CODES, ART_WIDGET.strings)
         for code in CODES:

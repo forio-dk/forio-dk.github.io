@@ -16,6 +16,7 @@ import atlashunt
 from assets import Picture, forio_mark
 from config import ART_WIDGET, ATLAS_HUNT, BUILD, LANGS, ROOT, SHARED, VENDOR_DIR, App
 from output import copy_file, shared_webp, write_text
+from pages import listing_graphics
 from render import render_home
 from sitemap import ROBOTS_TXT, render_sitemap
 from strings import load_strings, shape_errors
@@ -43,8 +44,7 @@ def build_home(repos: dict[App, Path]) -> None:
         return shared_webp(src, "img/apps", stem, (96, 192))
 
     apps = {
-        "art_widget": icon(repos[ART_WIDGET] / "docs" / "listings" / LANGS[0].listing / "graphics" / "icon-512.png",
-                           "art-widget"),
+        "art_widget": icon(listing_graphics(repos[ART_WIDGET], LANGS[0]) / "icon-512.png", "art-widget"),
         "atlas_hunt": icon(VENDOR_DIR / "icons" / "atlas-hunt.png", "atlas-hunt"),
         "syllabee": icon(VENDOR_DIR / "icons" / "syllabee.png", "syllabee"),
         "forio": forio_logo(),
