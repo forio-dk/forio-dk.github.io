@@ -1,5 +1,6 @@
 import unittest
 
+from config import LANGS, ROOT, STRINGS
 from strings import load_strings, shape_errors
 
 
@@ -27,3 +28,58 @@ class ShapeTest(unittest.TestCase):
         self.assertEqual(en["meta"]["title"], "Art Widget: Artwork of the Day")
         self.assertEqual(len(en["how"]["steps"]), 3)
         self.assertEqual(len(en["features"]["items"]), 6)
+
+
+SIBLING = ROOT.parent / "art_widget"
+CODES = [lang.code for lang in LANGS]
+COUNTS = {"en": "9,000", "da": "1.000", "it": "7.000", "ro": "1000", "ru": "4500", "uk": "1600"}
+ART = {  # code: (starry.title, pearl.year), from the app's library and its year_circa format
+    "en": ("The Starry Night", "c. 1665"),
+    "da": ("Stjernenatten", "ca. 1665"),
+    "it": ("Notte stellata", "1665 circa"),
+    "ro": ("Noapte înstelată", "cca 1665"),
+    "ru": ("Звёздная ночь", "ок. 1665"),
+    "uk": ("Зоряна ніч", "бл. 1665"),
+}
+MARKER = '# Strings ending in "# new"'
+
+
+def listing_block(md: str, heading: str) -> str:
+    """The first ```text block after the line starting with "## <heading>"."""
+    after = md.split(f"\n## {heading}", 1)[1]
+    return after.split("```text\n", 1)[1].split("\n```", 1)[0]
+
+
+class TranslationTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.strings = load_strings(CODES)
+
+    def test_all_languages_match_english(self):
+        for code in CODES[1:]:
+            with self.subTest(code=code):
+                self.assertEqual(shape_errors(self.strings["en"], self.strings[code]), [])
+
+    @unittest.skipUnless(SIBLING.is_dir(), "needs ../art_widget")
+    def test_title_and_lead_from_listing(self):
+        for lang in LANGS:
+            md = (SIBLING / "docs" / "listings" / lang.listing / "listing.md").read_text(encoding="utf-8")
+            with self.subTest(code=lang.code):
+                self.assertEqual(self.strings[lang.code]["meta"]["title"], listing_block(md, "App name"))
+                self.assertEqual(self.strings[lang.code]["hero"]["lead"], listing_block(md, "Short description"))
+
+    def test_collection_count(self):
+        for code in CODES:
+            with self.subTest(code=code):
+                self.assertIn(COUNTS[code], self.strings[code]["features"]["items"][0]["heading"])
+
+    def test_art_names(self):
+        for code in CODES:
+            with self.subTest(code=code):
+                art = self.strings[code]["art"]
+                self.assertEqual((art["starry"]["title"], art["pearl"]["year"]), ART[code])
+
+    def test_review_markers(self):
+        for code in CODES[1:]:
+            with self.subTest(code=code):
+                self.assertTrue((STRINGS / f"{code}.toml").read_text(encoding="utf-8").startswith(MARKER))

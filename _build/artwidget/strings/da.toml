@@ -1,0 +1,115 @@
+# Strings ending in "# new" are translations made for this page; the owner reviews them before publishing.
+# Danish. Facts: ../art_widget/docs/listings/da-DK/listing.md; artwork names: the app's library.
+
+[meta]
+title = "Art Widget: Dagens kunstværk"
+description = "Et berømt kunstværk på din hjemmeskærm, et andet hver dag. Gratis til Android, med over 1.000 værker fra verdens museer."  # new
+og_image_alt = "Art Widget: et berømt kunstværk på din hjemmeskærm, et andet hver dag"  # new
+
+[nav]
+languages = "Sprog"  # new
+
+[hero]
+lead = "Et berømt kunstværk på din hjemmeskærm, et andet hver dag."
+facts = "Gratis · Android 8 og nyere · Engangskøb af den fulde version"  # new
+badge_alt = "Hent i Google Play"  # new
+
+[how]
+heading = "Et nyt mesterværk hver dag"  # new
+sub = "På din hjemmeskærm og på låseskærmen, hvor din telefon tillader det."  # new
+
+[[how.steps]]
+heading = "Det hænger på din hjemmeskærm"  # new
+text = "Et nyt værk hver 24. time. Tryk på ↻ for at se det næste med det samme."  # new
+alt = "Art Widget-widgetten på en Android-hjemmeskærm"  # new
+
+[[how.steps]]
+heading = "Tryk for hele historien"  # new
+text = "Titel, kunstner, år, museum, by og mål, og værket på hele skærmen."  # new
+alt = "Et værks detaljer: titel, kunstner, år, museum og by"  # new
+
+[[how.steps]]
+heading = "Vælg, hvad du ser"  # new
+text = "Malerier, skulpturer, tegninger, mosaikker, gobeliner og meget mere."  # new
+alt = "Indstillinger med de typer kunstværker, der vises"  # new
+
+[video]
+heading = "Se den på under et minut"  # new
+text = "En rundtur i widgetten, detaljerne og deres Wikipedia-artikler, zoom, den levende baggrund, feltet i Hurtige indstillinger og pauseskærmen."  # new
+label = "Art Widgets præsentationsvideo"  # new
+
+[features]
+heading = "Alt, den kan"  # new
+
+[[features.items]]
+heading = "Over 1.000 værker"  # new
+text = "Hvert med en dansk titel, fra museer i hele verden: Statens Museum for Kunst, Louvre, National Gallery, Metropolitan Museum of Art, Prado, Uffizi og mange flere."  # new
+
+[[features.items]]
+heading = "Wikipedia, et tryk væk"  # new
+text = "Hvert navn er et link til artiklen på Wikipedia, som åbner direkte i appen, med en kort introduktion under detaljerne."  # new
+
+[[features.items]]
+heading = "Levende baggrund"  # new
+text = "Gør værket til din baggrund, der fylder skærmen, dæmpet, sløret eller gråtonet, som du vil."  # new
+
+[[features.items]]
+heading = "Pauseskærm"  # new
+text = "I den fulde version vises værket, mens telefonen oplader: alene, med billedtekst, med ur eller langsomt glidende hen over skærmen. I et mørkt rum dæmper den skærmen."  # new
+
+[[features.items]]
+heading = "Det næste værk, som du vil"  # new
+text = "Fra Hurtige indstillinger eller ved at holde fingeren på appens ikon. Nye værker kan vente på Wi-Fi."  # new
+
+[[features.items]]
+heading = "12 sprog, virker offline"  # new
+text = "Titler og detaljer virker uden internet; kun billedet og introduktionen fra Wikipedia kræver forbindelse."  # new
+
+[plans]
+heading = "Gratis, med en fuld version"  # new
+
+[plans.free]
+name = "Gratis"  # new
+note = "Ingen konto nødvendig"  # new
+items = [
+    "Malerier, fresker, ikoner og akvareller",  # new
+    "Et nyt værk hver 24. time eller ved tryk på ↻",  # new
+    "Widgetten og den levende baggrund",  # new
+    "En lille reklame på skærmen med oplysninger",  # new
+]
+
+[plans.full]
+name = "Fuld version"  # new
+note = "Engangskøb i Google Play"  # new
+items = [
+    "Ingen reklamer",  # new
+    "Alle typer: skulpturer, tegninger, grafik, mosaikker, gobeliner, glasmalerier, Fabergé-æg og mere",  # new
+    "Et nyt værk helt ned til hver 2. time",  # new
+    "Pauseskærmen og baggrunden også på låseskærmen, i langsom bevægelse",  # new
+]
+
+[privacy]
+heading = "Ingen konto. Ingen egen brugsstatistik."  # new
+text = "Appen indsamler ikke selv noget. Det aktuelle værk og dine valg bliver på din telefon. Reklamen i den gratis version kommer fra Google AdMob, som først beder om dit samtykke i EØS, Storbritannien og Schweiz."  # new
+link = "Læs privatlivspolitikken (på engelsk)"  # new
+
+[cta]
+heading = "Hæng et mesterværk på din telefon"  # new
+
+[footer]
+privacy = "Privatlivspolitik (på engelsk)"  # new
+contact = "Kontakt"  # new
+images = "Billeder"  # new
+public_domain = "fri af ophavsret, via Wikimedia Commons"  # new
+
+[art.starry]
+title = "Stjernenatten"
+artist = "Vincent van Gogh"
+year = "1889"
+museum = "Museum of Modern Art"
+
+[art.pearl]
+title = "Pige med perleørering"
+artist = "Johannes Vermeer"
+year = "ca. 1665"
+museum = "Mauritshuis"

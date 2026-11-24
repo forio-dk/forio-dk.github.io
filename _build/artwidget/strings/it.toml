@@ -1,0 +1,115 @@
+# Strings ending in "# new" are translations made for this page; the owner reviews them before publishing.
+# Italian. Facts: ../art_widget/docs/listings/it-IT/listing.md; artwork names: the app's library.
+
+[meta]
+title = "Art Widget: l'opera del giorno"
+description = "Un'opera d'arte celebre nella schermata Home, una diversa ogni giorno. Gratis per Android, con oltre 7.000 opere dai musei di tutto il mondo."  # new
+og_image_alt = "Art Widget: un'opera d'arte celebre nella schermata Home, una diversa ogni giorno"  # new
+
+[nav]
+languages = "Lingua"  # new
+
+[hero]
+lead = "Un'opera d'arte celebre nella schermata Home, una diversa ogni giorno."
+facts = "Gratis · Android 8 e successivi · Acquisto una tantum per la versione completa"  # new
+badge_alt = "Disponibile su Google Play"  # new
+
+[how]
+heading = "Un capolavoro nuovo ogni giorno"  # new
+sub = "Nella schermata Home, e nella schermata di blocco dove il telefono lo consente."  # new
+
+[[how.steps]]
+heading = "Appeso alla tua schermata Home"  # new
+text = "Un'opera nuova ogni 24 ore. Tocca ↻ per vedere subito la successiva."  # new
+alt = "Il widget di Art Widget nella schermata Home di Android"  # new
+
+[[how.steps]]
+heading = "Tocca per tutta la storia"  # new
+text = "Titolo, artista, anno, museo, città e dimensioni, e l'opera a schermo intero."  # new
+alt = "I dettagli di un'opera: titolo, artista, anno, museo e città"  # new
+
+[[how.steps]]
+heading = "Scegli cosa vedere"  # new
+text = "Dipinti, sculture, disegni, mosaici, arazzi e altro ancora."  # new
+alt = "Le impostazioni con i tipi di opere da mostrare"  # new
+
+[video]
+heading = "Guardalo in meno di un minuto"  # new
+text = "Un giro tra il widget, i dettagli e le loro voci di Wikipedia, lo zoom, lo sfondo animato, il riquadro delle Impostazioni rapide e il salvaschermo."  # new
+label = "Video di presentazione di Art Widget"  # new
+
+[features]
+heading = "Tutto quello che fa"  # new
+
+[[features.items]]
+heading = "Oltre 7.000 opere"  # new
+text = "Ognuna con un titolo in italiano, da musei di tutto il mondo: la National Gallery, il Louvre, gli Uffizi, il Musée d'Orsay, il Prado, il Metropolitan Museum of Art, la Pinacoteca di Brera e centinaia di altri."  # new
+
+[[features.items]]
+heading = "Wikipedia a un tocco"  # new
+text = "Ogni nome è un link alla sua voce di Wikipedia, che si apre direttamente nell'app, con una breve introduzione sotto i dettagli."  # new
+
+[[features.items]]
+heading = "Sfondo animato"  # new
+text = "Rendi l'opera il tuo sfondo, a schermo intero, scurito, sfocato o in grigio quanto vuoi."  # new
+
+[[features.items]]
+heading = "Salvaschermo"  # new
+text = "Nella versione completa, l'opera appare mentre il telefono si ricarica: da sola, con la didascalia, con un orologio o scorrendo lentamente. In una stanza buia abbassa la luminosità."  # new
+
+[[features.items]]
+heading = "L'opera successiva, come preferisci"  # new
+text = "Da un riquadro delle Impostazioni rapide o tenendo premuta l'icona dell'app. Le nuove opere possono aspettare il Wi-Fi."  # new
+
+[[features.items]]
+heading = "12 lingue, funziona offline"  # new
+text = "Titoli e dettagli funzionano senza internet; solo l'immagine e l'introduzione da Wikipedia richiedono la connessione."  # new
+
+[plans]
+heading = "Gratis, con una versione completa"  # new
+
+[plans.free]
+name = "Gratis"  # new
+note = "Nessun account necessario"  # new
+items = [
+    "Dipinti, affreschi, icone e acquerelli",  # new
+    "Un'opera nuova ogni 24 ore, o con ↻",  # new
+    "Il widget e lo sfondo animato",  # new
+    "Un piccolo annuncio nella schermata dei dettagli",  # new
+]
+
+[plans.full]
+name = "Versione completa"  # new
+note = "Acquisto una tantum su Google Play"  # new
+items = [
+    "Nessun annuncio",  # new
+    "Tutti i tipi: sculture, disegni, stampe, mosaici, arazzi, vetrate, uova Fabergé e altro",  # new
+    "Un'opera nuova anche ogni 2 ore",  # new
+    "Il salvaschermo, e lo sfondo anche nella schermata di blocco, in lento movimento",  # new
+]
+
+[privacy]
+heading = "Nessun account. Nessuna analisi propria."  # new
+text = "L'app di per sé non raccoglie nulla. L'opera corrente e le tue scelte restano sul telefono. Il banner della versione gratuita è di Google AdMob, che nello Spazio economico europeo, nel Regno Unito e in Svizzera chiede prima il tuo consenso."  # new
+link = "Leggi l'informativa sulla privacy (in inglese)"  # new
+
+[cta]
+heading = "Appendi un capolavoro sul tuo telefono"  # new
+
+[footer]
+privacy = "Informativa sulla privacy (in inglese)"  # new
+contact = "Contatti"  # new
+images = "Immagini"  # new
+public_domain = "pubblico dominio, tramite Wikimedia Commons"  # new
+
+[art.starry]
+title = "Notte stellata"
+artist = "Vincent van Gogh"
+year = "1889"
+museum = "Museum of Modern Art"
+
+[art.pearl]
+title = "Ragazza con l'orecchino di perla"
+artist = "Jan Vermeer"
+year = "1665 circa"
+museum = "Mauritshuis"

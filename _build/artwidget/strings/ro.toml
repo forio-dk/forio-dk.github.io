@@ -1,0 +1,115 @@
+# Strings ending in "# new" are translations made for this page; the owner reviews them before publishing.
+# Romanian. Facts: ../art_widget/docs/listings/ro/listing.md; artwork names: the app's library.
+
+[meta]
+title = "Art Widget: opera zilei"
+description = "O operă de artă celebră pe ecranul de pornire, alta în fiecare zi. Gratuit pentru Android, cu peste 1000 de opere din muzeele lumii."  # new
+og_image_alt = "Art Widget: o operă de artă celebră pe ecranul de pornire, alta în fiecare zi"  # new
+
+[nav]
+languages = "Limba"  # new
+
+[hero]
+lead = "O operă de artă celebră pe ecranul de pornire, alta în fiecare zi."
+facts = "Gratuit · Android 8 sau mai nou · Achiziție unică pentru versiunea completă"  # new
+badge_alt = "Descarcă de pe Google Play"  # new
+
+[how]
+heading = "O capodoperă nouă în fiecare zi"  # new
+sub = "Pe ecranul de pornire și, acolo unde telefonul permite, pe ecranul de blocare."  # new
+
+[[how.steps]]
+heading = "Stă pe ecranul tău de pornire"  # new
+text = "O operă nouă la fiecare 24 de ore. Atinge ↻ ca să vezi imediat următoarea."  # new
+alt = "Widgetul Art Widget pe ecranul de pornire Android"  # new
+
+[[how.steps]]
+heading = "Atinge pentru toată povestea"  # new
+text = "Titlul, artistul, anul, muzeul, orașul și dimensiunile, plus opera pe tot ecranul."  # new
+alt = "Detaliile unei opere: titlul, artistul, anul, muzeul și orașul"  # new
+
+[[how.steps]]
+heading = "Alege ce vezi"  # new
+text = "Picturi, sculpturi, desene, mozaicuri, tapiserii și multe altele."  # new
+alt = "Setările cu tipurile de opere afișate"  # new
+
+[video]
+heading = "Vezi-o în mai puțin de un minut"  # new
+text = "Un tur prin widget, detalii și articolele lor de pe Wikipedia, mărire, imaginea de fundal animată, butonul din Setări rapide și economizorul de ecran."  # new
+label = "Videoclipul de prezentare Art Widget"  # new
+
+[features]
+heading = "Tot ce face"  # new
+
+[[features.items]]
+heading = "Peste 1000 de opere"  # new
+text = "Fiecare cu titlu în limba română, din muzee din întreaga lume: Metropolitan Museum of Art, Luvru, Musée d'Orsay, Prado, National Gallery, Muzeul Național de Artă al României, Uffizi și multe altele."  # new
+
+[[features.items]]
+heading = "Wikipedia, la o atingere"  # new
+text = "Fiecare nume este un link către articolul său de pe Wikipedia, care se deschide direct în aplicație, cu o scurtă introducere sub detalii."  # new
+
+[[features.items]]
+heading = "Imagine de fundal animată"  # new
+text = "Fă din operă imaginea ta de fundal, pe tot ecranul, întunecată, estompată sau în gri cât dorești."  # new
+
+[[features.items]]
+heading = "Economizor de ecran"  # new
+text = "În versiunea completă, opera apare cât timp telefonul se încarcă: singură, cu descrierea ei, cu un ceas sau deplasându-se încet pe ecran. Într-o cameră întunecată reduce luminozitatea."  # new
+
+[[features.items]]
+heading = "Opera următoare, cum vrei"  # new
+text = "Dintr-un buton din Setări rapide sau ținând apăsat pe pictograma aplicației. Operele noi pot aștepta Wi-Fi-ul."  # new
+
+[[features.items]]
+heading = "12 limbi, funcționează offline"  # new
+text = "Titlurile și detaliile funcționează fără internet; doar imaginea și introducerea din Wikipedia au nevoie de conexiune."  # new
+
+[plans]
+heading = "Gratuit, cu o versiune completă"  # new
+
+[plans.free]
+name = "Gratuit"  # new
+note = "Fără cont"  # new
+items = [
+    "Picturi, fresce, icoane și acuarele",  # new
+    "O operă nouă la fiecare 24 de ore sau la ↻",  # new
+    "Widgetul și imaginea de fundal animată",  # new
+    "O reclamă mică pe ecranul cu detalii",  # new
+]
+
+[plans.full]
+name = "Versiunea completă"  # new
+note = "Achiziție unică în Google Play"  # new
+items = [
+    "Fără reclame",  # new
+    "Toate tipurile: sculpturi, desene, gravuri, mozaicuri, tapiserii, vitralii, ouă Fabergé și altele",  # new
+    "O operă nouă chiar la fiecare 2 ore",  # new
+    "Economizorul de ecran și imaginea de fundal și pe ecranul de blocare, mișcându-se încet",  # new
+]
+
+[privacy]
+heading = "Fără cont. Fără analize proprii."  # new
+text = "Aplicația în sine nu colectează nimic. Opera curentă și alegerile tale rămân pe telefon. Bannerul din versiunea gratuită vine de la Google AdMob, care în Spațiul Economic European, Regatul Unit și Elveția îți cere mai întâi consimțământul."  # new
+link = "Citește politica de confidențialitate (în engleză)"  # new
+
+[cta]
+heading = "Agață o capodoperă pe telefonul tău"  # new
+
+[footer]
+privacy = "Politica de confidențialitate (în engleză)"  # new
+contact = "Contact"  # new
+images = "Imagini"  # new
+public_domain = "domeniu public, prin Wikimedia Commons"  # new
+
+[art.starry]
+title = "Noapte înstelată"
+artist = "Vincent van Gogh"
+year = "1889"
+museum = "Muzeul de Artă Modernă"
+
+[art.pearl]
+title = "Fata cu turban"
+artist = "Johannes Vermeer"
+year = "cca 1665"
+museum = "Mauritshuis"
