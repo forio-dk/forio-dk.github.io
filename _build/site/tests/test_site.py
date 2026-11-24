@@ -11,7 +11,8 @@ from config import ART_WIDGET, LANGS, ROOT, SITE_URL, page_file
 from tests.test_render import Tags
 
 ASSETS = ART_WIDGET.assets
-CSS = ASSETS / "site.css"
+CSS = ROOT / "assets" / "site.css"
+CSS_FILES = [CSS, ASSETS / "theme.css"]
 POLICY_BLOBS = {
     "artwidget/privacy-policy.md": "f918c89c82a0fb2b8b6995b715848743abb632f1",
     "atlashunt/privacy-policy.md": "712154b31602b8bcb454efe4576031d4472d8a25",
@@ -43,8 +44,8 @@ def requested_urls(tags: Tags) -> list[str]:
     return urls
 
 
-def css_urls() -> list[str]:
-    return re.findall(r"""url\(\s*["']?([^"')]+)["']?\s*\)""", CSS.read_text(encoding="utf-8"))
+def css_urls(css: Path) -> list[str]:
+    return re.findall(r"""url\(\s*["']?([^"')]+)["']?\s*\)""", css.read_text(encoding="utf-8"))
 
 
 class SiteTest(unittest.TestCase):
@@ -66,9 +67,10 @@ class SiteTest(unittest.TestCase):
                 if ref.startswith("/") and not ref.startswith("//"):
                     with self.subTest(page=code, ref=ref):
                         self.assertTrue(local_file(ref).is_file(), ref)
-        for ref in css_urls():
-            with self.subTest(css=ref):
-                self.assertTrue((CSS.parent / ref).is_file(), ref)
+        for css in CSS_FILES:
+            for ref in css_urls(css):
+                with self.subTest(css=css.name, ref=ref):
+                    self.assertTrue((css.parent / ref).is_file(), ref)
 
     def test_own_absolute_urls_resolve(self):
         for code, tags in self.tags.items():
@@ -97,12 +99,18 @@ class SiteTest(unittest.TestCase):
                         self.assertIn(urlsplit(href).hostname, OUTBOUND_HOSTS)
                 elif ":" in href:
                     self.assertTrue(href.startswith("mailto:"), href)
-        for url in css_urls():
-            self.assertFalse(url.startswith(("http:", "https:", "//")), url)
+        for css in CSS_FILES:
+            for url in css_urls(css):
+                self.assertFalse(url.startswith(("http:", "https:", "//")), url)
 
     def test_fonts_swap(self):
         self.assertEqual(self.css.count("@font-face"), 9)
         self.assertEqual(self.css.count("font-display: swap"), 9)
+
+    def test_old_shared_assets_gone(self):
+        for path in ("fonts", "badges", "site.css", "img/apps"):
+            with self.subTest(path=path):
+                self.assertFalse((ASSETS / path).exists(), path)
 
     def test_focus_visible(self):
         self.assertIn(":focus-visible", self.css)

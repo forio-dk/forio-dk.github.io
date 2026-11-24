@@ -6,6 +6,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 BUILD = ROOT / "_build" / "site"
 VENDOR_DIR = BUILD / "vendor"
+SHARED = ROOT / "assets"  # what every page shares: fonts, badges, the base stylesheet, the home page's icons
+SHARED_URL = "/assets"
 
 PLAYFAIR = "https://cdn.jsdelivr.net/npm/@fontsource/playfair-display@5.3.0"
 SOURCE_SANS = "https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.3.1"
@@ -43,6 +45,7 @@ class App:
     repo: str  # the app's repository, a sibling of this one
     theme_color: str
     category: str  # schema.org applicationCategory
+    heading_font: str  # the heading font's file in /assets/fonts, with {subset}: the one the page preloads
 
     @property
     def site(self) -> Path:
@@ -70,7 +73,7 @@ class App:
 
 
 ART_WIDGET = App("artwidget", "Art Widget", "dk.forio.artwidget", "art_widget", "#132841",
-                 "DesktopEnhancementApplication")
+                 "DesktopEnhancementApplication", "playfair-display-{subset}-600-normal.woff2")
 APPS: tuple[App, ...] = (ART_WIDGET,)
 
 # Each file in vendor/, relative to VENDOR_DIR, and where it was downloaded from.

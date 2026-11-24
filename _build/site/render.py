@@ -6,7 +6,7 @@ from jinja2 import Environment, FileSystemLoader, StrictUndefined
 from jinja2.exceptions import UndefinedError
 
 from assets import Picture
-from config import ART_WIDGET, BUILD, LANGS, SITE_URL, App, Lang, page_path, page_url, play_url
+from config import BUILD, LANGS, SHARED_URL, SITE_URL, App, Lang, page_path, page_url, play_url
 
 ENV = Environment(loader=FileSystemLoader(BUILD), autoescape=True, undefined=StrictUndefined,
                   trim_blocks=True, lstrip_blocks=True, keep_trailing_newline=True)
@@ -51,10 +51,10 @@ def render_page(app: App, lang: Lang, s: dict, pictures: dict[str, Picture], lan
     return ENV.get_template(app.template).render(
         app=app, lang=lang, s=s, p=pictures, langs=langs, default=langs[0], page_url=partial(page_url, app),
         page_path=partial(page_path, app), play=play_url(app, lang), og_image=og_image_url(app, lang),
-        json_ld=json_ld(app, lang, s), assets=app.assets_url, **extra)
+        json_ld=json_ld(app, lang, s), assets=app.assets_url, shared=SHARED_URL, **extra)
 
 
 def render_home(pictures: dict[str, Picture]) -> str:
     """The site's home page, English only: a card per app. pictures holds the art_widget, atlas_hunt and syllabee
     icons."""
-    return ENV.get_template("home.html").render(p=pictures, site=SITE_URL + "/", assets=ART_WIDGET.assets_url)
+    return ENV.get_template("home.html").render(p=pictures, site=SITE_URL + "/", shared=SHARED_URL)

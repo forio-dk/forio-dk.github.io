@@ -1,12 +1,10 @@
-"""Builds the Art Widget pages, artwidget/index.html and artwidget/<code>/index.html, with their images, fonts,
-badges and video under artwidget/assets/, from the Art Widget repository's store graphics and preview video."""
+"""Builds the Art Widget pages, artwidget/index.html and artwidget/<code>/index.html, with their images and video
+under artwidget/assets/, from the Art Widget repository's store graphics and preview video."""
 from pathlib import Path
 
-from PIL import Image
-
-from assets import Picture, favicons, og_jpeg, transcode_video
-from config import ART_WIDGET, LANGS, VENDOR_DIR, Lang, page_file
-from output import app_webp, copy_file, write_text
+from assets import favicons, og_jpeg, transcode_video
+from config import ART_WIDGET, LANGS, VENDOR_DIR, page_file
+from output import app_webp, badge, write_text
 from render import render_page
 
 ASSETS = ART_WIDGET.assets
@@ -20,13 +18,6 @@ COMMONS_PAGES = {
 }
 
 
-def badge(lang: Lang) -> Picture:
-    dst = ASSETS / "badges" / f"{lang.code}.png"
-    copy_file(VENDOR_DIR / "badges" / f"{lang.code}.png", dst)
-    with Image.open(dst) as image:
-        return Picture(f"{ART_WIDGET.assets_url}/badges/{lang.code}.png", "", image.width, image.height)
-
-
 def build_pages(repo: Path, strings: dict[str, dict]) -> None:
     listings = repo / "docs" / "listings"
     default_graphics = listings / LANGS[0].listing / "graphics"
@@ -38,8 +29,6 @@ def build_pages(repo: Path, strings: dict[str, dict]) -> None:
                            (480, 720, 960)),
         "pearl": app_webp(ART_WIDGET, VENDOR_DIR / "art" / "pearl-earring.jpg", "img", "pearl-earring", (240, 480)),
     }
-    for font in sorted((VENDOR_DIR / "fonts").glob("*.woff2")) + sorted((VENDOR_DIR / "fonts").glob("OFL-*.txt")):
-        copy_file(font, ASSETS / "fonts" / font.name)
     transcode_video(listings / LANGS[0].listing / "video.mp4", ASSETS / "video" / "preview.mp4",
                     ASSETS / "video" / "preview-poster.webp")
 

@@ -13,8 +13,8 @@ from pathlib import Path
 
 import artwidget
 from assets import Picture, forio_mark
-from config import ART_WIDGET, BUILD, LANGS, ROOT, VENDOR_DIR, App
-from output import app_webp, write_text
+from config import ART_WIDGET, BUILD, LANGS, ROOT, SHARED, VENDOR_DIR, App
+from output import copy_file, shared_webp, write_text
 from render import render_home
 from sitemap import ROBOTS_TXT, render_sitemap
 from strings import load_strings, shape_errors
@@ -28,15 +28,15 @@ def forio_logo() -> Picture:
     font = VENDOR_DIR / "fonts" / "playfair-display-latin-600-normal.ttf"
     forio_mark(font, 256).save(ROOT / "favicon.ico", sizes=[(16, 16), (32, 32), (48, 48)])
     forio_mark(font, 180, rounded=False).save(ROOT / "apple-touch-icon.png", optimize=True)
-    master = ART_WIDGET.assets / "img" / "apps" / "forio-512.png"
+    master = SHARED / "img" / "apps" / "forio-512.png"
     master.parent.mkdir(parents=True, exist_ok=True)
     forio_mark(font, 512).save(master, optimize=True)
-    return app_webp(ART_WIDGET, master, "img/apps", "forio", (64, 128))
+    return shared_webp(master, "img/apps", "forio", (64, 128))
 
 
 def build_home(repos: dict[App, Path]) -> None:
     def icon(src: Path, stem: str) -> Picture:
-        return app_webp(ART_WIDGET, src, "img/apps", stem, (96, 192))
+        return shared_webp(src, "img/apps", stem, (96, 192))
 
     apps = {
         "art_widget": icon(repos[ART_WIDGET] / "docs" / "listings" / LANGS[0].listing / "graphics" / "icon-512.png",
@@ -48,7 +48,15 @@ def build_home(repos: dict[App, Path]) -> None:
     write_text(ROOT / "index.html", render_home(apps))
 
 
+def shared_assets() -> None:
+    """The web fonts and their licences, in assets/fonts/, for every page."""
+    fonts = VENDOR_DIR / "fonts"
+    for font in sorted(fonts.glob("*.woff2")) + sorted(fonts.glob("OFL-*.txt")):
+        copy_file(font, SHARED / "fonts" / font.name)
+
+
 def build(repos: dict[App, Path], apps_dir: Path = BUILD / "apps") -> None:
+    shared_assets()
     for app, repo in repos.items():
         BUILDERS[app](repo, load_strings((lang.code for lang in LANGS), apps_dir / app.slug / "strings"))
     build_home(repos)

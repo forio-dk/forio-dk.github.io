@@ -20,7 +20,7 @@ def fake_pictures(code: str) -> dict[str, Picture]:
     pictures = {key: Picture(f"/artwidget/assets/img/{key}-1.webp",
                              f"/artwidget/assets/img/{key}-1.webp 1w, /artwidget/assets/img/{key}-2.webp 2w", 1, 2)
                 for key in ("icon", "starry", "pearl", "shot_widget", "shot_details", "shot_settings")}
-    pictures["badge"] = Picture(f"/artwidget/assets/badges/{code}.png", "", 646, 250)
+    pictures["badge"] = Picture(f"/assets/badges/{code}.png", "", 646, 250)
     return pictures
 
 
@@ -94,8 +94,8 @@ class RenderTest(unittest.TestCase):
         tags = Tags(html)
         self.assertIn('<html lang="ru">', html)
         self.assertEqual(len(tags.find("link", rel="preload",
-                                       href="/artwidget/assets/fonts/playfair-display-cyrillic-600-normal.woff2")), 1)
-        self.assertEqual(len(tags.find("img", src="/artwidget/assets/badges/ru.png")), 2)
+                                       href="/assets/fonts/playfair-display-cyrillic-600-normal.woff2")), 1)
+        self.assertEqual(len(tags.find("img", src="/assets/badges/ru.png")), 2)
         self.assertEqual(len(tags.find("a", href=play_url(ART_WIDGET, RU))), 2)
         self.assertIn("hl=ru", play_url(ART_WIDGET, RU))
 
@@ -115,6 +115,12 @@ class RenderTest(unittest.TestCase):
         del strings["hero"]["lead"]
         with self.assertRaises(UndefinedError):
             render(strings=strings)
+
+    def test_stylesheets(self):
+        self.assertEqual([a["href"] for a in self.tags.find("link", rel="stylesheet")],
+                         ["/assets/site.css", "/artwidget/assets/theme.css"])
+        self.assertEqual([a["href"] for a in self.tags.find("link", rel="preload")],
+                         ["/assets/fonts/playfair-display-latin-600-normal.woff2"])
 
     def test_hero_image_high_priority(self):
         starry = [a for a in self.tags.find("img") if a["src"].startswith("/artwidget/assets/img/starry")]
@@ -157,8 +163,7 @@ class Headings(HTMLParser):
 class HomeTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        pictures = {key: Picture(f"/artwidget/assets/img/apps/{key}-96.webp",
-                                 f"/artwidget/assets/img/apps/{key}-96.webp 96w", 96, 96)
+        pictures = {key: Picture(f"/assets/img/apps/{key}-96.webp", f"/assets/img/apps/{key}-96.webp 96w", 96, 96)
                     for key in ("art_widget", "atlas_hunt", "syllabee", "forio")}
         cls.html = render_home(pictures)
         cls.tags = Tags(cls.html)
@@ -189,7 +194,12 @@ class HomeTest(unittest.TestCase):
     def test_logo(self):
         self.assertEqual([a["href"] for a in self.tags.find("link", rel="icon")], ["/favicon.ico"])
         self.assertEqual([a["href"] for a in self.tags.find("link", rel="apple-touch-icon")], ["/apple-touch-icon.png"])
-        self.assertEqual(len(self.tags.find("img", src="/artwidget/assets/img/apps/forio-96.webp")), 1)
+        self.assertEqual(len(self.tags.find("img", src="/assets/img/apps/forio-96.webp")), 1)
+
+    def test_shared_assets(self):
+        self.assertEqual([a["href"] for a in self.tags.find("link", rel="stylesheet")], ["/assets/site.css"])
+        self.assertEqual([a["href"] for a in self.tags.find("link", rel="preload")],
+                         ["/assets/fonts/playfair-display-latin-600-normal.woff2"])
 
     def test_cyrillic_names_tagged(self):
         self.assertIn('<span lang="uk">Складарик</span>', self.html)

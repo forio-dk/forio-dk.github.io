@@ -1,0 +1,19 @@
+/* Art Widget's page: the site's own navy wall and gold (the tokens in /assets/site.css), and the hero's paintings
+   hung on the wall in gold frames, as in the store's feature graphic. Hand-written. */
+
+:root {
+  --gold-light: #F8DE94;
+  --gold: #D9A441;
+  --gold-dark: #9E6A18;
+  --lip: #6E4A12;
+}
+
+.wall { position: relative; padding-bottom: 18%; }
+.frame {
+  padding: clamp(6px, 1.2vw, 10px);
+  background: linear-gradient(135deg, var(--gold-light), var(--gold) 50%, var(--gold-dark));
+  box-shadow: 0 18px 40px rgba(0, 0, 0, .45);
+}
+.frame img { width: 100%; box-shadow: 0 0 0 3px var(--lip); }
+.f1 { width: 78%; }
+.f2 { position: absolute; right: 0; bottom: 0; width: 36%; }

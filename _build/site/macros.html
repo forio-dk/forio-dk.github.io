@@ -1,0 +1,7 @@
+{# The macros the app pages share: a responsive image and the Get it on Google Play badge. #}
+{% macro img(picture, alt, sizes, lazy=True, priority=False) %}
+<img src="{{ picture.src }}" srcset="{{ picture.srcset }}" sizes="{{ sizes }}" width="{{ picture.width }}" height="{{ picture.height }}" alt="{{ alt }}"{% if lazy %} loading="lazy"{% endif %}{% if priority %} fetchpriority="high"{% endif %}>
+{%- endmacro %}
+{% macro badge(lazy) %}
+<a class="play" href="{{ play }}"><img src="{{ p.badge.src }}" width="{{ p.badge.width }}" height="{{ p.badge.height }}" alt="{{ s.hero.badge_alt }}"{% if lazy %} loading="lazy"{% endif %}></a>
+{%- endmacro %}
