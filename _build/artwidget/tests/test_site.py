@@ -9,7 +9,12 @@ from config import ASSETS, LANGS, ROOT, SITE_URL, page_file
 from tests.test_render import Tags
 
 CSS = ASSETS / "site.css"
-POLICY_BLOB = "f918c89c82a0fb2b8b6995b715848743abb632f1"
+POLICY_BLOBS = {
+    "artwidget/privacy-policy.md": "f918c89c82a0fb2b8b6995b715848743abb632f1",
+    "atlashunt/privacy-policy.md": "712154b31602b8bcb454efe4576031d4472d8a25",
+    "syllabee/privacy-policy.md": "0a694112f7a71f03e41caf4fda66205846e2742c",
+}
+HOME = ROOT / "index.html"
 OUTBOUND_HOSTS = {"play.google.com", "commons.wikimedia.org"}
 REQUEST_RELS = {"stylesheet", "preload", "icon", "apple-touch-icon"}
 
@@ -43,6 +48,7 @@ class SiteTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.pages = {lang.code: page_file(lang).read_text(encoding="utf-8") for lang in LANGS}
+        cls.pages["home"] = HOME.read_text(encoding="utf-8")
         cls.tags = {code: Tags(html) for code, html in cls.pages.items()}
         cls.css = CSS.read_text(encoding="utf-8")
 
@@ -72,7 +78,7 @@ class SiteTest(unittest.TestCase):
 
     def test_hreflang_reciprocal(self):
         sets = {code: {(a["hreflang"], a["href"]) for t, a in tags.tags if t == "link" and a.get("rel") == "alternate"}
-                for code, tags in self.tags.items()}
+                for code, tags in self.tags.items() if code != "home"}
         self.assertEqual(len({frozenset(s) for s in sets.values()}), 1)
         self.assertEqual(len(sets["en"]), 7)
 
@@ -98,10 +104,14 @@ class SiteTest(unittest.TestCase):
     def test_focus_visible(self):
         self.assertIn(":focus-visible", self.css)
 
-    def test_policy_untouched(self):
-        blob = subprocess.run(["git", "hash-object", "artwidget/privacy-policy.md"], cwd=ROOT, check=True,
-                              capture_output=True, text=True).stdout.strip()
-        self.assertEqual(blob, POLICY_BLOB)
+    def test_policies_untouched(self):
+        for path, expected in POLICY_BLOBS.items():
+            blob = subprocess.run(["git", "hash-object", path], cwd=ROOT, check=True,
+                                  capture_output=True, text=True).stdout.strip()
+            self.assertEqual(blob, expected, path)
+
+    def test_home_page_exists(self):
+        self.assertIn("<h1>Forio</h1>", self.pages["home"])
 
     def test_video_size(self):
         self.assertLessEqual((ASSETS / "video" / "preview.mp4").stat().st_size, 6 * 1024 * 1024)

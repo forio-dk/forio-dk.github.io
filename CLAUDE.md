@@ -40,7 +40,10 @@ diff <(tr -d '\r' < ../learn_to_read/docs/privacy-policy.md) <(tr -d '\r' < syll
   `CLAUDE.md`, goes in `exclude` in `_config.yml`. Leave `README.md` served: it is the policies' contact page.
 - **Policy paths must not change.** Each policy also promises that new versions "will be published at this address".
 - **`README.md`** holds the contact email and the list of apps. Every policy's **Contact** line links to
-  `https://forio-dk.github.io/README.md`, and `index.html` redirects there.
+  `https://forio-dk.github.io/README.md`, where it is still served raw; keep it.
+- **`index.html`** is the generated home page: a card per app, linking Art Widget's page and every app's privacy
+  policy (Google's OAuth check wants the home page to link them). Atlas Hunt and Syllabee say "Coming soon", with no
+  Google Play links, by the owner's decision.
 - **The site root** is the developer website in Play Console and the home page on Atlas Hunt's OAuth consent screen.
 - **`google3f02f6a48fbc475d.html`** verifies `https://forio-dk.github.io/` as a Search Console property. Atlas Hunt's
   OAuth branding verification needs it, so it must stay at the root unchanged (see `../atlas_hunt/docs/play-console.md`).
@@ -62,7 +65,8 @@ Google Play. They are generated; never edit them by hand.
   untouched.
 - **Edited by hand:** `_build/artwidget/template.html`, `_build/artwidget/strings/<code>.toml` (every language has
   English's keys; facts come from that language's store listing) and `artwidget/assets/site.css`.
-- **Generated:** `artwidget/**/index.html`, `artwidget/assets/{img,badges,fonts,video}/`, `sitemap.xml`, `robots.txt`.
+- **Generated:** `artwidget/**/index.html`, `artwidget/assets/{img,badges,fonts,video}/`, the root `index.html`
+  (from `_build/artwidget/home.html`), `sitemap.xml`, `robots.txt`.
 - **`_build/` is never published:** Jekyll skips folders starting with `_`.
 - **No third-party requests:** fonts, images, badges and video are served from `/artwidget/assets/`. Keep it so; the
   page advertises an app whose policy says it collects nothing itself.

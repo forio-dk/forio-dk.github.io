@@ -11,10 +11,12 @@ class SitemapTest(unittest.TestCase):
     def test_sitemap(self):
         root = ET.fromstring(render_sitemap())
         urls = root.findall(f"{SM}url")
-        self.assertEqual(len(urls), 6)
-        for url in urls:
+        self.assertEqual(len(urls), 7)
+        self.assertEqual(urls[0].find(f"{SM}loc").text, "https://forio-dk.github.io/")
+        self.assertEqual(urls[0].findall(f"{XHTML}link"), [])
+        for url in urls[1:]:
             self.assertEqual(len(url.findall(f"{XHTML}link")), 7)
-        self.assertEqual(urls[0].find(f"{SM}loc").text, "https://forio-dk.github.io/artwidget/")
+        self.assertEqual(urls[1].find(f"{SM}loc").text, "https://forio-dk.github.io/artwidget/")
 
     def test_robots(self):
         self.assertTrue(ROBOTS_TXT.endswith("Sitemap: https://forio-dk.github.io/sitemap.xml\n"))

@@ -1,5 +1,5 @@
 """Generates the Art Widget home pages: artwidget/index.html and artwidget/<code>/index.html, their images, fonts,
-badges and video under artwidget/assets/, and the site's sitemap.xml and robots.txt.
+badges and video under artwidget/assets/, the site's home page index.html, and its sitemap.xml and robots.txt.
 
 Run from the repository root: python -X utf8 _build/artwidget/build.py [--art-widget ../art_widget]
 It reads the store graphics and preview video from the Art Widget repository and the downloads in vendor/, and
@@ -14,7 +14,7 @@ from PIL import Image
 
 from assets import Picture, favicons, og_jpeg, responsive_webp, transcode_video
 from config import ASSETS, ASSETS_URL, LANGS, ROOT, VENDOR_DIR, Lang, page_file
-from render import render_page
+from render import render_home, render_page
 from sitemap import ROBOTS_TXT, render_sitemap
 from strings import load_strings, shape_errors
 
@@ -73,6 +73,13 @@ def build(art_widget: Path) -> None:
             pictures[key] = webp(graphics / name, f"img/{lang.code}", key.replace("_", "-"), (200, 400))
         og_jpeg(graphics / "feature-graphic.png", ASSETS / "img" / lang.code / "og.jpg")
         write_text(page_file(lang), render_page(lang, strings[lang.code], pictures))
+
+    apps = {
+        "art_widget": webp(default_graphics / "icon-512.png", "img/apps", "art-widget", (96, 192)),
+        "atlas_hunt": webp(VENDOR_DIR / "icons" / "atlas-hunt.png", "img/apps", "atlas-hunt", (96, 192)),
+        "syllabee": webp(VENDOR_DIR / "icons" / "syllabee.png", "img/apps", "syllabee", (96, 192)),
+    }
+    write_text(ROOT / "index.html", render_home(apps))
 
     write_text(ROOT / "sitemap.xml", render_sitemap())
     write_text(ROOT / "robots.txt", ROBOTS_TXT)

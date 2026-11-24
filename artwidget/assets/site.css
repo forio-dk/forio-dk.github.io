@@ -265,7 +265,39 @@ h2 { margin-bottom: 8px; font-size: clamp(1.75rem, 1.3rem + 1.8vw, 2.25rem); tex
 .langs a { color: var(--text); text-decoration: none; }
 .langs a[aria-current="page"] { color: var(--gold-light); text-decoration: underline; }
 
+/* The site's home page (index.html): a card per app */
+.home-hero { padding-top: 40px; text-align: center; }
+.home-hero h1 { font-size: clamp(2.75rem, 2rem + 3.5vw, 3.75rem); line-height: 1.05; }
+.home-hero .lead { margin: 12px auto 0; max-width: 32ch; }
+.apps { display: grid; gap: 24px; margin: 0; padding: 0; list-style: none; }
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 24px;
+  background: rgba(255, 255, 255, .05);
+  border: 1px solid rgba(233, 217, 180, .25);
+  border-top: 2px solid var(--gold);
+  border-radius: 12px;
+}
+.app img { width: 96px; height: 96px; border-radius: 20px; box-shadow: 0 14px 34px rgba(0, 0, 0, .45); }
+.app h2 { margin: 6px 0 0; font-size: 1.5rem; text-align: left; }
+.app p { font-size: .9375rem; }
+.aka { color: var(--muted); }
+.app-link, .soon { margin-top: auto; }
+.app-link {
+  padding: 6px 16px;
+  border: 1px solid var(--gold);
+  border-radius: 8px;
+  text-decoration: none;
+}
+.app-link:hover { background: rgba(217, 164, 65, .15); }
+.soon { color: var(--muted); font-size: .8125rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+.policy { font-size: .875rem; }
+
 @media (min-width: 760px) {
+  .apps { grid-template-columns: repeat(3, 1fr); }
   .nav { padding: 20px 32px 0; }
   main > section { padding: 64px 32px; }
   .steps, .grid { grid-template-columns: repeat(3, 1fr); }
