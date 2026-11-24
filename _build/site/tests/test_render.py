@@ -186,9 +186,14 @@ class HomeTest(unittest.TestCase):
     def test_links(self):
         hrefs = {a["href"] for a in self.tags.find("a")} - {"mailto:forio.dk@gmail.com"}
         self.assertEqual(hrefs, {"/artwidget/", "/artwidget/privacy-policy.html", "/atlashunt/",
-                                 "/atlashunt/privacy-policy.html", "/syllabee/privacy-policy.html"})
+                                 "/atlashunt/privacy-policy.html", "/syllabee/", "/syllabee/privacy-policy.html"})
         self.assertNotIn("play.google.com", self.html)
-        self.assertEqual(self.html.count('<p class="soon">Coming soon</p>'), 1)
+        self.assertNotIn("Coming soon", self.html)
+
+    def test_syllabee_card_links_page(self):
+        card = self.html.split("<h2>Syllabee</h2>", 1)[1].split("</li>", 1)[0]
+        self.assertIn('<a class="app-link" href="/syllabee/">See the app</a>', card)
+        self.assertIn('<a class="policy" href="/syllabee/privacy-policy.html">', card)
 
     def test_atlas_card_links_page(self):
         card = self.html.split("<h2>Atlas Hunt</h2>", 1)[1].split("</li>", 1)[0]

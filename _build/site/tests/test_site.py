@@ -244,6 +244,13 @@ class SiteTest(unittest.TestCase):
     def test_atlas_card_links_page(self):
         self.assertEqual(len(self.tags["home"].find("a", href="/atlashunt/")), 1)
 
+    def test_syllabee_card_links_page(self):
+        self.assertEqual(len(self.tags["home"].find("a", href="/syllabee/")), 1)
+        self.assertNotIn("Coming soon", self.pages["home"])
+
+    def test_no_soon_style(self):
+        self.assertNotIn(".soon", self.css)
+
     def test_foreign_assets(self):
         urls = ["/atlashunt/assets/img/da/hero-left-200.webp", "/atlashunt/assets/img/levels/earth-64.webp",
                 "/atlashunt/assets/img/icon-64.webp", "/atlashunt/assets/img/en/gallery/dark-160.webp",

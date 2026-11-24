@@ -278,7 +278,7 @@ h2 { margin-bottom: 8px; font-size: clamp(1.75rem, 1.3rem + 1.8vw, 2.25rem); tex
 .app h2 { margin: 6px 0 0; font-size: 1.5rem; text-align: left; }
 .app p { font-size: .9375rem; }
 .aka { color: var(--muted); }
-.app-link, .soon { margin-top: auto; }
+.app-link { margin-top: auto; }
 .app-link {
   padding: 6px 16px;
   border: 1px solid var(--accent);
@@ -286,7 +286,6 @@ h2 { margin-bottom: 8px; font-size: clamp(1.75rem, 1.3rem + 1.8vw, 2.25rem); tex
   text-decoration: none;
 }
 .app-link:hover { background: var(--accent-wash); }
-.app .soon { color: var(--muted); font-size: .8125rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
 .policy { font-size: .875rem; }
 
 @media (min-width: 760px) {

@@ -144,11 +144,9 @@ VENDOR: dict[str, str] = {
     "art/pearl-earring.jpg": COMMONS.format("1665_Girl_with_a_Pearl_Earring.jpg"),
 }
 
-# Files copied once from the sibling app repositories (paths relative to ROOT.parent), for the home page's app cards:
-# the apps without a page of their own (the build reads the others' icons from their repositories).
-LOCAL_VENDOR: dict[str, str] = {
-    "icons/syllabee.png": "learn_to_read/docs/store/en/icon-512.png",
-}
+# Files copied once from the sibling app repositories (paths relative to ROOT.parent), for the home page's card of an
+# app without a page of their own. None today: the build reads every app's icon from its repository.
+LOCAL_VENDOR: dict[str, str] = {}
 
 SITE_URL = "https://forio-dk.github.io"
 

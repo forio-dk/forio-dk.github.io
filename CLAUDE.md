@@ -41,29 +41,38 @@ diff <(tr -d '\r' < ../learn_to_read/docs/privacy-policy.md) <(tr -d '\r' < syll
 - **Policy paths must not change.** Each policy also promises that new versions "will be published at this address".
 - **`README.md`** holds the contact email and the list of apps. Every policy's **Contact** line links to
   `https://forio-dk.github.io/README.md`, where it is still served raw; keep it.
-- **`index.html`** is the generated home page: a card per app, linking Art Widget's and Atlas Hunt's pages and every
-  app's privacy policy (Google's OAuth check wants the home page to link them). Syllabee says "Coming soon", with no
-  Google Play link, by the owner's decision.
+- **`index.html`** is the generated home page: a card per app, linking every app's page and privacy policy (Google's
+  OAuth check wants the home page to link them). The cards have no Google Play links; the app pages have them.
 - **The site root** is the developer website in Play Console and the home page on Atlas Hunt's OAuth consent screen.
 - **`google3f02f6a48fbc475d.html`** verifies `https://forio-dk.github.io/` as a Search Console property. Atlas Hunt's
   OAuth branding verification needs it, so it must stay at the root unchanged (see `../atlas_hunt/docs/play-console.md`).
 - **`app-ads.txt`** is the AdMob publisher declaration. AdMob reads it from the domain root for every app's ads.
-- **`sitemap.xml` and `robots.txt`** at the root are generated; the sitemap lists the home page and the six language
-  versions of the Art Widget and Atlas Hunt pages.
+- **`sitemap.xml` and `robots.txt`** at the root are generated; the sitemap lists the home page, the six language
+  versions of the Art Widget and Atlas Hunt pages and the four of the Syllabee pages.
 
 ## Generated pages: the home page and the app pages
 
-`/` is the site's home page. `/artwidget/` and `/atlashunt/` (English) and `/<app>/{da,it,ro,ru,uk}/` are landing pages
-that present an app and link to Google Play. All of them are generated; never edit them by hand.
+`/` is the site's home page. `/artwidget/` and `/atlashunt/` (English) and `/<app>/{da,it,ro,ru,uk}/`, and
+`/syllabee/` (English) and `/syllabee/{da,ru,uk}/`, are landing pages that present an app and link to Google Play. All of
+them are generated; never edit them by hand.
 
 - **Generator:** `python -X utf8 _build/site/build.py` from the repo root (needs Jinja2, Pillow and ffmpeg; see
-  `_build/site/requirements.txt`). It reads each app's store listings in its sibling repo (`../art_widget`,
-  `../atlas_hunt`: `docs/listings/<listing>/graphics` and `video.mp4`) plus the committed downloads in
-  `_build/site/vendor/`, and writes only what changed: run it twice and `git status` stays clean. A video is
+  `_build/site/requirements.txt`; `--art-widget`, `--atlas-hunt` and `--learn-to-read` name a repo elsewhere than its
+  sibling folder). It reads each app's store listings in its sibling repo (`../art_widget`, `../atlas_hunt`:
+  `docs/listings/<listing>/graphics` and `video.mp4`; `../learn_to_read`: `docs/store/<code>/`) plus the committed
+  downloads in `_build/site/vendor/`, and writes only what changed: run it twice and `git status` stays clean. A video is
   re-encoded only when its output is missing or the source video is newer.
 - **Apps:** `config.py` describes each app with an `App` (slug, name, package, repo, theme colour, schema.org
-  category, heading font); `artwidget.py` and `atlashunt.py` build their pages; `build.py` runs them, then the home
-  page, sitemap and robots.txt.
+  category, heading font; its languages, a `Flavour` per language where each language is its own Play app, and where
+  its store listings and graphics are); `artwidget.py`, `atlashunt.py` and `syllabee.py` build their pages; `build.py`
+  runs them, then the home page, sitemap and robots.txt.
+- **Syllabee's pages:** four Play apps, one per language (Syllabee, Stavebi, Слогарик, Складарик), each page with its
+  own app's name, Play link, store screenshots (`phone-1` … `phone-6`), video and feature graphic. The pictures are the
+  app's own drawings, converted from its VectorDrawables to SVG in `syllabee/assets/img/art/` by
+  `../learn_to_read/tools/vd2svg.py` through `tools/store_assets.py`, which also gives the hero's split word and cards
+  (the feature graphic's `WORDS` and `CARDS`) and the theme colours. Each theme's drawing is one that every language's
+  pack uses in that theme (`tests/test_syllabee.py` checks), and never the pigeon or the pepper, whose licences ask for
+  an attribution. The build stops on a missing store file, tool or drawing.
 - **Atlas Hunt's pictures:** each language's page shows its own listing's Play screenshots (`phone-2/3/4/5/6/8`),
   `feature-graphic.png` (the share image) and `video.mp4`; the level tiles use the en-US `leaderboard-*-512.png` icons
   (they have no text). The `home-N-<screen>.png` shots appear as the "A closer look" gallery on a page only when that
@@ -90,9 +99,9 @@ that present an app and link to Google Play. All of them are generated; never ed
 - **`_build/` is never published:** Jekyll skips folders starting with `_`.
 - **No third-party requests:** fonts, images, badges and videos are served from `/assets/` and `/<app>/assets/`. Keep
   it so; the pages advertise apps whose policies say they collect nothing themselves.
-- **Vendor files** (fonts, Google Play badges, the two Commons paintings, and the Syllabee icon copied from its repo)
-  are fetched once by `_build/site/fetch_vendor.py`, with their sources in `vendor/SOURCES.md`. The home page's Art
-  Widget and Atlas Hunt icons are read from their repos at build time.
+- **Vendor files** (fonts, Google Play badges and the two Commons paintings) are fetched once by
+  `_build/site/fetch_vendor.py`, with their sources in `vendor/SOURCES.md`. The home page's icons are read from the
+  apps' repos at build time.
 
 ## Adding an app
 
@@ -103,7 +112,8 @@ that present an app and link to Google Play. All of them are generated; never ed
    with the app's icon (add it to `LOCAL_VENDOR` in `_build/site/config.py` and run `fetch_vendor.py`). Update
    `HomeTest`'s expected headings and links, add the policy's blob to `POLICY_BLOBS` in `tests/test_site.py`, then
    rebuild.
-5. Optionally give it a landing page like Art Widget's and Atlas Hunt's: an `App` in `config.py` (and in `APPS`),
+5. Optionally give it a landing page like the other apps': an `App` in `config.py` (and in `APPS`; with `langs`,
+   `flavours` and its store layout when they differ from the defaults),
    `_build/site/apps/<app>/template.html` extending `base.html`, its `strings/<code>.toml`, a builder module added to
    `BUILDERS` in `build.py`, and `<app>/assets/theme.css`. Its home card's icon then comes from its repo in
    `build_home()`, and leaves `LOCAL_VENDOR`.

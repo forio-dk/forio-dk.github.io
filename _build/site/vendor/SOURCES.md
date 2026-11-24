@@ -38,4 +38,3 @@ Downloaded once by `fetch_vendor.py`; each file and its source URL.
 
 ## Copied from sibling repositories
 
-- `icons/syllabee.png`: ../learn_to_read/docs/store/en/icon-512.png

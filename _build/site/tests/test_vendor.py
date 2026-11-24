@@ -43,11 +43,11 @@ class VendorTest(unittest.TestCase):
         for url in VENDOR.values():
             self.assertIn(url, sources)
 
-    def test_only_syllabee_icon_copied(self):
-        # Art Widget's and Atlas Hunt's icons are read from their repositories at build time, which the build needs
-        # anyway, so the home page's cards can't drift from the apps' own icons; Syllabee has no page to build.
-        self.assertEqual(list(LOCAL_VENDOR), ["icons/syllabee.png"])
-        self.assertFalse((VENDOR_DIR / "icons" / "atlas-hunt.png").exists())
+    def test_no_local_copies(self):
+        # Every home card's icon is read from its app's repository at build time, which the build needs anyway, so the
+        # cards can't drift from the apps' own icons.
+        self.assertEqual(LOCAL_VENDOR, {})
+        self.assertFalse((VENDOR_DIR / "icons").exists())
 
     def test_local_copies(self):
         sources = (VENDOR_DIR / "SOURCES.md").read_text(encoding="utf-8")
