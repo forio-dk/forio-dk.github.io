@@ -63,4 +63,64 @@
     <xhtml:link rel="alternate" hreflang="uk" href="https://forio-dk.github.io/artwidget/uk/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://forio-dk.github.io/artwidget/"/>
   </url>
+  <url>
+    <loc>https://forio-dk.github.io/atlashunt/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://forio-dk.github.io/atlashunt/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://forio-dk.github.io/atlashunt/da/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://forio-dk.github.io/atlashunt/it/"/>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://forio-dk.github.io/atlashunt/ro/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://forio-dk.github.io/atlashunt/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://forio-dk.github.io/atlashunt/uk/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://forio-dk.github.io/atlashunt/"/>
+  </url>
+  <url>
+    <loc>https://forio-dk.github.io/atlashunt/da/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://forio-dk.github.io/atlashunt/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://forio-dk.github.io/atlashunt/da/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://forio-dk.github.io/atlashunt/it/"/>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://forio-dk.github.io/atlashunt/ro/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://forio-dk.github.io/atlashunt/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://forio-dk.github.io/atlashunt/uk/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://forio-dk.github.io/atlashunt/"/>
+  </url>
+  <url>
+    <loc>https://forio-dk.github.io/atlashunt/it/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://forio-dk.github.io/atlashunt/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://forio-dk.github.io/atlashunt/da/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://forio-dk.github.io/atlashunt/it/"/>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://forio-dk.github.io/atlashunt/ro/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://forio-dk.github.io/atlashunt/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://forio-dk.github.io/atlashunt/uk/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://forio-dk.github.io/atlashunt/"/>
+  </url>
+  <url>
+    <loc>https://forio-dk.github.io/atlashunt/ro/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://forio-dk.github.io/atlashunt/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://forio-dk.github.io/atlashunt/da/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://forio-dk.github.io/atlashunt/it/"/>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://forio-dk.github.io/atlashunt/ro/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://forio-dk.github.io/atlashunt/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://forio-dk.github.io/atlashunt/uk/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://forio-dk.github.io/atlashunt/"/>
+  </url>
+  <url>
+    <loc>https://forio-dk.github.io/atlashunt/ru/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://forio-dk.github.io/atlashunt/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://forio-dk.github.io/atlashunt/da/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://forio-dk.github.io/atlashunt/it/"/>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://forio-dk.github.io/atlashunt/ro/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://forio-dk.github.io/atlashunt/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://forio-dk.github.io/atlashunt/uk/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://forio-dk.github.io/atlashunt/"/>
+  </url>
+  <url>
+    <loc>https://forio-dk.github.io/atlashunt/uk/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://forio-dk.github.io/atlashunt/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://forio-dk.github.io/atlashunt/da/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://forio-dk.github.io/atlashunt/it/"/>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://forio-dk.github.io/atlashunt/ro/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://forio-dk.github.io/atlashunt/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://forio-dk.github.io/atlashunt/uk/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://forio-dk.github.io/atlashunt/"/>
+  </url>
 </urlset>

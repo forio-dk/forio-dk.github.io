@@ -77,7 +77,7 @@ ART_WIDGET = App("artwidget", "Art Widget", "dk.forio.artwidget", "art_widget", 
                  "DesktopEnhancementApplication", "playfair-display-{subset}-600-normal.woff2")
 ATLAS_HUNT = App("atlashunt", "Atlas Hunt", "dk.forio.atlashunt", "atlas_hunt", "#0B2A3C", "GameApplication",
                  "montserrat-{subset}-700-normal.woff2")
-APPS: tuple[App, ...] = (ART_WIDGET,)
+APPS: tuple[App, ...] = (ART_WIDGET, ATLAS_HUNT)
 
 # Each file in vendor/, relative to VENDOR_DIR, and where it was downloaded from.
 VENDOR: dict[str, str] = {

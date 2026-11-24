@@ -1,7 +1,7 @@
-"""Generates the site: each app's pages (see artwidget.py), the home page index.html with the Forio logo, and
-sitemap.xml and robots.txt.
+"""Generates the site: each app's pages (see artwidget.py and atlashunt.py), the home page index.html with the
+Forio logo, and sitemap.xml and robots.txt.
 
-Run from the repository root: python -X utf8 _build/site/build.py [--art-widget ../art_widget]
+Run from the repository root: python -X utf8 _build/site/build.py [--art-widget ../art_widget] [--atlas-hunt ../atlas_hunt]
 It reads each app's store graphics and preview video from the app's repository and the downloads in vendor/, and
 writes only what changed, so a second run leaves git status clean. The stylesheets are hand-written.
 """
@@ -12,14 +12,18 @@ from collections.abc import Callable
 from pathlib import Path
 
 import artwidget
+import atlashunt
 from assets import Picture, forio_mark
-from config import ART_WIDGET, BUILD, LANGS, ROOT, SHARED, VENDOR_DIR, App
+from config import ART_WIDGET, ATLAS_HUNT, BUILD, LANGS, ROOT, SHARED, VENDOR_DIR, App
 from output import copy_file, shared_webp, write_text
 from render import render_home
 from sitemap import ROBOTS_TXT, render_sitemap
 from strings import load_strings, shape_errors
 
-BUILDERS: dict[App, Callable[[Path, dict[str, dict]], None]] = {ART_WIDGET: artwidget.build_pages}
+BUILDERS: dict[App, Callable[[Path, dict[str, dict]], None]] = {ART_WIDGET: artwidget.build_pages,
+                                                              ATLAS_HUNT: atlashunt.build_pages}
+# What else stops an app's build once its repository and strings are fine.
+CHECKS: dict[App, Callable[[Path, dict[str, dict]], list[str]]] = {ATLAS_HUNT: atlashunt.gallery_problems}
 
 
 def forio_logo() -> Picture:
@@ -70,17 +74,23 @@ def option(app: App) -> str:
 
 
 def problems(repos: dict[App, Path], apps_dir: Path = BUILD / "apps") -> list[str]:
-    """What stops a build: an app repository that is missing, a strings file that is missing or not valid TOML, or a
-    language whose strings differ from English's."""
+    """What stops a build: an app repository that is missing, a strings file that is missing or not valid TOML, a
+    language whose strings differ from English's, or what the app's own check finds (CHECKS)."""
     errors = []
     for app, repo in repos.items():
+        app_errors = []
         if not (repo / "docs" / "listings").is_dir():
-            errors.append(f"{repo} is not the {app.name} repository (no docs/listings); pass {option(app)}")
-        errors += strings_problems(app, apps_dir / app.slug / "strings")
+            app_errors.append(f"{repo} is not the {app.name} repository (no docs/listings); pass {option(app)}")
+        strings, strings_errors = strings_problems(app, apps_dir / app.slug / "strings")
+        app_errors += strings_errors
+        if not app_errors and app in CHECKS:
+            app_errors += CHECKS[app](repo, strings)
+        errors += app_errors
     return errors
 
 
-def strings_problems(app: App, folder: Path) -> list[str]:
+def strings_problems(app: App, folder: Path) -> tuple[dict[str, dict], list[str]]:
+    """The app's strings by language, and what is wrong with them."""
     strings, errors = {}, []
     for lang in LANGS:
         try:
@@ -91,7 +101,7 @@ def strings_problems(app: App, folder: Path) -> list[str]:
     if english is not None:
         errors += [f"apps/{app.slug}/strings/{code}.toml: {error}" for code, other in strings.items()
                    if code != LANGS[0].code for error in shape_errors(english, other)]
-    return errors
+    return strings, errors
 
 
 def main(argv: list[str] | None = None) -> int:

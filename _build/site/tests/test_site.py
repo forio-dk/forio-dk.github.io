@@ -7,7 +7,8 @@ from urllib.parse import urlsplit
 
 from PIL import Image
 
-from config import ART_WIDGET, LANGS, ROOT, SITE_URL, page_file
+from atlashunt import gallery_shots
+from config import APPS, ART_WIDGET, ATLAS_HUNT, LANGS, ROOT, SITE_URL, page_file
 from tests.test_render import Tags
 
 ASSETS = ART_WIDGET.assets
@@ -19,6 +20,7 @@ POLICY_BLOBS = {
     "syllabee/privacy-policy.md": "0a694112f7a71f03e41caf4fda66205846e2742c",
 }
 HOME = ROOT / "index.html"
+ATLAS_SIBLING = ROOT.parent / "atlas_hunt"
 OUTBOUND_HOSTS = {"play.google.com", "commons.wikimedia.org"}
 REQUEST_RELS = {"stylesheet", "preload", "icon", "apple-touch-icon"}
 
@@ -51,14 +53,16 @@ def css_urls(css: Path) -> list[str]:
 class SiteTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.pages = {lang.code: page_file(ART_WIDGET, lang).read_text(encoding="utf-8") for lang in LANGS}
+        cls.pages = {f"{app.slug}/{lang.code}": page_file(app, lang).read_text(encoding="utf-8")
+                     for app in APPS for lang in LANGS}
         cls.pages["home"] = HOME.read_text(encoding="utf-8")
         cls.tags = {code: Tags(html) for code, html in cls.pages.items()}
         cls.css = CSS.read_text(encoding="utf-8")
 
     def test_pages_exist(self):
-        for lang in LANGS:
-            self.assertTrue(page_file(ART_WIDGET, lang).is_file(), lang.code)
+        for app in APPS:
+            for lang in LANGS:
+                self.assertTrue(page_file(app, lang).is_file(), f"{app.slug}/{lang.code}")
 
     def test_internal_links_resolve(self):
         for code, tags in self.tags.items():
@@ -82,10 +86,16 @@ class SiteTest(unittest.TestCase):
                     self.assertTrue(local_file(urlsplit(url).path).is_file(), url)
 
     def test_hreflang_reciprocal(self):
-        sets = {code: {(a["hreflang"], a["href"]) for t, a in tags.tags if t == "link" and a.get("rel") == "alternate"}
-                for code, tags in self.tags.items() if code != "home"}
-        self.assertEqual(len({frozenset(s) for s in sets.values()}), 1)
-        self.assertEqual(len(sets["en"]), 7)
+        for app in APPS:
+            sets = {code: {(a["hreflang"], a["href"]) for t, a in tags.tags
+                           if t == "link" and a.get("rel") == "alternate"}
+                    for code, tags in self.tags.items() if code.startswith(app.slug + "/")}
+            with self.subTest(app=app.slug):
+                self.assertEqual(len(sets), 6)
+                self.assertEqual(len({frozenset(s) for s in sets.values()}), 1)
+                alternates = sets[f"{app.slug}/en"]
+                self.assertEqual(len(alternates), 7)
+                self.assertTrue(all(href.startswith(f"{SITE_URL}/{app.slug}/") for _, href in alternates))
 
     def test_no_third_party_requests(self):
         for code, tags in self.tags.items():
@@ -127,6 +137,23 @@ class SiteTest(unittest.TestCase):
     def test_video_size(self):
         self.assertLessEqual((ASSETS / "video" / "preview.mp4").stat().st_size, 6 * 1024 * 1024)
 
+    def test_atlas_video_sizes(self):
+        for lang in LANGS:
+            with self.subTest(code=lang.code):
+                video = ATLAS_HUNT.assets / "video" / f"{lang.code}.mp4"
+                self.assertLessEqual(video.stat().st_size, 6 * 1024 * 1024)
+                self.assertTrue((ATLAS_HUNT.assets / "video" / f"{lang.code}-poster.webp").is_file())
+
+    @unittest.skipUnless(ATLAS_SIBLING.is_dir(), "needs ../atlas_hunt")
+    def test_gallery_matches_listings(self):
+        for lang in LANGS:
+            with self.subTest(code=lang.code):
+                shots = gallery_shots(ATLAS_SIBLING / "docs" / "listings" / lang.listing / "graphics")
+                self.assertEqual('class="gallery"' in self.pages[f"atlashunt/{lang.code}"], bool(shots))
+
+    def test_atlas_card_links_page(self):
+        self.assertEqual(len(self.tags["home"].find("a", href="/atlashunt/")), 1)
+
     def test_favicon(self):
         with Image.open(ROOT / "favicon.ico") as icon:
             self.assertEqual(icon.format, "ICO")
@@ -135,7 +162,7 @@ class SiteTest(unittest.TestCase):
             self.assertEqual((touch.format, touch.size), ("PNG", (180, 180)))
 
     def test_hero_painting_has_a_middle_size(self):
-        starry = [a for a in self.tags["en"].find("img") if a["src"].startswith("/artwidget/assets/img/starry")]
+        starry = [a for a in self.tags["artwidget/en"].find("img") if a["src"].startswith("/artwidget/assets/img/starry")]
         widths = [int(entry.split()[1].rstrip("w")) for entry in starry[0]["srcset"].split(",")]
         self.assertEqual(widths, [480, 720, 960])
 

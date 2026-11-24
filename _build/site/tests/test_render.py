@@ -183,10 +183,15 @@ class HomeTest(unittest.TestCase):
 
     def test_links(self):
         hrefs = {a["href"] for a in self.tags.find("a")} - {"mailto:forio.dk@gmail.com"}
-        self.assertEqual(hrefs, {"/artwidget/", "/artwidget/privacy-policy.html", "/atlashunt/privacy-policy.html",
-                                 "/syllabee/privacy-policy.html"})
+        self.assertEqual(hrefs, {"/artwidget/", "/artwidget/privacy-policy.html", "/atlashunt/",
+                                 "/atlashunt/privacy-policy.html", "/syllabee/privacy-policy.html"})
         self.assertNotIn("play.google.com", self.html)
-        self.assertEqual(self.html.count('<p class="soon">Coming soon</p>'), 2)
+        self.assertEqual(self.html.count('<p class="soon">Coming soon</p>'), 1)
+
+    def test_atlas_card_links_page(self):
+        card = self.html.split("<h2>Atlas Hunt</h2>", 1)[1].split("</li>", 1)[0]
+        self.assertIn('<a class="app-link" href="/atlashunt/">See the app</a>', card)
+        self.assertNotIn("Coming soon", card)
 
     def test_no_javascript(self):
         self.assertNotIn("<script", self.html)
