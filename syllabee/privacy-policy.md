@@ -1,6 +1,6 @@
 # Privacy policy: Stavebi, Syllabee, Складарик and Слогарик
 
-**Effective date:** 16 October 2026
+**Effective date:** 15 November 2026
 
 **Developer:** forio.dk@gmail.com
 
@@ -15,10 +15,11 @@ app" below means any of them.
 
 Nothing. The app has no accounts, no sign-in and no server of its own, and nowhere to type a name or any other personal
 information. It keeps its settings on the device: the chosen game, whether Syllables blurs its pictures, how many pairs
-Memo deals, how Build a word cuts a word, which countries Countries deals, which shapes Shapes deals, and whether the
-full version has been bought. None of this records what a child has done. It leaves the device only in Android's own
-backup to the device owner's Google account, where that backup is turned on; the developer never receives it.
-Uninstalling the app, or clearing its storage in Android's settings, deletes it.
+Memo deals, how Build a word cuts a word, which countries Countries deals, which shapes Shapes deals, whether the full
+version has been bought, and whether the app has asked for a Google Play rating. None of this records what a child has
+done. It leaves the device only in Android's own backup to the device owner's Google account, where that backup is
+turned on; the developer never receives it. Uninstalling the app, or clearing its storage in Android's settings, deletes
+it.
 
 ## Advertising
 
@@ -41,6 +42,13 @@ policy and in "How Google uses information from sites or apps that use our servi
 «Full version» («Fuld version», «Повна версія», «Полная версия») is a one-time purchase through Google Play that removes
 the ads and unlocks the rest of the themes and shapes. Google Play processes the payment; the app receives only whether
 the purchase was made, and never sees payment details.
+
+## Rating
+
+Once, when Settings is opened a week or more after installation, the app asks Google Play to show its rating sheet,
+where the person holding the phone can rate the app and write a review. The sheet is Google Play's: what is entered
+there goes to Google Play as a public review under the device's Google account, and the app never sees it, nor whether
+the sheet was shown.
 
 ## Speech
 
