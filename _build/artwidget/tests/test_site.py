@@ -95,7 +95,6 @@ class SiteTest(unittest.TestCase):
         self.assertEqual(self.css.count("@font-face"), 9)
         self.assertEqual(self.css.count("font-display: swap"), 9)
 
-    @unittest.expectedFailure  # Task 7 styles the page
     def test_focus_visible(self):
         self.assertIn(":focus-visible", self.css)
 
