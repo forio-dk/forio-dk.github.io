@@ -11,6 +11,7 @@ SHARED_URL = "/assets"
 
 PLAYFAIR = "https://cdn.jsdelivr.net/npm/@fontsource/playfair-display@5.3.0"
 SOURCE_SANS = "https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.3.1"
+MONTSERRAT = "https://cdn.jsdelivr.net/npm/@fontsource/montserrat@5.3.0"  # Atlas Hunt's headings, as in its store graphics
 SUBSETS = ("latin", "latin-ext", "cyrillic")
 BADGE = "https://play.google.com/intl/en_us/badges/static/images/badges/{}_badge_web_generic.png"
 COMMONS = "https://commons.wikimedia.org/wiki/Special:FilePath/{}?width=1200"
@@ -74,6 +75,8 @@ class App:
 
 ART_WIDGET = App("artwidget", "Art Widget", "dk.forio.artwidget", "art_widget", "#132841",
                  "DesktopEnhancementApplication", "playfair-display-{subset}-600-normal.woff2")
+ATLAS_HUNT = App("atlashunt", "Atlas Hunt", "dk.forio.atlashunt", "atlas_hunt", "#0B2A3C", "GameApplication",
+                 "montserrat-{subset}-700-normal.woff2")
 APPS: tuple[App, ...] = (ART_WIDGET,)
 
 # Each file in vendor/, relative to VENDOR_DIR, and where it was downloaded from.
@@ -90,6 +93,9 @@ VENDOR: dict[str, str] = {
     "fonts/source-sans-3-600.css": f"{SOURCE_SANS}/600.css",
     "fonts/OFL-playfair-display.txt": f"{PLAYFAIR}/LICENSE",
     "fonts/OFL-source-sans-3.txt": f"{SOURCE_SANS}/LICENSE",
+    **{f"fonts/montserrat-{s}-700-normal.woff2": f"{MONTSERRAT}/files/montserrat-{s}-700-normal.woff2" for s in SUBSETS},
+    "fonts/montserrat-700.css": f"{MONTSERRAT}/700.css",
+    "fonts/OFL-montserrat.txt": f"{MONTSERRAT}/LICENSE",
     **{f"badges/{lang.code}.png": BADGE.format(lang.badge) for lang in LANGS},
     "art/starry-night.jpg": COMMONS.format("Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg"),
     "art/pearl-earring.jpg": COMMONS.format("1665_Girl_with_a_Pearl_Earring.jpg"),

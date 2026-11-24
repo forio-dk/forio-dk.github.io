@@ -15,7 +15,7 @@ MAGIC = {".woff2": b"wOF2", ".png": b"\x89PNG", ".jpg": b"\xff\xd8\xff", ".ttf":
 
 class VendorTest(unittest.TestCase):
     def test_manifest_size(self):
-        self.assertEqual(len(VENDOR), 23)  # 9 web fonts + the logo's TTF, 3 font CSS, 2 licences, 6 badges, 2 artworks
+        self.assertEqual(len(VENDOR), 28)  # 12 web fonts + the logo's TTF, 4 font CSS, 3 licences, 6 badges, 2 artworks
 
     def test_files_present_and_typed(self):
         for name in VENDOR:

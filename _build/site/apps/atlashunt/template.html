@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% from "macros.html" import img, badge, closing_sections with context %}
+{# The two level icons the app has none of: drawn as its leaderboard icons are (a wall gradient in a 100-unit square
+   inside a faint white ring), Crossword's on the category boards' wall, History's on the app's amber one. #}
+{% macro level_icon(id, top, bottom) %}
+<svg class="level-icon" viewBox="0 0 100 100" width="64" height="64" aria-hidden="true" focusable="false"><defs><linearGradient id="wall-{{ id }}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{{ top }}"/><stop offset="1" stop-color="{{ bottom }}"/></linearGradient></defs><rect width="100" height="100" fill="url(#wall-{{ id }})"/><circle cx="50" cy="50" r="46" fill="none" stroke="#fff" stroke-opacity=".25" stroke-width="1.5"/>{{ caller() }}</svg>
+{%- endmacro %}
+{% macro crossword_icon() %}
+{% call level_icon("crossword", "#34406E", "#141A33") %}<g fill="#fff" stroke="#141A33" stroke-width="1.5"><rect x="22" y="40" width="14" height="14"/><rect x="50" y="40" width="14" height="14"/><rect x="64" y="40" width="14" height="14"/><rect x="50" y="26" width="14" height="14"/><rect x="50" y="54" width="14" height="14"/><rect x="50" y="68" width="14" height="14"/></g><rect x="36" y="40" width="14" height="14" fill="#9CD67A" stroke="#141A33" stroke-width="1.5"/>{% endcall %}
+{%- endmacro %}
+{% macro history_icon() %}
+{% call level_icon("history", "#B07A1A", "#5C3A08") %}<circle cx="50" cy="52" r="27" fill="#E8D9A8" stroke="#fff" stroke-width="2.5"/><path d="M50 30v44M23 52h54" stroke="#C9B37E" stroke-width="1.5"/><path d="M50 52V35M50 52l12 8" fill="none" stroke="#5C3A08" stroke-width="4.5" stroke-linecap="round"/><circle cx="50" cy="52" r="3.5" fill="#5C3A08"/>{% endcall %}
+{%- endmacro %}
+{% set drawn = {"crossword": crossword_icon, "history": history_icon} %}
+{% macro tile_icon(key) %}
+{% if "level_" ~ key in p %}{{ img(p["level_" ~ key], "", "64px") }}{% else %}{{ drawn[key]() }}{% endif %}
+{%- endmacro %}
+{% block main %}
+  <section class="hero">
+    <div class="hero-text">
+      <h1>{{ app.name }}</h1>
+      <p class="lead">{{ s.hero.lead }}</p>
+      {{ badge(lazy=False) }}
+      <p class="facts">{{ s.hero.facts }}</p>
+    </div>
+    <div class="stage">
+      <div class="globe" aria-hidden="true"></div>
+      <span class="spark big" aria-hidden="true">✦</span><span class="spark small" aria-hidden="true">✦</span>
+      <div class="shot left">{{ img(p.hero_left, s.hero.alts[0], "(min-width: 960px) 172px, 30vw", lazy=False) }}</div>
+      <div class="shot centre">{{ img(p.hero_centre, s.hero.alts[1], "(min-width: 960px) 190px, 34vw", lazy=False, priority=True) }}</div>
+      <div class="shot right">{{ img(p.hero_right, s.hero.alts[2], "(min-width: 960px) 172px, 30vw", lazy=False) }}</div>
+    </div>
+  </section>
+
+  <section class="how">
+    <h2>{{ s.how.heading }}</h2>
+    <p class="sub">{{ s.how.sub }}</p>
+    <ol class="steps numbered">
+    {% for step in s.how.steps %}
+      <li>
+        {{ img(p["step_" ~ loop.index], step.alt, "200px") }}
+        <h3>{{ step.heading }}</h3>
+        <p>{{ step.text }}</p>
+      </li>
+    {% endfor %}
+    </ol>
+  </section>
+
+  <section class="atlas">
+    <h2>{{ s.levels.heading }}</h2>
+    <p class="sub">{{ s.levels.sub }}</p>
+    <ul class="levels">
+    {% for item in s.levels["items"] %}
+      <li>
+        {{ tile_icon(item.key) }}
+        <div>
+          <h3>{{ item.heading }}</h3>
+          <p>{{ item.text }}</p>
+        </div>
+      </li>
+    {% endfor %}
+    </ul>
+  </section>
+
+  {% if gallery %}
+  <section class="closer">
+    <h2>{{ s.gallery.heading }}</h2>
+    <p class="sub">{{ s.gallery.sub | replace("{count}", gallery | length | string) }}</p>
+    <div class="gallery" tabindex="0" role="region" aria-label="{{ s.gallery.heading }}">
+    {% for screen, picture in gallery %}
+      <figure>
+        {{ img(picture, s.gallery.captions[screen], "160px") }}
+        <figcaption>{{ s.gallery.captions[screen] }}</figcaption>
+      </figure>
+    {% endfor %}
+    </div>
+  </section>
+
+  {% endif %}
+{{ closing_sections() }}
+{% endblock %}
+{% block credits %}
+  <p>{{ s.footer.credits }}</p>
+{% endblock %}

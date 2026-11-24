@@ -1,7 +1,59 @@
-{# The macros the app pages share: a responsive image and the Get it on Google Play badge. #}
+{# The macros the app pages share: a responsive image, the Get it on Google Play badge, and the sections that end
+   every app page (video, features, free and full version, privacy, the closing call). #}
 {% macro img(picture, alt, sizes, lazy=True, priority=False) %}
 <img src="{{ picture.src }}" srcset="{{ picture.srcset }}" sizes="{{ sizes }}" width="{{ picture.width }}" height="{{ picture.height }}" alt="{{ alt }}"{% if lazy %} loading="lazy"{% endif %}{% if priority %} fetchpriority="high"{% endif %}>
 {%- endmacro %}
 {% macro badge(lazy) %}
 <a class="play" href="{{ play }}"><img src="{{ p.badge.src }}" width="{{ p.badge.width }}" height="{{ p.badge.height }}" alt="{{ s.hero.badge_alt }}"{% if lazy %} loading="lazy"{% endif %}></a>
+{%- endmacro %}
+{% macro closing_sections() %}
+  <section class="video">
+    <div class="phone">
+      <video controls playsinline preload="none" poster="{{ poster }}" aria-label="{{ s.video.label }}" width="720" height="1280"><source src="{{ video }}" type="video/mp4"></video>
+    </div>
+    <div class="video-text">
+      <h2>{{ s.video.heading }}</h2>
+      <p>{{ s.video.text }}</p>
+    </div>
+  </section>
+
+  <section class="features">
+    <h2>{{ s.features.heading }}</h2>
+    <ul class="grid">
+    {% for item in s.features["items"] %}
+      <li>
+        <h3>{{ item.heading }}</h3>
+        <p>{{ item.text }}</p>
+      </li>
+    {% endfor %}
+    </ul>
+  </section>
+
+  <section class="versions">
+    <h2>{{ s.plans.heading }}</h2>
+    <div class="plans">
+    {% for key in ("free", "full") %}
+      {% set plan = s.plans[key] %}
+      <div class="plan {{ key }}">
+        <h3>{{ plan.name }}</h3>
+        <p class="note">{{ plan.note }}</p>
+        <ul>
+        {% for item in plan["items"] %}
+          <li>{{ item }}</li>
+        {% endfor %}
+        </ul>
+      </div>
+    {% endfor %}
+    </div>
+  </section>
+
+  <section class="privacy">
+    <h2>{{ s.privacy.heading }}</h2>
+    <p>{{ s.privacy.text }} <a href="/{{ app.slug }}/privacy-policy.html" hreflang="en">{{ s.privacy.link }}</a></p>
+  </section>
+
+  <section class="cta">
+    <h2>{{ s.cta.heading }}</h2>
+    {{ badge(lazy=True) }}
+  </section>
 {%- endmacro %}

@@ -1,0 +1,158 @@
+# Atlas Hunt page: English. Facts: ../atlas_hunt/docs/listings/en-US/listing.md. Every language has these keys.
+
+[meta]
+title = "Atlas Hunt: Map Quiz"
+description = "Find countries, rivers and mountains on a map, then read about each one. Free for Android: 130+ map games in six languages, offline."
+og_image_alt = "Atlas Hunt: find countries, rivers and mountains on a map, then read about each one"
+
+[nav]
+languages = "Language"
+
+[hero]
+lead = "Find countries, rivers and mountains on a map, then read about each one."
+facts = "Free · 130+ games · Six languages · Works offline"
+badge_alt = "Get it on Google Play"
+alts = [
+    "A Flags game: pick the country of a flag from four answers",
+    "A game of the countries of Europe, each coloured by the try it took",
+    "A game of the constellations of the night sky",
+]
+
+[how]
+heading = "How it plays"
+sub = "No labels, no hints: only the shapes of the countries, rivers and mountains."
+
+[[how.steps]]
+heading = "Pick a game, find each place"
+text = "The game names a place; you find it on the map. A wrong tap shows what you touched; after the third miss the answer blinks."
+alt = "The games of Europe: its countries, capitals, rivers, mountain ranges and more"
+
+[[how.steps]]
+heading = "Every place opens a card"
+text = "Its picture and the start of its Wikipedia article, so you learn what it is, not only where."
+alt = "The card of France: its flag, a picture of Paris and the start of its Wikipedia article"
+
+[[how.steps]]
+heading = "Go for a perfect run"
+text = "Every name on the first try. Your best score and time are kept for each game."
+alt = "The results of a game: the places found on the first try, and the time"
+
+[levels]
+heading = "A whole atlas to play"
+sub = "130+ games on six levels, more on the way."
+
+[[levels.items]]
+key = "earth"
+heading = "Earth"
+text = "Countries, capitals, rivers, mountain ranges, lakes, seas, islands, deserts and peninsulas of every part of the world, and the regions of 30+ countries."
+
+[[levels.items]]
+key = "space"
+heading = "Space"
+text = "The planets, the moons of Mars, Jupiter, Saturn, Uranus and Neptune, the Moon's seas and craters, the constellations and brightest stars."
+
+[[levels.items]]
+key = "flags"
+heading = "Flags"
+text = "See a flag and pick its country from four answers: the World and six parts of it."
+
+[[levels.items]]
+key = "currencies"
+heading = "Currencies"
+text = "A currency's name and sign, such as won ₩: whose is it?"
+
+[[levels.items]]
+key = "crossword"
+heading = "Crossword"
+text = "Built from the places you pick, with clues from the atlas and a map hint for each. Share it as a PDF or a picture, or print it."
+
+[[levels.items]]
+key = "history"
+heading = "History"
+text = "The world as it was on 1 June 1816, in 1914 and in 1989."
+
+[gallery]
+heading = "A closer look"
+sub = "{count} more screens from the app."
+
+[gallery.captions]
+explore-names = "Explore the map with names"
+rivers = "Rivers of South America"
+capitals = "Capitals of Europe"
+ranges = "Mountain ranges of Asia"
+seas = "Seas of Oceania"
+germany = "Germany's own level"
+currencies = "Currencies"
+crossword-solving = "Solving a crossword"
+crossword-results = "The finished crossword"
+history-1914 = "The world in 1914"
+history-game = "Asia in 1914"
+jupiter = "Moons of Jupiter"
+moon = "Seas of the Moon"
+view-answers = "Every flag in a list"
+dark = "The dark theme"
+
+[video]
+heading = "See it in under a minute"
+text = "Countries, a card, rivers, mountain ranges, seas, flags, currencies, the planets and their moons, the night sky and a crossword: real play on a phone."
+label = "Atlas Hunt preview video"
+
+[features]
+heading = "Everything else"
+
+[[features.items]]
+heading = "Works offline"
+text = "Every map and game works without the internet. Only the card's text and picture need it."
+
+[[features.items]]
+heading = "Six languages"
+text = "English, Danish, Italian, Romanian, Russian and Ukrainian: choose in Settings, or follow your phone."
+
+[[features.items]]
+heading = "Fair to your fingers"
+text = "A tiny country is a circle you can hit; a tap near the river you are asked for counts."
+
+[[features.items]]
+heading = "Achievements and leaderboards"
+text = "With Google Play Games: perfect runs, daily streaks, Globetrotter, and leaderboards for every part of the world."
+
+[[features.items]]
+heading = "Your results, everywhere"
+text = "Signed in, your results and trophies follow you to other devices."
+
+[[features.items]]
+heading = "Phones, tablets and PCs"
+text = "On tablets, foldables and PCs the games and cards sit beside the map; zoom with the mouse wheel."
+
+[plans]
+heading = "Free, with a full version"
+
+[plans.free]
+name = "Free"
+note = "No account needed"
+items = [
+    "Every game on every level",
+    "Crosswords of 10 and 15 words",
+    "A small ad while you pick a game, see your results or explore, never during a game or on a card",
+]
+
+[plans.full]
+name = "Full version"
+note = "One-time purchase in Google Play"
+items = [
+    "No ads",
+    "Crosswords of 20, 30 and 50 words",
+]
+
+[privacy]
+heading = "No account. No analytics of its own."
+text = "The app itself collects nothing: your results stay on your phone, or in Google Play Games if you sign in. Cards ask Wikipedia and Wikimedia Commons for their text and picture. The free version's banner comes from Google AdMob, which asks for your consent first in the EEA, the UK and Switzerland."
+link = "Read the privacy policy"
+
+[cta]
+heading = "Find your first country"
+
+[footer]
+privacy = "Privacy policy"
+contact = "Contact"
+credits = "Map data: Natural Earth, OpenStreetMap contributors, Bundesamt für Naturschutz, NASA, d3-celestial. Names and coordinates: Wikidata. Text: Wikipedia. Pictures: Wikimedia Commons."

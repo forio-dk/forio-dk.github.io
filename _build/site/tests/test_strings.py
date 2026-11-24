@@ -1,6 +1,6 @@
 import unittest
 
-from config import ART_WIDGET, LANGS, ROOT
+from config import ART_WIDGET, ATLAS_HUNT, LANGS, ROOT
 from strings import load_strings, shape_errors
 
 
@@ -101,3 +101,47 @@ class EnglishClaimsTest(unittest.TestCase):
     def test_choosing_types_mentions_the_full_version(self):
         # Listing: sculptures, drawings, tapestries and the rest come only with the full version
         self.assertIn("full version", self.en["how"]["steps"][2]["text"])
+
+
+def all_strings(value: object) -> list[str]:
+    """Every string in a parsed strings file."""
+    if isinstance(value, dict):
+        return [s for v in value.values() for s in all_strings(v)]
+    if isinstance(value, list):
+        return [s for v in value for s in all_strings(v)]
+    return [value] if isinstance(value, str) else []
+
+
+SCREENS = ["explore-names", "rivers", "capitals", "ranges", "seas", "germany", "currencies", "crossword-solving",
+           "crossword-results", "history-1914", "history-game", "jupiter", "moon", "view-answers", "dark"]
+
+
+class AtlasEnglishTest(unittest.TestCase):
+    """The Atlas Hunt page's English copy: the spec's appendix, which the store listing and the policy back."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.en = load_strings(["en"], ATLAS_HUNT.strings)["en"]
+
+    def test_counts_never_go_stale(self):
+        self.assertIn("130+", self.en["hero"]["facts"])
+        self.assertIn("130+", self.en["levels"]["sub"])
+        for text in all_strings(self.en):
+            self.assertNotIn("139", text)
+            self.assertNotIn("36", text)
+
+    def test_privacy_names_the_policys_services(self):
+        self.assertIn("Wikimedia Commons", self.en["privacy"]["text"])
+        self.assertIn("AdMob", self.en["privacy"]["text"])
+
+    def test_crossword_sizes(self):
+        self.assertTrue(any("10 and 15" in item for item in self.en["plans"]["free"]["items"]))
+        self.assertTrue(any("20, 30 and 50" in item for item in self.en["plans"]["full"]["items"]))
+
+    def test_levels(self):
+        self.assertEqual([item["key"] for item in self.en["levels"]["items"]],
+                         ["earth", "space", "flags", "currencies", "crossword", "history"])
+
+    def test_gallery_captions(self):
+        self.assertEqual(list(self.en["gallery"]["captions"]), SCREENS)
+        self.assertIn("{count}", self.en["gallery"]["sub"])

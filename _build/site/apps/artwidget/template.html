@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "macros.html" import img, badge with context %}
+{% from "macros.html" import img, badge, closing_sections with context %}
 {% block main %}
   <section class="hero">
     <div class="hero-text">
@@ -28,55 +28,7 @@
     </ol>
   </section>
 
-  <section class="video">
-    <div class="phone">
-      <video controls playsinline preload="none" poster="{{ poster }}" aria-label="{{ s.video.label }}" width="720" height="1280"><source src="{{ video }}" type="video/mp4"></video>
-    </div>
-    <div class="video-text">
-      <h2>{{ s.video.heading }}</h2>
-      <p>{{ s.video.text }}</p>
-    </div>
-  </section>
-
-  <section class="features">
-    <h2>{{ s.features.heading }}</h2>
-    <ul class="grid">
-    {% for item in s.features["items"] %}
-      <li>
-        <h3>{{ item.heading }}</h3>
-        <p>{{ item.text }}</p>
-      </li>
-    {% endfor %}
-    </ul>
-  </section>
-
-  <section class="versions">
-    <h2>{{ s.plans.heading }}</h2>
-    <div class="plans">
-    {% for key in ("free", "full") %}
-      {% set plan = s.plans[key] %}
-      <div class="plan {{ key }}">
-        <h3>{{ plan.name }}</h3>
-        <p class="note">{{ plan.note }}</p>
-        <ul>
-        {% for item in plan["items"] %}
-          <li>{{ item }}</li>
-        {% endfor %}
-        </ul>
-      </div>
-    {% endfor %}
-    </div>
-  </section>
-
-  <section class="privacy">
-    <h2>{{ s.privacy.heading }}</h2>
-    <p>{{ s.privacy.text }} <a href="/artwidget/privacy-policy.html" hreflang="en">{{ s.privacy.link }}</a></p>
-  </section>
-
-  <section class="cta">
-    <h2>{{ s.cta.heading }}</h2>
-    {{ badge(lazy=True) }}
-  </section>
+{{ closing_sections() }}
 {% endblock %}
 {% block credits %}
   <p>{{ s.footer.images }}:
