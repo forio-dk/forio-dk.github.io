@@ -13,7 +13,8 @@ from tests.test_render import Tags
 
 ASSETS = ART_WIDGET.assets
 CSS = ROOT / "assets" / "site.css"
-CSS_FILES = [CSS, ASSETS / "theme.css"]
+ATLAS_THEME = ATLAS_HUNT.assets / "theme.css"
+CSS_FILES = [CSS, ASSETS / "theme.css", ATLAS_THEME]
 POLICY_BLOBS = {
     "artwidget/privacy-policy.md": "f918c89c82a0fb2b8b6995b715848743abb632f1",
     "atlashunt/privacy-policy.md": "712154b31602b8bcb454efe4576031d4472d8a25",
@@ -116,6 +117,15 @@ class SiteTest(unittest.TestCase):
     def test_fonts_swap(self):
         self.assertEqual(self.css.count("@font-face"), 9)
         self.assertEqual(self.css.count("font-display: swap"), 9)
+
+    def test_theme_fonts(self):
+        theme = ATLAS_THEME.read_text(encoding="utf-8")
+        self.assertEqual(theme.count("@font-face"), 3)
+        self.assertEqual(theme.count("font-display: swap"), 3)
+        faces = theme.split("@font-face")[1:]
+        cyrillic = [face for face in faces if "montserrat-cyrillic-700-normal.woff2" in face]
+        self.assertEqual(len(cyrillic), 1)
+        self.assertIn("U+0400-045F", cyrillic[0])
 
     def test_old_shared_assets_gone(self):
         for path in ("fonts", "badges", "site.css", "img/apps"):
