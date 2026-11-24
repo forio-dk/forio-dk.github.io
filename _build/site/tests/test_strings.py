@@ -145,3 +145,55 @@ class AtlasEnglishTest(unittest.TestCase):
     def test_gallery_captions(self):
         self.assertEqual(list(self.en["gallery"]["captions"]), SCREENS)
         self.assertIn("{count}", self.en["gallery"]["sub"])
+
+
+ATLAS_SIBLING = ROOT.parent / "atlas_hunt"
+
+
+class AtlasTranslationTest(unittest.TestCase):
+    """Every language of the Atlas Hunt page has English's keys, its listing's name and pitch, and the same counts."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.strings = load_strings(CODES, ATLAS_HUNT.strings)
+
+    def test_all_languages_match_english(self):
+        for code in CODES[1:]:
+            with self.subTest(code=code):
+                self.assertEqual(shape_errors(self.strings["en"], self.strings[code]), [])
+
+    def test_review_markers(self):
+        for code in CODES[1:]:
+            with self.subTest(code=code):
+                self.assertTrue((ATLAS_HUNT.strings / f"{code}.toml").read_text(encoding="utf-8").startswith(MARKER))
+
+    def test_counts_and_placeholders(self):
+        for code in CODES:
+            with self.subTest(code=code):
+                s = self.strings[code]
+                self.assertIn("130+", s["hero"]["facts"])
+                self.assertIn("130+", s["levels"]["sub"])
+                self.assertIn("30+", s["levels"]["items"][0]["text"])
+                self.assertIn("{count}", s["gallery"]["sub"])
+                self.assertEqual([item["key"] for item in s["levels"]["items"]],
+                                 [item["key"] for item in self.strings["en"]["levels"]["items"]])
+                for text in all_strings(s):
+                    self.assertNotIn("139", text)
+
+    def test_shared_words_match_art_widget(self):
+        art = load_strings(CODES, ART_WIDGET.strings)
+        for code in CODES:
+            with self.subTest(code=code):
+                s, a = self.strings[code], art[code]
+                self.assertEqual((s["hero"]["badge_alt"], s["nav"]["languages"], s["footer"]["privacy"],
+                                  s["footer"]["contact"]),
+                                 (a["hero"]["badge_alt"], a["nav"]["languages"], a["footer"]["privacy"],
+                                  a["footer"]["contact"]))
+
+    @unittest.skipUnless(ATLAS_SIBLING.is_dir(), "needs ../atlas_hunt")
+    def test_title_and_lead_from_listing(self):
+        for lang in LANGS:
+            md = (ATLAS_SIBLING / "docs" / "listings" / lang.listing / "listing.md").read_text(encoding="utf-8")
+            with self.subTest(code=lang.code):
+                self.assertEqual(self.strings[lang.code]["meta"]["title"], listing_block(md, "App name"))
+                self.assertEqual(self.strings[lang.code]["hero"]["lead"], listing_block(md, "Short description"))

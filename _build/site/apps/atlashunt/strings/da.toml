@@ -1,0 +1,159 @@
+# Strings ending in "# new" are translations made for this page; the owner reviews them before publishing.
+# Danish. Facts: ../atlas_hunt/docs/listings/da-DK/listing.md; level and screen names: ../atlas_hunt/app/src/main/res/values-da/strings.xml.
+
+[meta]
+title = "Atlas Hunt: Map Quiz"
+description = "Find lande, floder og bjerge på et kort, og læs så om hvert af dem. Gratis til Android: 130+ kortspil på seks sprog, offline."  # new
+og_image_alt = "Atlas Hunt: find lande, floder og bjerge på et kort, og læs så om hvert af dem"  # new
+
+[nav]
+languages = "Sprog"  # new
+
+[hero]
+lead = "Find lande, floder og bjerge på et kort, og læs så om hvert af dem."
+facts = "Gratis · 130+ spil · Seks sprog · Virker offline"  # new
+badge_alt = "Hent i Google Play"  # new
+alts = [
+    "Et spil med flag: vælg flagets land blandt fire svar",  # new
+    "Et spil om Europas lande, hvert farvet efter forsøget",  # new
+    "Et spil om nattehimlens stjernebilleder",  # new
+]
+
+[how]
+heading = "Sådan spiller du"  # new
+sub = "Ingen navne, ingen hints: kun omridsene af lande, floder og bjerge."  # new
+
+[[how.steps]]
+heading = "Vælg et spil, og find hvert sted"  # new
+text = "Spillet nævner et sted, og du finder det på kortet. Et forkert tryk viser, hvad du ramte; efter tredje forkerte tryk blinker svaret."  # new
+alt = "Europas spil: lande, hovedstæder, floder, bjergkæder og mere"  # new
+
+[[how.steps]]
+heading = "Hvert sted åbner et faktakort"  # new
+text = "Med et billede og begyndelsen af Wikipedia-artiklen, så du lærer, hvad det er, og ikke kun hvor det er."  # new
+alt = "Faktakortet om Frankrig: flaget, et billede af Paris og begyndelsen af Wikipedia-artiklen"  # new
+
+[[how.steps]]
+heading = "Gå efter et perfekt spil"  # new
+text = "Alle navne i første forsøg. Din bedste score og tid gemmes for hvert spil."  # new
+alt = "Resultatet af et spil: stederne fundet i første forsøg og tiden"  # new
+
+[levels]
+heading = "Et helt atlas at spille"  # new
+sub = "130+ spil på seks niveauer, og flere er på vej."  # new
+
+[[levels.items]]
+key = "earth"
+heading = "Jorden"  # new
+text = "Lande, hovedstæder, floder, bjergkæder, søer, have, øer, ørkener og halvøer i hver verdensdel, og regionerne i 30+ lande."  # new
+
+[[levels.items]]
+key = "space"
+heading = "Rummet"  # new
+text = "Planeterne, månerne om Mars, Jupiter, Saturn, Uranus og Neptun, Månens have og kratere, stjernebillederne og de klareste stjerner."  # new
+
+[[levels.items]]
+key = "flags"
+heading = "Flag"  # new
+text = "Se et flag, og vælg landet blandt fire svar: verden og seks verdensdele."  # new
+
+[[levels.items]]
+key = "currencies"
+heading = "Valutaer"  # new
+text = "En valutas navn og tegn, som won ₩: hvis valuta er det?"  # new
+
+[[levels.items]]
+key = "crossword"
+heading = "Krydsord"  # new
+text = "Lavet af de steder, du vælger, med ledetråde fra atlasset og et kortfingerpeg til hver. Del det som pdf eller billede, eller udskriv det."  # new
+
+[[levels.items]]
+key = "history"
+heading = "Historie"  # new
+text = "Verden, som den så ud den 1. juni 1816, i 1914 og i 1989."  # new
+
+[gallery]
+heading = "Se nærmere"  # new
+sub = "{count} skærme mere fra appen."  # new
+
+[gallery.captions]
+explore-names = "Udforsk kortet med navne"  # new
+rivers = "Sydamerikas floder"  # new
+capitals = "Europas hovedstæder"  # new
+ranges = "Asiens bjergkæder"  # new
+seas = "Oceaniens have"  # new
+germany = "Tysklands eget niveau"  # new
+currencies = "Valutaer"  # new
+crossword-solving = "Et krydsord undervejs"  # new
+crossword-results = "Det færdige krydsord"  # new
+history-1914 = "Verden i 1914"  # new
+history-game = "Asien i 1914"  # new
+jupiter = "Jupiters måner"  # new
+moon = "Månens have"  # new
+view-answers = "Alle flag på en liste"  # new
+dark = "Det mørke tema"  # new
+
+[video]
+heading = "Se det på under et minut"  # new
+text = "Lande, et faktakort, floder, bjergkæder, have, flag, valutaer, planeterne og deres måner, nattehimlen og et krydsord: rigtigt spil på en telefon."  # new
+label = "Atlas Hunts præsentationsvideo"  # new
+
+[features]
+heading = "Alt det andet"  # new
+
+[[features.items]]
+heading = "Virker offline"  # new
+text = "Alle kort og spil virker uden internet. Kun faktakortets tekst og billede kræver det."  # new
+
+[[features.items]]
+heading = "Seks sprog"  # new
+text = "Dansk, engelsk, italiensk, rumænsk, russisk og ukrainsk: vælg i Indstillinger, eller følg telefonens sprog."  # new
+
+[[features.items]]
+heading = "Venlig mod fingrene"  # new
+text = "Et bitte lille land er en cirkel, du kan ramme; et tryk tæt på den flod, du bliver spurgt om, tæller."  # new
+
+[[features.items]]
+heading = "Præstationer og ranglister"  # new
+text = "Med Google Play Spil: perfekte spil, dage i træk, Globetrotter og ranglister for hver verdensdel."  # new
+
+[[features.items]]
+heading = "Dine resultater overalt"  # new
+text = "Når du er logget ind, følger dine resultater og trofæer med til andre enheder."  # new
+
+[[features.items]]
+heading = "Telefoner, tablets og pc'er"  # new
+text = "På tablets, foldbare telefoner og pc'er står spillene og faktakortene ved siden af kortet; zoom med musehjulet."  # new
+
+[plans]
+heading = "Gratis, med en fuld version"  # new
+
+[plans.free]
+name = "Gratis"  # new
+note = "Ingen konto nødvendig"  # new
+items = [
+    "Alle spil på alle niveauer",  # new
+    "Krydsord med 10 og 15 ord",  # new
+    "En lille reklame, mens du vælger et spil, ser dine resultater eller udforsker kortet, aldrig under et spil eller på et faktakort",  # new
+]
+
+[plans.full]
+name = "Fuld version"  # new
+note = "Engangskøb i Google Play"  # new
+items = [
+    "Ingen reklamer",  # new
+    "Krydsord med 20, 30 og 50 ord",  # new
+]
+
+[privacy]
+heading = "Ingen konto. Ingen egen brugsstatistik."  # new
+text = "Appen indsamler ikke selv noget: dine resultater bliver på din telefon, eller i Google Play Spil, hvis du logger ind. Faktakortene henter tekst og billede fra Wikipedia og Wikimedia Commons. Reklamen i den gratis version kommer fra Google AdMob, som først beder om dit samtykke i EØS, Storbritannien og Schweiz."  # new
+link = "Læs privatlivspolitikken (på engelsk)"  # new
+
+[cta]
+heading = "Find dit første land"  # new
+
+[footer]
+privacy = "Privatlivspolitik (på engelsk)"  # new
+contact = "Kontakt"  # new
+credits = "Kortdata: Natural Earth, OpenStreetMap-bidragydere, Bundesamt für Naturschutz, NASA, d3-celestial. Navne og koordinater: Wikidata. Tekst: Wikipedia. Billeder: Wikimedia Commons."

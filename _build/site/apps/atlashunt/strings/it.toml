@@ -1,0 +1,159 @@
+# Strings ending in "# new" are translations made for this page; the owner reviews them before publishing.
+# Italian. Facts: ../atlas_hunt/docs/listings/it-IT/listing.md; level and screen names: ../atlas_hunt/app/src/main/res/values-it/strings.xml.
+
+[meta]
+title = "Atlas Hunt: Map Quiz"
+description = "Trova paesi, fiumi e montagne sulla mappa, poi leggi di ciascuno. Gratis per Android: oltre 130 giochi sulle mappe in sei lingue, offline."  # new
+og_image_alt = "Atlas Hunt: trova paesi, fiumi e montagne sulla mappa, poi leggi di ciascuno"  # new
+
+[nav]
+languages = "Lingua"  # new
+
+[hero]
+lead = "Trova paesi, fiumi e montagne sulla mappa, poi leggi di ciascuno."
+facts = "Gratis · 130+ giochi · Sei lingue · Funziona offline"  # new
+badge_alt = "Disponibile su Google Play"  # new
+alts = [
+    "Un gioco di bandiere: scegli il paese della bandiera fra quattro risposte",  # new
+    "Un gioco sui paesi d'Europa, ognuno colorato secondo il tentativo",  # new
+    "Un gioco sulle costellazioni del cielo notturno",  # new
+]
+
+[how]
+heading = "Come si gioca"  # new
+sub = "Niente nomi, niente indizi: solo le forme di paesi, fiumi e montagne."  # new
+
+[[how.steps]]
+heading = "Scegli un gioco, trova ogni luogo"  # new
+text = "Il gioco nomina un luogo e tu lo trovi sulla mappa. Un tocco sbagliato mostra che cosa hai toccato; dopo il terzo errore la risposta lampeggia."  # new
+alt = "I giochi dell'Europa: paesi, capitali, fiumi, catene montuose e altro"  # new
+
+[[how.steps]]
+heading = "Ogni luogo apre una scheda"  # new
+text = "Con un'immagine e l'inizio della voce di Wikipedia, così impari che cos'è, non solo dov'è."  # new
+alt = "La scheda della Francia: la bandiera, un'immagine di Parigi e l'inizio della voce di Wikipedia"  # new
+
+[[how.steps]]
+heading = "Punta alla partita perfetta"  # new
+text = "Ogni nome al primo tentativo. Il miglior punteggio e il miglior tempo restano salvati per ogni gioco."  # new
+alt = "I risultati di una partita: i luoghi trovati al primo tentativo e il tempo"  # new
+
+[levels]
+heading = "Un atlante intero da giocare"  # new
+sub = "130+ giochi su sei livelli, e altri in arrivo."  # new
+
+[[levels.items]]
+key = "earth"
+heading = "Terra"  # new
+text = "Paesi, capitali, fiumi, catene montuose, laghi, mari, isole, deserti e penisole di ogni parte del mondo, e le regioni di 30+ paesi."  # new
+
+[[levels.items]]
+key = "space"
+heading = "Spazio"  # new
+text = "I pianeti, le lune di Marte, Giove, Saturno, Urano e Nettuno, i mari e i crateri della Luna, le costellazioni e le stelle più luminose."  # new
+
+[[levels.items]]
+key = "flags"
+heading = "Bandiere"  # new
+text = "Guarda una bandiera e scegli il suo paese fra quattro risposte: il mondo e sei parti del mondo."  # new
+
+[[levels.items]]
+key = "currencies"
+heading = "Valute"  # new
+text = "Il nome e il simbolo di una valuta, come il won ₩: di chi è?"  # new
+
+[[levels.items]]
+key = "crossword"
+heading = "Cruciverba"  # new
+text = "Costruito con i luoghi che scegli, con definizioni dall'atlante e un aiuto sulla mappa per ognuna. Condividilo come PDF o immagine, o stampalo."  # new
+
+[[levels.items]]
+key = "history"
+heading = "Storia"  # new
+text = "Il mondo com'era il 1° giugno 1816, nel 1914 e nel 1989."  # new
+
+[gallery]
+heading = "Da vicino"  # new
+sub = "Altre {count} schermate dell'app."  # new
+
+[gallery.captions]
+explore-names = "Esplora la mappa con i nomi"  # new
+rivers = "Fiumi del Sud America"  # new
+capitals = "Capitali d'Europa"  # new
+ranges = "Catene montuose dell'Asia"  # new
+seas = "Mari dell'Oceania"  # new
+germany = "Il livello della Germania"  # new
+currencies = "Valute"  # new
+crossword-solving = "Un cruciverba in corso"  # new
+crossword-results = "Il cruciverba finito"  # new
+history-1914 = "Il mondo nel 1914"  # new
+history-game = "L'Asia nel 1914"  # new
+jupiter = "Le lune di Giove"  # new
+moon = "I mari della Luna"  # new
+view-answers = "Tutte le bandiere in un elenco"  # new
+dark = "Il tema scuro"  # new
+
+[video]
+heading = "Guardalo in meno di un minuto"  # new
+text = "Paesi, una scheda, fiumi, catene montuose, mari, bandiere, valute, i pianeti e le loro lune, il cielo notturno e un cruciverba: partite vere su un telefono."  # new
+label = "Video di presentazione di Atlas Hunt"  # new
+
+[features]
+heading = "Tutto il resto"  # new
+
+[[features.items]]
+heading = "Funziona offline"  # new
+text = "Tutte le mappe e tutti i giochi funzionano senza Internet. Solo il testo e l'immagine della scheda ne hanno bisogno."  # new
+
+[[features.items]]
+heading = "Sei lingue"  # new
+text = "Italiano, danese, inglese, rumeno, russo e ucraino: scegli nelle Impostazioni o segui la lingua del telefono."  # new
+
+[[features.items]]
+heading = "A misura di dito"  # new
+text = "Un paese minuscolo è un cerchio che puoi colpire; un tocco vicino al fiume richiesto vale."  # new
+
+[[features.items]]
+heading = "Obiettivi e classifiche"  # new
+text = "Con Google Play Giochi: partite perfette, giorni di fila, Giramondo e classifiche per ogni parte del mondo."  # new
+
+[[features.items]]
+heading = "I tuoi risultati, ovunque"  # new
+text = "Se accedi, risultati e trofei ti seguono sugli altri dispositivi."  # new
+
+[[features.items]]
+heading = "Telefoni, tablet e PC"  # new
+text = "Su tablet, pieghevoli e PC giochi e schede stanno accanto alla mappa; zooma con la rotellina del mouse."  # new
+
+[plans]
+heading = "Gratis, con una versione completa"  # new
+
+[plans.free]
+name = "Gratis"  # new
+note = "Nessun account necessario"  # new
+items = [
+    "Tutti i giochi di tutti i livelli",  # new
+    "Cruciverba da 10 e 15 parole",  # new
+    "Un piccolo annuncio mentre scegli un gioco, guardi i risultati o esplori la mappa, mai durante una partita o su una scheda",  # new
+]
+
+[plans.full]
+name = "Versione completa"  # new
+note = "Acquisto una tantum su Google Play"  # new
+items = [
+    "Niente pubblicità",  # new
+    "Cruciverba da 20, 30 e 50 parole",  # new
+]
+
+[privacy]
+heading = "Nessun account. Nessuna statistica d'uso propria."  # new
+text = "L'app di per sé non raccoglie nulla: i tuoi risultati restano sul telefono, o in Google Play Giochi se accedi. Le schede chiedono testo e immagine a Wikipedia e Wikimedia Commons. Il banner della versione gratuita è di Google AdMob, che nello Spazio economico europeo, nel Regno Unito e in Svizzera chiede prima il tuo consenso."  # new
+link = "Leggi l'informativa sulla privacy (in inglese)"  # new
+
+[cta]
+heading = "Trova il tuo primo paese"  # new
+
+[footer]
+privacy = "Informativa sulla privacy (in inglese)"  # new
+contact = "Contatti"  # new
+credits = "Dati delle mappe: Natural Earth, contributori di OpenStreetMap, Bundesamt für Naturschutz, NASA, d3-celestial. Nomi e coordinate: Wikidata. Testi: Wikipedia. Immagini: Wikimedia Commons."

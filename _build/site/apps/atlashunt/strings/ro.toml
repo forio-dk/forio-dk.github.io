@@ -1,0 +1,159 @@
+# Strings ending in "# new" are translations made for this page; the owner reviews them before publishing.
+# Romanian. Facts: ../atlas_hunt/docs/listings/ro/listing.md; level and screen names: ../atlas_hunt/app/src/main/res/values-ro/strings.xml.
+
+[meta]
+title = "Atlas Hunt: Map Quiz"
+description = "Găsește țări, râuri și munți pe hartă, apoi citește despre fiecare. Gratuit pentru Android: peste 130 de jocuri pe hărți, în șase limbi, offline."  # new
+og_image_alt = "Atlas Hunt: găsește țări, râuri și munți pe hartă, apoi citește despre fiecare"  # new
+
+[nav]
+languages = "Limba"  # new
+
+[hero]
+lead = "Găsește țări, râuri și munți pe hartă, apoi citește despre fiecare."
+facts = "Gratuit · 130+ jocuri · Șase limbi · Funcționează offline"  # new
+badge_alt = "Descarcă de pe Google Play"  # new
+alts = [
+    "Un joc cu steaguri: alege țara steagului dintre patru răspunsuri",  # new
+    "Un joc cu țările Europei, fiecare colorată după încercare",  # new
+    "Un joc cu constelațiile cerului nopții",  # new
+]
+
+[how]
+heading = "Cum se joacă"  # new
+sub = "Fără nume, fără indicii: doar formele țărilor, râurilor și munților."  # new
+
+[[how.steps]]
+heading = "Alege un joc, găsește fiecare loc"  # new
+text = "Jocul numește un loc, iar tu îl găsești pe hartă. O atingere greșită arată ce ai atins; după a treia greșeală răspunsul clipește."  # new
+alt = "Jocurile Europei: țări, capitale, râuri, lanțuri muntoase și altele"  # new
+
+[[how.steps]]
+heading = "Fiecare loc deschide o fișă"  # new
+text = "Cu o imagine și începutul articolului de pe Wikipedia, ca să afli ce este, nu doar unde este."  # new
+alt = "Fișa Franței: drapelul, o imagine a Parisului și începutul articolului de pe Wikipedia"  # new
+
+[[how.steps]]
+heading = "Țintește jocul perfect"  # new
+text = "Fiecare nume din prima încercare. Cel mai bun scor și timp se păstrează pentru fiecare joc."  # new
+alt = "Rezultatele unui joc: locurile găsite din prima încercare și timpul"  # new
+
+[levels]
+heading = "Un atlas întreg de jucat"  # new
+sub = "130+ jocuri pe șase niveluri, și urmează altele."  # new
+
+[[levels.items]]
+key = "earth"
+heading = "Pământul"  # new
+text = "Țări, capitale, râuri, lanțuri muntoase, lacuri, mări, insule, deșerturi și peninsule din fiecare parte a lumii, plus regiunile din 30+ țări."  # new
+
+[[levels.items]]
+key = "space"
+heading = "Spațiu"  # new
+text = "Planetele, sateliții lui Marte, Jupiter, Saturn, Uranus și Neptun, mările și craterele Lunii, constelațiile și cele mai strălucitoare stele."  # new
+
+[[levels.items]]
+key = "flags"
+heading = "Steaguri"  # new
+text = "Vezi un steag și alege-i țara dintre patru răspunsuri: lumea și șase părți ale lumii."  # new
+
+[[levels.items]]
+key = "currencies"
+heading = "Monede"  # new
+text = "Numele și simbolul unei monede, cum ar fi wonul ₩: a cui este?"  # new
+
+[[levels.items]]
+key = "crossword"
+heading = "Rebus"  # new
+text = "Alcătuit din locurile alese de tine, cu definiții din atlas și un indiciu pe hartă la fiecare. Distribuie-l ca PDF sau imagine ori tipărește-l."  # new
+
+[[levels.items]]
+key = "history"
+heading = "Istorie"  # new
+text = "Lumea așa cum era la 1 iunie 1816, în 1914 și în 1989."  # new
+
+[gallery]
+heading = "De aproape"  # new
+sub = "Încă {count} ecrane din aplicație."  # new
+
+[gallery.captions]
+explore-names = "Explorează harta cu nume"  # new
+rivers = "Râurile Americii de Sud"  # new
+capitals = "Capitalele Europei"  # new
+ranges = "Lanțurile muntoase ale Asiei"  # new
+seas = "Mările Oceaniei"  # new
+germany = "Nivelul Germaniei"  # new
+currencies = "Monede"  # new
+crossword-solving = "Un rebus în lucru"  # new
+crossword-results = "Rebusul terminat"  # new
+history-1914 = "Lumea în 1914"  # new
+history-game = "Asia în 1914"  # new
+jupiter = "Sateliții lui Jupiter"  # new
+moon = "Mările Lunii"  # new
+view-answers = "Toate steagurile într-o listă"  # new
+dark = "Tema întunecată"  # new
+
+[video]
+heading = "Vezi-l în mai puțin de un minut"  # new
+text = "Țări, o fișă, râuri, lanțuri muntoase, mări, steaguri, monede, planetele și sateliții lor, cerul nopții și un rebus: joc adevărat pe un telefon."  # new
+label = "Videoclipul de prezentare Atlas Hunt"  # new
+
+[features]
+heading = "Tot restul"  # new
+
+[[features.items]]
+heading = "Funcționează offline"  # new
+text = "Toate hărțile și jocurile merg fără internet. Doar textul și imaginea fișei au nevoie de el."  # new
+
+[[features.items]]
+heading = "Șase limbi"  # new
+text = "Română, daneză, engleză, italiană, rusă și ucraineană: alege în Setări sau urmează limba telefonului."  # new
+
+[[features.items]]
+heading = "Pe măsura degetelor"  # new
+text = "O țară minusculă e un cerc pe care îl poți nimeri; o atingere lângă râul cerut se socotește."  # new
+
+[[features.items]]
+heading = "Realizări și clasamente"  # new
+text = "Cu Google Play Jocuri: jocuri perfecte, zile la rând, Globetrotter și clasamente pentru fiecare parte a lumii."  # new
+
+[[features.items]]
+heading = "Rezultatele tale, peste tot"  # new
+text = "Conectat, rezultatele și trofeele te urmează pe alte dispozitive."  # new
+
+[[features.items]]
+heading = "Telefoane, tablete și PC"  # new
+text = "Pe tablete, telefoane pliabile și PC, jocurile și fișele stau lângă hartă; mărește cu rotița mouse-ului."  # new
+
+[plans]
+heading = "Gratuit, cu o versiune completă"  # new
+
+[plans.free]
+name = "Gratuit"  # new
+note = "Fără cont"  # new
+items = [
+    "Toate jocurile de pe toate nivelurile",  # new
+    "Rebusuri de 10 și 15 cuvinte",  # new
+    "O mică reclamă cât alegi un joc, vezi rezultatele sau explorezi harta, niciodată în timpul unui joc sau pe o fișă",  # new
+]
+
+[plans.full]
+name = "Versiunea completă"  # new
+note = "Achiziție unică în Google Play"  # new
+items = [
+    "Fără reclame",  # new
+    "Rebusuri de 20, 30 și 50 de cuvinte",  # new
+]
+
+[privacy]
+heading = "Fără cont. Fără statistici proprii."  # new
+text = "Aplicația în sine nu colectează nimic: rezultatele tale rămân pe telefon sau în Google Play Jocuri, dacă te conectezi. Fișele cer textul și imaginea de la Wikipedia și Wikimedia Commons. Bannerul din versiunea gratuită vine de la Google AdMob, care în Spațiul Economic European, Regatul Unit și Elveția îți cere mai întâi consimțământul."  # new
+link = "Citește politica de confidențialitate (în engleză)"  # new
+
+[cta]
+heading = "Găsește-ți prima țară"  # new
+
+[footer]
+privacy = "Politica de confidențialitate (în engleză)"  # new
+contact = "Contact"  # new
+credits = "Date cartografice: Natural Earth, contribuitorii OpenStreetMap, Bundesamt für Naturschutz, NASA, d3-celestial. Nume și coordonate: Wikidata. Text: Wikipedia. Imagini: Wikimedia Commons."
