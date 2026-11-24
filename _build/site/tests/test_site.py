@@ -71,14 +71,14 @@ class SiteTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.pages = {f"{app.slug}/{lang.code}": page_file(app, lang).read_text(encoding="utf-8")
-                     for app in APPS for lang in LANGS}
+                     for app in APPS for lang in app.langs}
         cls.pages["home"] = HOME.read_text(encoding="utf-8")
         cls.tags = {code: Tags(html) for code, html in cls.pages.items()}
         cls.css = CSS.read_text(encoding="utf-8")
 
     def test_pages_exist(self):
         for app in APPS:
-            for lang in LANGS:
+            for lang in app.langs:
                 self.assertTrue(page_file(app, lang).is_file(), f"{app.slug}/{lang.code}")
 
     def test_internal_links_resolve(self):
@@ -108,10 +108,10 @@ class SiteTest(unittest.TestCase):
                            if t == "link" and a.get("rel") == "alternate"}
                     for code, tags in self.tags.items() if code.startswith(app.slug + "/")}
             with self.subTest(app=app.slug):
-                self.assertEqual(len(sets), 6)
+                self.assertEqual(len(sets), len(app.langs))
                 self.assertEqual(len({frozenset(s) for s in sets.values()}), 1)
                 alternates = sets[f"{app.slug}/en"]
-                self.assertEqual(len(alternates), 7)
+                self.assertEqual(len(alternates), len(app.langs) + 1)
                 self.assertTrue(all(href.startswith(f"{SITE_URL}/{app.slug}/") for _, href in alternates))
 
     def test_no_third_party_requests(self):
@@ -189,7 +189,7 @@ class SiteTest(unittest.TestCase):
     def test_gallery_matches_listings(self):
         for lang in LANGS:
             with self.subTest(code=lang.code):
-                shots = gallery_shots(ATLAS_SIBLING / "docs" / "listings" / lang.listing / "graphics")
+                shots = gallery_shots(ATLAS_HUNT.graphics(ATLAS_SIBLING, lang))
                 self.assertEqual('class="gallery"' in self.pages[f"atlashunt/{lang.code}"], bool(shots))
                 # Exactly the listing's shots are published: a removed or renamed shot leaves no file behind.
                 folder = ATLAS_HUNT.assets / "img" / lang.code / "gallery"

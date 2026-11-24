@@ -38,8 +38,16 @@ LANGS = (
 
 
 @dataclass(frozen=True)
+class Flavour:
+    """One language's own Play app, for an app published as a separate app per language."""
+    code: str  # the language's Lang.code
+    name: str
+    package: str
+
+
+@dataclass(frozen=True)
 class App:
-    """An app with a page of its own: /<slug>/ in English and /<slug>/<code>/ in the other languages."""
+    """An app with a page of its own: /<slug>/ in its first language and /<slug>/<code>/ in the others."""
     slug: str  # the page's folder, apps/<slug>/ here, and the Play referrer's campaign "<slug>-home"
     name: str
     package: str
@@ -47,6 +55,28 @@ class App:
     theme_color: str
     category: str  # schema.org applicationCategory
     heading_font: str  # the heading font's file in /assets/fonts, with {subset}: the one the page preloads
+    langs: tuple[Lang, ...] = LANGS  # the page's languages, the default first
+    flavours: tuple[Flavour, ...] = ()  # a name and package per language, where they differ from name and package
+    listings: str = "docs/listings"  # the repository's folder of store listings, one folder per listing
+    listing_folder: str = "listing"  # the Lang attribute naming a language's listing folder
+    graphics_folder: str = "graphics"  # where a listing's graphics are in its folder ("" for the folder itself)
+
+    def flavour(self, lang: Lang) -> Flavour:
+        return next((f for f in self.flavours if f.code == lang.code), Flavour(lang.code, self.name, self.package))
+
+    def name_in(self, lang: Lang) -> str:
+        return self.flavour(lang).name
+
+    def package_in(self, lang: Lang) -> str:
+        return self.flavour(lang).package
+
+    def listing(self, repo: Path, lang: Lang) -> Path:
+        """The language's store listing folder in the app's repository (listing.md, video.mp4)."""
+        return repo / self.listings / getattr(lang, self.listing_folder)
+
+    def graphics(self, repo: Path, lang: Lang) -> Path:
+        """The store graphics of the language's listing in the app's repository."""
+        return self.listing(repo, lang) / self.graphics_folder
 
     @property
     def site(self) -> Path:
@@ -77,6 +107,15 @@ ART_WIDGET = App("artwidget", "Art Widget", "dk.forio.artwidget", "art_widget", 
                  "DesktopEnhancementApplication", "playfair-display-{subset}-600-normal.woff2")
 ATLAS_HUNT = App("atlashunt", "Atlas Hunt", "dk.forio.atlashunt", "atlas_hunt", "#0B2A3C", "GameApplication",
                  "montserrat-{subset}-700-normal.woff2")
+# Four Play apps, one per language, presented as one app with one page per language.
+SYLLABEE = App("syllabee", "Syllabee", "dk.forio.syllabee", "learn_to_read", "#6D3FC8", "EducationalApplication",
+               "nunito-{subset}-800-normal.woff2",
+               langs=tuple(lang for lang in LANGS if lang.code in ("en", "da", "ru", "uk")),
+               flavours=(Flavour("en", "Syllabee", "dk.forio.syllabee"),
+                         Flavour("da", "Stavebi", "dk.forio.stavebi"),
+                         Flavour("ru", "Слогарик", "dk.forio.slogarik"),
+                         Flavour("uk", "Складарик", "dk.forio.skladaryk")),
+               listings="docs/store", listing_folder="code", graphics_folder="")
 APPS: tuple[App, ...] = (ART_WIDGET, ATLAS_HUNT)
 
 # Each file in vendor/, relative to VENDOR_DIR, and where it was downloaded from.
@@ -128,4 +167,4 @@ def page_file(app: App, lang: Lang) -> Path:
 
 def play_url(app: App, lang: Lang) -> str:
     referrer = f"utm_source%3Dforio-dk.github.io%26utm_medium%3Dwebsite%26utm_campaign%3D{app.slug}-home"
-    return f"https://play.google.com/store/apps/details?id={app.package}&hl={lang.code}&referrer={referrer}"
+    return f"https://play.google.com/store/apps/details?id={app.package_in(lang)}&hl={lang.code}&referrer={referrer}"

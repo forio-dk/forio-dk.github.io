@@ -1,16 +1,11 @@
-"""The steps every app's page builder shares: where a listing's graphics are, the app's icon, its phone screenshots, and
-writing one language's page with its share image."""
+"""The steps every app's page builder shares: the app's icon, its phone screenshots, and writing one language's page
+with its share image."""
 from pathlib import Path
 
 from assets import Picture, favicons, og_jpeg
 from config import App, Lang, page_file
 from output import app_webp, write_text
 from render import render_page
-
-
-def listing_graphics(repo: Path, lang: Lang) -> Path:
-    """The store graphics of the language's listing in the app's repository."""
-    return repo / "docs" / "listings" / lang.listing / "graphics"
 
 
 def app_icon(app: App, graphics: Path) -> Picture:

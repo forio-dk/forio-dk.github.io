@@ -4,7 +4,7 @@ import unittest
 from pathlib import Path
 
 from build import problems
-from config import APPS, ART_WIDGET, ATLAS_HUNT, LANGS
+from config import APPS, ART_WIDGET, ATLAS_HUNT
 
 
 class ProblemsTest(unittest.TestCase):
@@ -16,10 +16,10 @@ class ProblemsTest(unittest.TestCase):
         self.repos = {}
         for app in APPS:
             self.repos[app] = self.root / app.repo
-            for lang in LANGS:
-                (self.repos[app] / "docs" / "listings" / lang.listing / "graphics").mkdir(parents=True)
+            for lang in app.langs:
+                app.graphics(self.repos[app], lang).mkdir(parents=True, exist_ok=True)
             (self.apps / app.slug / "strings").mkdir(parents=True)
-            for lang in LANGS:
+            for lang in app.langs:
                 shutil.copy(app.strings / f"{lang.code}.toml", self.apps / app.slug / "strings")
         self.strings = self.apps / "artwidget" / "strings"
 

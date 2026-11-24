@@ -57,15 +57,16 @@ class TranslationChecks:
 
     @classmethod
     def setUpClass(cls):
-        cls.strings = load_strings(CODES, cls.app.strings)
+        cls.codes = [lang.code for lang in cls.app.langs]
+        cls.strings = load_strings(cls.codes, cls.app.strings)
 
     def test_all_languages_match_english(self):
-        for code in CODES[1:]:
+        for code in self.codes[1:]:
             with self.subTest(code=code):
                 self.assertEqual(shape_errors(self.strings["en"], self.strings[code]), [])
 
     def test_review_markers(self):
-        for code in CODES[1:]:
+        for code in self.codes[1:]:
             with self.subTest(code=code):
                 self.assertTrue((self.app.strings / f"{code}.toml").read_text(encoding="utf-8").startswith(MARKER))
 
@@ -73,8 +74,8 @@ class TranslationChecks:
         sibling = ROOT.parent / self.app.repo
         if not sibling.is_dir():
             self.skipTest(f"needs ../{self.app.repo}")
-        for lang in LANGS:
-            md = (sibling / "docs" / "listings" / lang.listing / "listing.md").read_text(encoding="utf-8")
+        for lang in self.app.langs:
+            md = (self.app.listing(sibling, lang) / "listing.md").read_text(encoding="utf-8")
             with self.subTest(code=lang.code):
                 self.assertEqual(self.strings[lang.code]["meta"]["title"], listing_block(md, "App name"))
                 self.assertEqual(self.strings[lang.code]["hero"]["lead"], listing_block(md, "Short description"))

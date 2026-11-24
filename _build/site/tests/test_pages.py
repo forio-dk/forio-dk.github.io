@@ -1,12 +1,11 @@
 import unittest
-from pathlib import Path
 from unittest import mock
 
 from PIL import Image
 
 import config
 from config import ART_WIDGET, ATLAS_HUNT, LANGS
-from pages import app_icon, listing_graphics, phone_shots, write_page
+from pages import app_icon, phone_shots, write_page
 from strings import load_strings
 from tests.test_assets import gradient, temporary_folder
 from tests.test_render import ATLAS_KEYS, fake
@@ -22,9 +21,6 @@ class PagesTest(unittest.TestCase):
         self.addCleanup(patcher.stop)
         self.graphics = self.root / "listing"
         self.graphics.mkdir()
-
-    def test_listing_graphics(self):
-        self.assertEqual(listing_graphics(Path("repo"), LANGS[1]), Path("repo/docs/listings/da-DK/graphics"))
 
     def test_app_icon(self):
         gradient(self.graphics / "icon-512.png", (512, 512), "RGBA")

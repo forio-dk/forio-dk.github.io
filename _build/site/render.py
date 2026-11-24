@@ -6,7 +6,7 @@ from jinja2 import Environment, FileSystemLoader, StrictUndefined
 from jinja2.exceptions import UndefinedError
 
 from assets import Picture
-from config import BUILD, LANGS, SHARED_URL, SITE_URL, App, Lang, page_path, page_url, play_url
+from config import BUILD, SHARED_URL, SITE_URL, App, Lang, page_path, page_url, play_url
 from plural import plural_category
 
 ENV = Environment(loader=FileSystemLoader(BUILD), autoescape=True, undefined=StrictUndefined,
@@ -33,7 +33,7 @@ def json_ld(app: App, lang: Lang, s: dict) -> dict:
     return {
         "@context": "https://schema.org",
         "@type": "MobileApplication",
-        "name": app.name,
+        "name": app.name_in(lang),
         "description": string(s, "hero", "lead"),
         "operatingSystem": "Android 8.0+",
         "applicationCategory": app.category,
@@ -47,11 +47,11 @@ def json_ld(app: App, lang: Lang, s: dict) -> dict:
     }
 
 
-def render_page(app: App, lang: Lang, s: dict, pictures: dict[str, Picture], langs: tuple[Lang, ...] = LANGS,
-                **extra) -> str:
+def render_page(app: App, lang: Lang, s: dict, pictures: dict[str, Picture], **extra) -> str:
     """One language's page of an app. extra holds what only that app's template uses (its video, for example)."""
     return ENV.get_template(app.template).render(
-        app=app, lang=lang, s=s, p=pictures, langs=langs, default=langs[0], page_url=partial(page_url, app),
+        app=app, name=app.name_in(lang), lang=lang, s=s, p=pictures, langs=app.langs, default=app.langs[0],
+        page_url=partial(page_url, app),
         page_path=partial(page_path, app), play=play_url(app, lang), og_image=og_image_url(app, lang),
         json_ld=json_ld(app, lang, s), assets=app.assets_url, shared=SHARED_URL, **extra)
 

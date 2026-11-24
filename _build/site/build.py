@@ -16,7 +16,6 @@ import atlashunt
 from assets import Picture, forio_mark
 from config import ART_WIDGET, ATLAS_HUNT, BUILD, LANGS, ROOT, SHARED, VENDOR_DIR, App
 from output import copy_file, shared_webp, write_text
-from pages import listing_graphics
 from render import render_home
 from sitemap import ROBOTS_TXT, render_sitemap
 from strings import load_strings, shape_errors
@@ -44,8 +43,8 @@ def build_home(repos: dict[App, Path]) -> None:
         return shared_webp(src, "img/apps", stem, (96, 192))
 
     apps = {
-        "art_widget": icon(listing_graphics(repos[ART_WIDGET], LANGS[0]) / "icon-512.png", "art-widget"),
-        "atlas_hunt": icon(listing_graphics(repos[ATLAS_HUNT], LANGS[0]) / "icon-512.png", "atlas-hunt"),
+        "art_widget": icon(ART_WIDGET.graphics(repos[ART_WIDGET], LANGS[0]) / "icon-512.png", "art-widget"),
+        "atlas_hunt": icon(ATLAS_HUNT.graphics(repos[ATLAS_HUNT], LANGS[0]) / "icon-512.png", "atlas-hunt"),
         "syllabee": icon(VENDOR_DIR / "icons" / "syllabee.png", "syllabee"),
         "forio": forio_logo(),
     }
@@ -62,7 +61,7 @@ def shared_assets() -> None:
 def build(repos: dict[App, Path], apps_dir: Path = BUILD / "apps") -> None:
     shared_assets()
     for app, repo in repos.items():
-        BUILDERS[app](repo, load_strings((lang.code for lang in LANGS), apps_dir / app.slug / "strings"))
+        BUILDERS[app](repo, load_strings((lang.code for lang in app.langs), apps_dir / app.slug / "strings"))
     build_home(repos)
     write_text(ROOT / "sitemap.xml", render_sitemap())
     write_text(ROOT / "robots.txt", ROBOTS_TXT)
@@ -79,8 +78,8 @@ def problems(repos: dict[App, Path], apps_dir: Path = BUILD / "apps") -> list[st
     errors = []
     for app, repo in repos.items():
         app_errors = []
-        if not (repo / "docs" / "listings").is_dir():
-            app_errors.append(f"{repo} is not the {app.name} repository (no docs/listings); pass {option(app)}")
+        if not (repo / app.listings).is_dir():
+            app_errors.append(f"{repo} is not the {app.name} repository (no {app.listings}); pass {option(app)}")
         strings, strings_errors = strings_problems(app, apps_dir / app.slug / "strings")
         app_errors += strings_errors
         if not app_errors and app in CHECKS:
@@ -92,15 +91,15 @@ def problems(repos: dict[App, Path], apps_dir: Path = BUILD / "apps") -> list[st
 def strings_problems(app: App, folder: Path) -> tuple[dict[str, dict], list[str]]:
     """The app's strings by language, and what is wrong with them."""
     strings, errors = {}, []
-    for lang in LANGS:
+    for lang in app.langs:
         try:
             strings.update(load_strings([lang.code], folder))
         except (OSError, tomllib.TOMLDecodeError) as error:
             errors.append(f"apps/{app.slug}/strings/{lang.code}.toml: {error}")
-    english = strings.get(LANGS[0].code)
+    english = strings.get(app.langs[0].code)
     if english is not None:
         errors += [f"apps/{app.slug}/strings/{code}.toml: {error}" for code, other in strings.items()
-                   if code != LANGS[0].code for error in shape_errors(english, other)]
+                   if code != app.langs[0].code for error in shape_errors(english, other)]
     return strings, errors
 
 

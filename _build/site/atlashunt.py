@@ -11,7 +11,7 @@ from pathlib import Path
 from assets import Picture, transcode_video
 from config import ATLAS_HUNT, LANGS
 from output import app_webp, badge, prune
-from pages import app_icon, listing_graphics, phone_shots, write_page
+from pages import app_icon, phone_shots, write_page
 
 ASSETS = ATLAS_HUNT.assets
 # Picture key: the listing's Play screenshot it shows.
@@ -45,8 +45,8 @@ def gallery_problems(repo: Path, strings: dict[str, dict]) -> list[str]:
     be left out), two shots of the same screen (one would overwrite the other's images), or a screen without a caption
     in that language's strings."""
     errors = []
-    for lang in LANGS:
-        graphics = listing_graphics(repo, lang)
+    for lang in ATLAS_HUNT.langs:
+        graphics = ATLAS_HUNT.graphics(repo, lang)
         where = graphics.relative_to(repo).as_posix()
         errors += [f"{where}/{path.name}: name it home-<N>-<screen>.png, <screen> in lowercase letters, digits and "
                    "hyphens" for path in sorted(graphics.glob("home-*.png")) if not HOME_SHOT.fullmatch(path.name)]
@@ -68,13 +68,13 @@ def gallery_shot(screen: str, path: Path, folder: str) -> Shot:
 
 
 def build_pages(repo: Path, strings: dict[str, dict]) -> None:
-    default = listing_graphics(repo, LANGS[0])
+    default = ATLAS_HUNT.graphics(repo, LANGS[0])
     shared = {"icon": app_icon(ATLAS_HUNT, default)}
     for key, name in LEVELS.items():
         shared[key] = app_webp(ATLAS_HUNT, default / name, "img/levels", key.removeprefix("level_"), (64, 128))
 
-    for lang in LANGS:
-        graphics = listing_graphics(repo, lang)
+    for lang in ATLAS_HUNT.langs:
+        graphics = ATLAS_HUNT.graphics(repo, lang)
         pictures = shared | phone_shots(ATLAS_HUNT, graphics, lang, HERO | STEPS) | {"badge": badge(lang)}
         gallery = [gallery_shot(screen, path, f"img/{lang.code}/gallery") for screen, path in gallery_shots(graphics)]
         folder = ASSETS / "img" / lang.code / "gallery"
@@ -82,7 +82,7 @@ def build_pages(repo: Path, strings: dict[str, dict]) -> None:
                        for width in THUMB_WIDTHS + LARGE_WIDTHS})
         video = ASSETS / "video" / f"{lang.code}.mp4"
         poster = ASSETS / "video" / f"{lang.code}-poster.webp"
-        transcode_video(graphics.parent / "video.mp4", video, poster)
+        transcode_video(ATLAS_HUNT.listing(repo, lang) / "video.mp4", video, poster)
         write_page(ATLAS_HUNT, lang, graphics, strings[lang.code], pictures, gallery=gallery,
                    video=f"{ATLAS_HUNT.assets_url}/video/{video.name}",
                    poster=f"{ATLAS_HUNT.assets_url}/video/{poster.name}")
