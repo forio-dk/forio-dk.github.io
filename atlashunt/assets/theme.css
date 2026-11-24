@@ -41,6 +41,9 @@
   --accent: #9CD67A;  /* land */
   --rule: rgba(111, 208, 242, .22);
   --edge: rgba(111, 208, 242, .25);
+  --control-edge: rgba(191, 234, 248, .5);
+  --menu-edge: rgba(111, 208, 242, .5);
+  --accent-wash: rgba(156, 214, 122, .15);
   --heading-font: "Montserrat", "Segoe UI", system-ui, sans-serif;
   --sky: #BFEAF8;
   --spark: #FFE7A6;
@@ -49,11 +52,11 @@
 
 h1, h2, h3, .brand { font-weight: 700; }
 .lead, .sub { color: var(--sky); }
-.lang summary { border-color: rgba(191, 234, 248, .5); }
-.lang ul { border-color: rgba(111, 208, 242, .5); }
 
 /* Hero: three phones fanned out in front of the store graphics' globe. The stage keeps its shape at every width, and
-   nothing in it reaches past its edges, so the page never scrolls sideways. */
+   nothing in it reaches past its edges, so the page never scrolls sideways. Should a size change, the body's clip is the
+   safety net: it cuts only at the window's edges, so the phones' and the globe's shadows stay whole. */
+body { overflow-x: clip; }
 .stage { position: relative; width: 100%; max-width: 560px; margin: 0 auto; aspect-ratio: 9 / 7.6; }
 .globe {
   position: absolute;

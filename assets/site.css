@@ -96,6 +96,9 @@
   --accent: #D9A441;  /* rules above items, card and button borders */
   --rule: rgba(217, 164, 65, .25);  /* between sections */
   --edge: rgba(233, 217, 180, .25);  /* card borders */
+  --control-edge: rgba(233, 217, 180, .5);  /* the language button's border */
+  --menu-edge: rgba(217, 164, 65, .5);  /* the language menu's border */
+  --accent-wash: rgba(217, 164, 65, .15);  /* a button's background on hover */
   --heading-font: "Playfair Display", Georgia, serif;
   --sans: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
 }
@@ -159,7 +162,7 @@ a:hover { color: #fff; }
 .lang { position: relative; }
 .lang summary {
   padding: 4px 12px;
-  border: 1px solid rgba(233, 217, 180, .5);
+  border: 1px solid var(--control-edge);
   border-radius: 6px;
   font-size: .9375rem;
   list-style: none;
@@ -178,7 +181,7 @@ a:hover { color: #fff; }
   padding: 6px 0;
   list-style: none;
   background: var(--wall);
-  border: 1px solid rgba(217, 164, 65, .5);
+  border: 1px solid var(--menu-edge);
   border-radius: 8px;
   box-shadow: 0 12px 30px rgba(0, 0, 0, .45);
 }
@@ -282,7 +285,7 @@ h2 { margin-bottom: 8px; font-size: clamp(1.75rem, 1.3rem + 1.8vw, 2.25rem); tex
   border-radius: 8px;
   text-decoration: none;
 }
-.app-link:hover { background: rgba(217, 164, 65, .15); }
+.app-link:hover { background: var(--accent-wash); }
 .app .soon { color: var(--muted); font-size: .8125rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
 .policy { font-size: .875rem; }
 

@@ -143,6 +143,21 @@ class SiteTest(unittest.TestCase):
         self.assertEqual(len(cyrillic), 1)
         self.assertIn("U+0400-045F", cyrillic[0])
 
+    def test_shared_rules_use_tokens(self):
+        # Outside :root, the shared stylesheet names no Art Widget colour, so a theme changes colours through the tokens
+        # alone and never restyles a shared rule.
+        rules = re.sub(r":root \{.*?\}", "", self.css, count=1, flags=re.S)
+        for colour in ("rgba(233, 217, 180", "rgba(217, 164, 65", "#D9A441", "#F8DE94", "#E9D9B4"):
+            self.assertNotIn(colour, rules)
+        theme = ATLAS_THEME.read_text(encoding="utf-8")
+        self.assertNotIn(".lang summary", theme)
+        self.assertNotIn(".lang ul", theme)
+
+    def test_atlas_page_cannot_scroll_sideways(self):
+        # The hero's tilted phones stay inside the page by geometry; the body's clip is the safety net if a size changes.
+        theme = ATLAS_THEME.read_text(encoding="utf-8")
+        self.assertRegex(theme, r"(?m)^body \{[^}]*overflow-x: clip;")
+
     def test_old_shared_assets_gone(self):
         for path in ("fonts", "badges", "site.css", "img/apps"):
             with self.subTest(path=path):
