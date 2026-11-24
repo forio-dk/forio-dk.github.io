@@ -156,6 +156,20 @@ class SiteTest(unittest.TestCase):
         # The hero's tilted cards stay inside the page; long theme names wrap inside their tiles.
         self.assertRegex(theme, r"(?m)^body \{[^}]*overflow-x: clip;")
         self.assertRegex(theme, r"\.tile \.name \{[^}]*overflow-wrap: anywhere;")
+        # Two tiles a row on small phones, so that "Инструменты" and "Вперемешку" fit whole (Chrome on Windows can't
+        # hyphenate them), three from 480 px.
+        self.assertRegex(theme, r"(?m)^\.tiles \{[^}]*grid-template-columns: repeat\(2, 1fr\);")
+        self.assertRegex(theme, r"@media \(min-width: 480px\) \{\s*\.tiles \{ grid-template-columns: repeat\(3, 1fr\); \}")
+
+    def test_syllabee_panel_classes_style_only_panels(self):
+        # A game's panel carries the game's key as a class ("panel colouring"); a rule for that class alone would
+        # restyle the panel too (the Coloring group's layout once pushed the Coloring panel down).
+        theme = SYLLABEE_THEME.read_text(encoding="utf-8")
+        for key in ("syllables", "memo", "build", "colouring"):
+            with self.subTest(key=key):
+                prefixes = re.findall(rf"(\S*)\.{key}(?![\w-])", theme)
+                self.assertTrue(prefixes)
+                self.assertEqual({prefix for prefix in prefixes}, {".panel"})
 
     def test_shared_rules_use_tokens(self):
         # Outside :root, the shared stylesheet names no Art Widget colour, so a theme changes colours through the tokens

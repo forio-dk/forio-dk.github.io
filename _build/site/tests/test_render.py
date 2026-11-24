@@ -508,6 +508,7 @@ class SyllabeeRenderTest(unittest.TestCase):
         self.assertEqual(hero[0]["alt"], "The themes: Animals, Flowers, Fruits, Vegetables, Vehicles and Bugs")
 
     def test_colouring(self):
+        self.assertEqual(len(self.tags.find("div", **{"class": "colouring-group"})), 1)
         group = self.html.split('<ul class="ctiles">', 1)[1].split("</ul>", 1)[0]
         self.assertEqual(re.findall(r"<h4>([^<]*)", group), ["Letters", "Numbers", "Shapes", "Math"])
         self.assertEqual(group.count('class="free-tag"'), 1)
