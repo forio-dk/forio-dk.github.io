@@ -1,6 +1,7 @@
+import re
 import unittest
 
-from config import ART_WIDGET, ATLAS_HUNT, LANGS, ROOT, App
+from config import ART_WIDGET, ATLAS_HUNT, LANGS, ROOT, SYLLABEE, App
 from plural import CATEGORIES
 from strings import load_strings, shape_errors
 
@@ -200,6 +201,87 @@ class AtlasTranslationTest(TranslationChecks, unittest.TestCase):
     def test_shared_words_match_art_widget(self):
         art = load_strings(CODES, ART_WIDGET.strings)
         for code in CODES:
+            with self.subTest(code=code):
+                s, a = self.strings[code], art[code]
+                self.assertEqual((s["hero"]["badge_alt"], s["nav"]["languages"], s["footer"]["privacy"],
+                                  s["footer"]["contact"]),
+                                 (a["hero"]["badge_alt"], a["nav"]["languages"], a["footer"]["privacy"],
+                                  a["footer"]["contact"]))
+
+
+def app_names(code: str) -> dict[str, str] | None:
+    """The reading app's own strings (cat_*, game_*) in a language, or None without ../learn_to_read."""
+    xml = ROOT.parent / SYLLABEE.repo / "app" / "src" / code / "res" / "values" / "strings.xml"
+    if not xml.is_file():
+        return None
+    return dict(re.findall(r'<string name="(\w+)">([^<]*)</string>', xml.read_text(encoding="utf-8")))
+
+
+class SyllabeeEnglishTest(unittest.TestCase):
+    """The Syllabee page's English copy: the spec's appendix, backed by the listing and the privacy policy."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.en = load_strings(["en"], SYLLABEE.strings)["en"]
+
+    def test_titles(self):
+        self.assertEqual(self.en["meta"]["title"], "Syllabee: Read by Syllables")
+        self.assertLessEqual(len(self.en["meta"]["description"]), 160)
+        self.assertEqual(self.en["games"]["heading"], "Four gentle games")
+        self.assertEqual(self.en["cta"]["heading"], "Read the first word together")
+
+    def test_privacy_claims(self):
+        text = self.en["privacy"]["text"]
+        self.assertIn("AdMob", text)
+        self.assertIn("directed at children", text)
+        self.assertNotIn("consent", text)  # the policy: the app asks no one for consent
+
+    def test_plans(self):
+        self.assertEqual(len(self.en["plans"]["free"]["items"]), 4)
+        self.assertEqual(len(self.en["plans"]["full"]["items"]), 3)
+        self.assertIn("ten shapes", self.en["plans"]["free"]["items"][2])
+        self.assertIn("Nine more shapes", self.en["plans"]["full"]["items"][2])
+
+    def test_no_stale_words(self):
+        # A "New" tag goes stale with the next release; Mixed's "New words every time" is about the words.
+        self.assertEqual(self.en["colouring"]["free"], "Free")
+        stale = [t for t in all_strings(self.en) if t.startswith("New ") and t != self.en["themes"]["notes"]["mixed"]]
+        self.assertEqual(stale, [])
+
+
+class SyllabeeTranslationTest(TranslationChecks, unittest.TestCase):
+    """Every language of the Syllabee page: the same keys, counts and order, and the app's own names."""
+    app = SYLLABEE
+
+    def test_names_are_the_apps(self):
+        for code, s in self.strings.items():
+            names = app_names(code)
+            if names is None:
+                self.skipTest("needs ../learn_to_read")
+            with self.subTest(code=code):
+                self.assertEqual(s["themes"]["names"], {key: names[f"cat_{key}"] for key in s["themes"]["names"]})
+                self.assertEqual([item["heading"] for item in s["colouring"]["items"]],
+                                 [names[f"cat_{item['key']}"] for item in s["colouring"]["items"]])
+                self.assertEqual([item["heading"] for item in s["games"]["items"]],
+                                 [names[f"game_{item['key']}"] for item in s["games"]["items"]])
+                self.assertEqual(s["colouring"]["heading"], names["game_colouring"])
+
+    def test_counts_order_and_english_alphabet(self):
+        alphabet = {"da": "engelske alfabet", "ru": "английский алфавит", "uk": "англійськ"}
+        for code, s in self.strings.items():
+            with self.subTest(code=code):
+                self.assertIn("14", s["hero"]["facts"])
+                self.assertIn("30", s["themes"]["notes"]["countries"])
+                self.assertEqual(len(s["themes"]["names"]), 16)
+                self.assertEqual([item["key"] for item in s["games"]["items"]], ["syllables", "memo", "build", "colouring"])
+                self.assertEqual([item["key"] for item in s["colouring"]["items"]], ["letters", "numbers", "shapes", "math"])
+                if code in alphabet:
+                    self.assertIn(alphabet[code], s["colouring"]["items"][0]["text"].lower())
+                    self.assertIn(alphabet[code], s["plans"]["full"]["items"][-1].lower())
+
+    def test_shared_words_match_art_widget(self):
+        art = load_strings(self.codes, ART_WIDGET.strings)
+        for code in self.codes:
             with self.subTest(code=code):
                 s, a = self.strings[code], art[code]
                 self.assertEqual((s["hero"]["badge_alt"], s["nav"]["languages"], s["footer"]["privacy"],

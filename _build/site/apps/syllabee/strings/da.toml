@@ -1,0 +1,163 @@
+# Strings ending in "# new" are translations made for this page; the owner reviews them before publishing.
+# Danish: Stavebi. Facts: ../learn_to_read/docs/store/da/listing.md; theme and game names: ../learn_to_read/app/src/da/res/values/strings.xml.
+
+[meta]
+title = "Stavebi: Læs med stavelser"
+description = "Lær at læse med stavelser: fire rolige spil med billeder og en venlig stemme. Gratis til Android, uden tilmelding."  # new
+og_image_alt = "Stavebi: læs med stavelser, BA-NAN, med billeder af en banan, en rose, et æble og en raket"  # new
+
+[nav]
+languages = "Sprog"
+
+[hero]
+lead = "Lær at læse med stavelser: fire rolige spil med billeder og en venlig stemme"
+facts = "Gratis · Fire spil · 14 temaer · Ingen tilmelding"  # new
+badge_alt = "Hent i Google Play"
+shot_alt = "Temaerne: Dyr, Blomster, Frugt, Grøntsager, Transport og Kryb"  # new
+
+[games]
+heading = "Fire rolige spil"  # new
+sub = "Fire spil bruger de samme ord."
+
+[[games.items]]
+key = "syllables"
+heading = "Stavelser"
+text = "Et ord er delt i stavelser under sit billede. Barnet læser det stykke for stykke og trykker på en stavelse for at høre den. Slør billedet i Indstillinger, så trykker barnet på det for at tjekke."  # new
+alt = "Stavelser: et ord delt i stavelser under sit billede"  # new
+
+[[games.items]]
+key = "memo"
+heading = "Vendespil"
+text = "Billedkort og ordkort ligger med bagsiden op. Et ordkort er tavst, så det skal læses; kun et fundet par bliver sagt højt."  # new
+alt = "Vendespil: et billedkort og et ordkort vendt, de andre med bagsiden op"  # new
+
+[[games.items]]
+key = "build"
+heading = "Saml ordet"
+text = "Træk stavelserne eller bogstaverne på plads under et billede, og se ordet blive samlet. En forkert brik koster ingenting."  # new
+alt = "Saml ordet: tomme pladser under et billede og brikkerne, der venter"  # new
+
+[[games.items]]
+key = "colouring"
+heading = "Farvelægning"
+text = "Et stort bogstav, tal eller en figur, der farves med en finger, tre billeder ved siden af og bogstavets lyd: A som i ananas, B som i bjørn."  # new
+alt = "Farvelægning: et stort bogstav med tre billeder ved siden af"  # new
+
+[themes]
+heading = "Fjorten temaer med ti ord"  # new
+sub = "Ordene er delt, som man lærer det i skolen: ba-nan, ze-bra, kar-tof-fel. Alle billeder er tegnet til appen."
+locked = "I den fulde version"  # new
+
+[themes.names]
+animals = "Dyr"
+flowers = "Blomster"
+fruits = "Frugt"
+vegetables = "Grøntsager"
+transport = "Transport"
+bugs = "Kryb"
+toys = "Legetøj"
+clothes = "Tøj"
+food = "Mad"
+music = "Musik"
+school = "Skole"
+kitchen = "Køkken"
+tools = "Værktøj"
+birds = "Fugle"
+countries = "Lande"
+mixed = "Blandet"
+
+[themes.notes]
+countries = "30 landes flag; en voksen vælger hvilke"  # new
+mixed = "Nye ord hver gang"  # new
+
+[colouring]
+heading = "Farvelægning"
+sub = "Det kan spilles, før barnet kender et eneste bogstav."
+shot_alt = "Farvelægning af en figur: figuren, dens navn og tre billeder"  # new
+free = "Gratis"  # new
+
+[[colouring.items]]
+key = "letters"
+heading = "Bogstaver"
+text = "Farv et bogstav fra A til Å, og hør dets lyd. Det engelske alfabet er med i den fulde version."  # new
+
+[[colouring.items]]
+key = "numbers"
+heading = "Tal"
+text = "Tæl prikkerne på terningerne."  # new
+
+[[colouring.items]]
+key = "shapes"
+heading = "Figurer"
+text = "Nitten figurer at farvelægge."  # new
+
+[[colouring.items]]
+key = "math"
+heading = "Matematik"
+text = "Ti billeder, der farvelægges efter tal: hver farve har et regnestykke, som stemmen læser højt. Tal op til 10 eller 5."  # new
+
+[video]
+heading = "Se det i brug"  # new
+text = "Temaerne, stavelser der bliver sagt højt, vendespil, et ord der bliver samlet, bogstaver, tal og figurer der farves, og indstillingerne for voksne: rigtigt spil på en telefon."  # new
+label = "Stavebis præsentationsvideo"  # new
+
+[features]
+heading = "Alt det andet"
+
+[[features.items]]
+heading = "Ingen point, intet ur, ingen stjerner"
+text = "Et færdigt ord giver fyrværkeri og en lille melodi, ikke en score."
+
+[[features.items]]
+heading = "Tegnet til appen"  # new
+text = "Alle billeder er tegnet til appen: 14 temaer med ti ord og 30 flag."  # new
+
+[[features.items]]
+heading = "En venlig stemme"  # new
+text = "Ordene bliver sagt af telefonens tekst-til-tale; der skal være installeret en dansk stemme."
+
+[[features.items]]
+heading = "Indstillinger for voksne"  # new
+text = "Slør billederne, og vælg hvor mange par Vendespil giver, hvordan Saml ordet deler et ord, hvilke flag Lande giver, og hvor langt Matematik tæller."  # new
+
+[[features.items]]
+heading = "Intet at tabe"  # new
+text = "En forkert brik koster ingenting: den bliver bare liggende, hvor den blev sluppet."
+
+[[features.items]]
+heading = "Telefoner og tablets"  # new
+text = "På højkant eller på tværs; på en tablet, der holdes på tværs, står billedet og ordet side om side."  # new
+
+[plans]
+heading = "Gratis, med en fuld version"
+
+[plans.free]
+name = "Gratis"
+note = "Ingen tilmelding"  # new
+items = [
+    "Alle fire spil",  # new
+    "Dyr, Blomster, Frugt, Grøntsager, Transport, Kryb, Legetøj og Tøj",  # new
+    "Bogstaver, Tal, Matematik og ti figurer at farvelægge",  # new
+    "Et banner til børn uden personlige annoncer",  # new
+]
+
+[plans.full]
+name = "Fuld version"
+note = "Ét køb i Indstillinger, én gang for alle"
+items = [
+    "Ingen reklamer",
+    "Temaerne Mad, Musik, Skole, Køkken, Værktøj, Fugle, Lande og Blandet",  # new
+    "Ni figurer mere og det engelske alfabet",  # new
+]
+
+[privacy]
+heading = "Ingen tilmelding. Ingen data om dit barn."  # new
+text = "Appen indsamler ingen data selv: ingen konti, intet sted at skrive et navn, og dens indstillinger bliver på enheden. Den gratis versions banner kommer fra Google AdMob, og hver anmodning er markeret som rettet mod børn: ingen personlige annoncer og kun annoncer, der passer til alle aldre."  # new
+link = "Læs privatlivspolitikken (på engelsk)"
+
+[cta]
+heading = "Læs det første ord sammen"  # new
+
+[footer]
+privacy = "Privatlivspolitik (på engelsk)"
+contact = "Kontakt"

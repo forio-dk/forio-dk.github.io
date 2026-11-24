@@ -1,0 +1,162 @@
+# Syllabee page: English. Facts: ../learn_to_read/docs/store/en/listing.md; theme and game names: ../learn_to_read/app/src/en/res/values/strings.xml. Every language has these keys.
+
+[meta]
+title = "Syllabee: Read by Syllables"
+description = "Learn to read by syllables: four gentle games with pictures and a friendly voice. Free for Android, no sign-up."
+og_image_alt = "Syllabee: reading by syllables, BA-NA-NA, with pictures of a banana, a daisy, an apple and a rocket"
+
+[nav]
+languages = "Language"
+
+[hero]
+lead = "Learn to read by syllables: four gentle games with pictures and a friendly voice"
+facts = "Free · Four games · 14 themes · No sign-up"
+badge_alt = "Get it on Google Play"
+shot_alt = "The themes: Animals, Flowers, Fruits, Vegetables, Vehicles and Bugs"
+
+[games]
+heading = "Four gentle games"
+sub = "Four games play over the same words."
+
+[[games.items]]
+key = "syllables"
+heading = "Syllables"
+text = "A word is split into syllables under its picture. The child reads it piece by piece and taps a syllable to hear it. Blur the picture in Settings, and the child taps it to check."
+alt = "Syllables: KIT-TY under a picture of a kitten"
+
+[[games.items]]
+key = "memo"
+heading = "Memory"
+text = "Picture cards and word cards lie face down. A word card stays silent, so it has to be read; only a matched pair is spoken aloud."
+alt = "Memory: a picture card and a word card turned up, the others face down"
+
+[[games.items]]
+key = "build"
+heading = "Build a Word"
+text = "Drag the syllables or letters into place under a picture and watch the word come together. A wrong drop costs nothing."
+alt = "Build a Word: BA in place under a banana, NA and NA waiting below"
+
+[[games.items]]
+key = "colouring"
+heading = "Coloring"
+text = "A big letter, number or shape to color with a finger, three pictures beside it, and the letter's sound: \"a\" as in apple, \"b\" as in bear."
+alt = "Coloring: a big letter A with three pictures beside it"
+
+[themes]
+heading = "Fourteen themes of ten words"
+sub = "Split the way phonics teaches: pup-py, ti-ger, ba-na-na. Every picture is drawn for the app."
+locked = "In the full version"
+
+[themes.names]
+animals = "Animals"
+flowers = "Flowers"
+fruits = "Fruits"
+vegetables = "Vegetables"
+transport = "Vehicles"
+bugs = "Bugs"
+toys = "Toys"
+clothes = "Clothes"
+food = "Food"
+music = "Music"
+school = "School"
+kitchen = "Kitchen"
+tools = "Tools"
+birds = "Birds"
+countries = "Countries"
+mixed = "Mixed"
+
+[themes.notes]
+countries = "30 flags; a grown-up picks which"
+mixed = "New words every time"
+
+[colouring]
+heading = "Coloring"
+sub = "It can be played before a child knows any letters."
+shot_alt = "Coloring a circle: the shape, its name and three pictures"
+free = "Free"
+
+[[colouring.items]]
+key = "letters"
+heading = "Letters"
+text = "Color a letter and hear its sound."
+
+[[colouring.items]]
+key = "numbers"
+heading = "Numbers"
+text = "Count the dots on the dice."
+
+[[colouring.items]]
+key = "shapes"
+heading = "Shapes"
+text = "Nineteen shapes to color and name."
+
+[[colouring.items]]
+key = "math"
+heading = "Math"
+text = "Ten pictures colored by numbers: each color carries a sum, read aloud. Numbers up to 10, or 5."
+
+[video]
+heading = "See it played"
+text = "The themes, syllables that speak, pairs, building a word, coloring letters, numbers and shapes, and the settings for grown-ups: real play on a phone."
+label = "Syllabee preview video"
+
+[features]
+heading = "Everything else"
+
+[[features.items]]
+heading = "No points, no timers, no stars"
+text = "A finished word earns fireworks and a little tune, not a score."
+
+[[features.items]]
+heading = "Drawn for the app"
+text = "Every picture is drawn for the app: 14 themes of ten words, and 30 flags."
+
+[[features.items]]
+heading = "A friendly voice"
+text = "Words are spoken by the phone's text-to-speech engine; an English voice needs to be installed."
+
+[[features.items]]
+heading = "Settings for grown-ups"
+text = "Blur the pictures, choose how many pairs Memory deals, how Build a Word cuts a word, which flags Countries deals and how far Math counts."
+
+[[features.items]]
+heading = "Nothing to lose"
+text = "A wrong drop costs nothing: the piece simply stays where it was put."
+
+[[features.items]]
+heading = "Phones and tablets"
+text = "Upright or on its side; on a tablet held sideways the picture and the word sit side by side."
+
+[plans]
+heading = "Free, with a full version"
+
+[plans.free]
+name = "Free"
+note = "No sign-up"
+items = [
+    "All four games",
+    "Animals, Flowers, Fruits, Vegetables, Vehicles, Bugs, Toys and Clothes",
+    "Letters, Numbers, Math and ten shapes to color",
+    "A banner made for children, without personalized ads",
+]
+
+[plans.full]
+name = "Full version"
+note = "One purchase in Settings, once and for good"
+items = [
+    "No ads",
+    "The Food, Music, School, Kitchen, Tools, Birds, Countries and Mixed themes",
+    "Nine more shapes to color",
+]
+
+[privacy]
+heading = "No sign-up. No data about your child."
+text = "The app collects nothing itself: no accounts, nowhere to type a name, and its settings stay on the device. The free version's banner comes from Google AdMob, with every request marked as directed at children: no personalized ads, and only ads rated for all ages."
+link = "Read the privacy policy"
+
+[cta]
+heading = "Read the first word together"
+
+[footer]
+privacy = "Privacy policy"
+contact = "Contact"
