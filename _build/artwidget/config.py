@@ -1,4 +1,5 @@
 """Paths, URLs and the list of downloaded inputs for the Art Widget home page generator."""
+from dataclasses import dataclass
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -32,3 +33,52 @@ VENDOR: dict[str, str] = {
     "art/starry-night.jpg": COMMONS.format("Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg"),
     "art/pearl-earring.jpg": COMMONS.format("1665_Girl_with_a_Pearl_Earring.jpg"),
 }
+
+
+@dataclass(frozen=True)
+class Lang:
+    code: str  # html lang, hreflang, Play's hl and the page's folder (English, the default, has none)
+    listing: str  # folder in ../art_widget/docs/listings
+    name: str  # the language's own name, for the switcher
+    og_locale: str
+    font_subset: str  # "latin" or "cyrillic": the heading font file to preload
+
+
+LANGS = (
+    Lang("en", "en-US", "English", "en_US", "latin"),
+    Lang("da", "da-DK", "Dansk", "da_DK", "latin"),
+    Lang("it", "it-IT", "Italiano", "it_IT", "latin"),
+    Lang("ro", "ro", "Română", "ro_RO", "latin"),
+    Lang("ru", "ru-RU", "Русский", "ru_RU", "cyrillic"),
+    Lang("uk", "uk", "Українська", "uk_UA", "cyrillic"),
+)
+
+SITE_URL = "https://forio-dk.github.io"
+PACKAGE = "dk.forio.artwidget"
+REFERRER = "utm_source%3Dforio-dk.github.io%26utm_medium%3Dwebsite%26utm_campaign%3Dartwidget-home"
+VIDEO_URL = ASSETS_URL + "/video/preview.mp4"
+POSTER_URL = ASSETS_URL + "/video/preview-poster.webp"
+COMMONS_PAGES = {
+    "starry": "https://commons.wikimedia.org/wiki/File:Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
+    "pearl": "https://commons.wikimedia.org/wiki/File:1665_Girl_with_a_Pearl_Earring.jpg",
+}
+
+
+def is_default(lang: Lang) -> bool:
+    return lang.code == LANGS[0].code
+
+
+def page_path(lang: Lang) -> str:
+    return "/artwidget/" if is_default(lang) else f"/artwidget/{lang.code}/"
+
+
+def page_url(lang: Lang) -> str:
+    return SITE_URL + page_path(lang)
+
+
+def page_file(lang: Lang) -> Path:
+    return SITE / "index.html" if is_default(lang) else SITE / lang.code / "index.html"
+
+
+def play_url(lang: Lang) -> str:
+    return f"https://play.google.com/store/apps/details?id={PACKAGE}&hl={lang.code}&referrer={REFERRER}"

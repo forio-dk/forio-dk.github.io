@@ -1,0 +1,114 @@
+# Art Widget home page: English. Facts: ../art_widget/docs/listings/en-US/listing.md. Every language has these keys.
+
+[meta]
+title = "Art Widget: Artwork of the Day"
+description = "A famous work of art on your home screen, a different one every day. Free for Android, with 9,000+ works from the world's museums."
+og_image_alt = "Art Widget: a famous work of art on your home screen, a different one every day"
+
+[nav]
+languages = "Language"
+
+[hero]
+lead = "A famous work of art on your home screen, a different one every day."
+facts = "Free · Android 8 and newer · One-time purchase for the full version"
+badge_alt = "Get it on Google Play"
+
+[how]
+heading = "A new masterpiece every day"
+sub = "On your home screen, and on your lock screen where your phone allows it."
+
+[[how.steps]]
+heading = "It hangs on your home screen"
+text = "A new work every 24 hours. Tap ↻ to see the next one at once."
+alt = "The Art Widget widget on an Android home screen"
+
+[[how.steps]]
+heading = "Tap for the whole story"
+text = "Title, artist, year, museum, city and size, and the work full screen."
+alt = "The details of a work: title, artist, year, museum and city"
+
+[[how.steps]]
+heading = "Choose what you see"
+text = "Paintings, sculptures, drawings, mosaics, tapestries and more."
+alt = "Settings with the types of artwork to show"
+
+[video]
+heading = "See it in under a minute"
+text = "A tour of the widget, the details and their Wikipedia articles, zooming in, the live wallpaper, the Quick Settings tile and the screensaver."
+label = "Art Widget preview video"
+
+[features]
+heading = "Everything it does"
+
+[[features.items]]
+heading = "9,000+ works"
+text = "Each with an English Wikipedia article, from the Louvre, the Hermitage, the National Gallery, the Metropolitan Museum of Art, the Prado, the Uffizi and hundreds more museums."
+
+[[features.items]]
+heading = "Wikipedia, one tap away"
+text = "Every name links to its Wikipedia article, which opens right in the app, with a short introduction below the details."
+
+[[features.items]]
+heading = "Live wallpaper"
+text = "Make the work your wallpaper, filling the screen, with as much dim, blur and grey as you like."
+
+[[features.items]]
+heading = "Screensaver"
+text = "In the full version, the work shows while your phone charges: alone, with its caption, with a clock, or slowly panning. In a dark room it dims the screen."
+
+[[features.items]]
+heading = "The next work, your way"
+text = "From a Quick Settings tile or by long-pressing the app icon. New works can wait for Wi-Fi."
+
+[[features.items]]
+heading = "12 languages, works offline"
+text = "Titles and details work without the internet; only the image and the Wikipedia introduction need it."
+
+[plans]
+heading = "Free, with a full version"
+
+[plans.free]
+name = "Free"
+note = "No account needed"
+items = [
+    "Paintings, frescoes, icons and watercolours",
+    "A new work every 24 hours, or on ↻",
+    "The widget and the live wallpaper",
+    "One small ad on the details screen",
+]
+
+[plans.full]
+name = "Full version"
+note = "One-time purchase in Google Play"
+items = [
+    "No ads",
+    "Every type: sculptures, drawings, prints, mosaics, tapestries, stained glass, Fabergé eggs and more",
+    "A new work as often as every 2 hours",
+    "The screensaver, and the wallpaper on your lock screen too, moving slowly",
+]
+
+[privacy]
+heading = "No account. No analytics of its own."
+text = "The app itself collects nothing. The current work and your choices stay on your phone. The free version's banner comes from Google AdMob, which asks for your consent first in the European Economic Area, the UK and Switzerland."
+link = "Read the privacy policy"
+
+[cta]
+heading = "Hang a masterpiece on your phone"
+
+[footer]
+privacy = "Privacy policy"
+contact = "Contact"
+images = "Images"
+public_domain = "public domain, via Wikimedia Commons"
+
+[art.starry]
+title = "The Starry Night"
+artist = "Vincent van Gogh"
+year = "1889"
+museum = "Museum of Modern Art"
+
+[art.pearl]
+title = "Girl with a Pearl Earring"
+artist = "Johannes Vermeer"
+year = "c. 1665"
+museum = "Mauritshuis"
