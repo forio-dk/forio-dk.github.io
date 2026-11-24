@@ -30,7 +30,7 @@ alt = "Detaliile unei opere: titlul, artistul, anul, muzeul și orașul"  # new
 
 [[how.steps]]
 heading = "Alege ce vezi"  # new
-text = "Picturi, sculpturi, desene, mozaicuri, tapiserii și multe altele."  # new
+text = "Picturi, fresce, icoane și acuarele, iar în versiunea completă și sculpturi, tapiserii și multe altele."  # new
 alt = "Setările cu tipurile de opere afișate"  # new
 
 [video]
@@ -90,7 +90,7 @@ items = [
 
 [privacy]
 heading = "Fără cont. Fără analize proprii."  # new
-text = "Aplicația în sine nu colectează nimic. Opera curentă și alegerile tale rămân pe telefon. Bannerul din versiunea gratuită vine de la Google AdMob, care în Spațiul Economic European, Regatul Unit și Elveția îți cere mai întâi consimțământul."  # new
+text = "Aplicația în sine nu colectează nimic. Păstrează pe telefon doar opera curentă, imaginea și introducerea ei și limba aleasă. Bannerul din versiunea gratuită vine de la Google AdMob, care în Spațiul Economic European, Regatul Unit și Elveția îți cere mai întâi consimțământul."  # new
 link = "Citește politica de confidențialitate (în engleză)"  # new
 
 [cta]

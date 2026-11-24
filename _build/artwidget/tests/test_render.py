@@ -113,3 +113,9 @@ class RenderTest(unittest.TestCase):
         del strings["hero"]["lead"]
         with self.assertRaises(UndefinedError):
             render(strings=strings)
+
+    def test_hero_image_high_priority(self):
+        starry = [a for a in self.tags.find("img") if a["src"].startswith("/artwidget/assets/img/starry")]
+        self.assertEqual(len(starry), 1)
+        self.assertEqual(starry[0].get("fetchpriority"), "high")
+        self.assertNotIn("loading", starry[0])

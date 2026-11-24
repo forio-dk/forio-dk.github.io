@@ -30,7 +30,7 @@ alt = "I dettagli di un'opera: titolo, artista, anno, museo e città"  # new
 
 [[how.steps]]
 heading = "Scegli cosa vedere"  # new
-text = "Dipinti, sculture, disegni, mosaici, arazzi e altro ancora."  # new
+text = "Dipinti, affreschi, icone e acquerelli e, nella versione completa, sculture, arazzi e altro ancora."  # new
 alt = "Le impostazioni con i tipi di opere da mostrare"  # new
 
 [video]
@@ -90,7 +90,7 @@ items = [
 
 [privacy]
 heading = "Nessun account. Nessuna analisi propria."  # new
-text = "L'app di per sé non raccoglie nulla. L'opera corrente e le tue scelte restano sul telefono. Il banner della versione gratuita è di Google AdMob, che nello Spazio economico europeo, nel Regno Unito e in Svizzera chiede prima il tuo consenso."  # new
+text = "L'app di per sé non raccoglie nulla. Salva sul telefono solo l'opera corrente, la sua immagine e introduzione e la lingua scelta. Il banner della versione gratuita è di Google AdMob, che nello Spazio economico europeo, nel Regno Unito e in Svizzera chiede prima il tuo consenso."  # new
 link = "Leggi l'informativa sulla privacy (in inglese)"  # new
 
 [cta]

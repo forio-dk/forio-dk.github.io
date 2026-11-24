@@ -30,7 +30,7 @@ alt = "Et værks detaljer: titel, kunstner, år, museum og by"  # new
 
 [[how.steps]]
 heading = "Vælg, hvad du ser"  # new
-text = "Malerier, skulpturer, tegninger, mosaikker, gobeliner og meget mere."  # new
+text = "Malerier, fresker, ikoner og akvareller og i den fulde version også skulpturer, gobeliner og meget mere."  # new
 alt = "Indstillinger med de typer kunstværker, der vises"  # new
 
 [video]
@@ -90,7 +90,7 @@ items = [
 
 [privacy]
 heading = "Ingen konto. Ingen egen brugsstatistik."  # new
-text = "Appen indsamler ikke selv noget. Det aktuelle værk og dine valg bliver på din telefon. Reklamen i den gratis version kommer fra Google AdMob, som først beder om dit samtykke i EØS, Storbritannien og Schweiz."  # new
+text = "Appen indsamler ikke selv noget. Den gemmer kun det aktuelle værk, dets billede og introduktion samt dit valg af sprog på din telefon. Reklamen i den gratis version kommer fra Google AdMob, som først beder om dit samtykke i EØS, Storbritannien og Schweiz."  # new
 link = "Læs privatlivspolitikken (på engelsk)"  # new
 
 [cta]

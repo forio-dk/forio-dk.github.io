@@ -29,7 +29,7 @@ alt = "The details of a work: title, artist, year, museum and city"
 
 [[how.steps]]
 heading = "Choose what you see"
-text = "Paintings, sculptures, drawings, mosaics, tapestries and more."
+text = "Paintings, frescoes, icons and watercolours, and in the full version sculptures, tapestries and more."
 alt = "Settings with the types of artwork to show"
 
 [video]
@@ -89,7 +89,7 @@ items = [
 
 [privacy]
 heading = "No account. No analytics of its own."
-text = "The app itself collects nothing. The current work and your choices stay on your phone. The free version's banner comes from Google AdMob, which asks for your consent first in the European Economic Area, the UK and Switzerland."
+text = "The app itself collects nothing. It stores only the current work, its image and introduction, and your language choice, on your phone. The free version's banner comes from Google AdMob, which asks for your consent first in the European Economic Area, the UK and Switzerland."
 link = "Read the privacy policy"
 
 [cta]

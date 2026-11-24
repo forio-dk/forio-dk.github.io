@@ -83,3 +83,21 @@ class TranslationTest(unittest.TestCase):
         for code in CODES[1:]:
             with self.subTest(code=code):
                 self.assertTrue((STRINGS / f"{code}.toml").read_text(encoding="utf-8").startswith(MARKER))
+
+
+class EnglishClaimsTest(unittest.TestCase):
+    """English copy must not claim more than the privacy policy and the store listing say."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.en = load_strings(["en"])["en"]
+
+    def test_privacy_names_only_what_the_policy_names(self):
+        # Policy: "stores only the current artwork, its image and introduction and your language choice"
+        text = self.en["privacy"]["text"]
+        self.assertIn("your language choice", text)
+        self.assertNotIn("your choices", text)
+
+    def test_choosing_types_mentions_the_full_version(self):
+        # Listing: sculptures, drawings, tapestries and the rest come only with the full version
+        self.assertIn("full version", self.en["how"]["steps"][2]["text"])
