@@ -1,0 +1,34 @@
+"""Paths, URLs and the list of downloaded inputs for the Art Widget home page generator."""
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+BUILD = ROOT / "_build" / "artwidget"
+VENDOR_DIR = BUILD / "vendor"
+STRINGS = BUILD / "strings"
+SITE = ROOT / "artwidget"
+ASSETS = SITE / "assets"
+ASSETS_URL = "/artwidget/assets"
+
+PLAYFAIR = "https://cdn.jsdelivr.net/npm/@fontsource/playfair-display@5.3.0"
+SOURCE_SANS = "https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.3.1"
+SUBSETS = ("latin", "latin-ext", "cyrillic")
+BADGE = "https://play.google.com/intl/en_us/badges/static/images/badges/{}_badge_web_generic.png"
+COMMONS = "https://commons.wikimedia.org/wiki/Special:FilePath/{}?width=1200"
+# Page language code -> Google's badge code; Google names the Ukrainian badge "ua" ("uk" is a 404).
+BADGE_CODES = {"en": "en", "da": "da", "it": "it", "ro": "ro", "ru": "ru", "uk": "ua"}
+
+# Each file in vendor/, relative to VENDOR_DIR, and where it was downloaded from.
+VENDOR: dict[str, str] = {
+    **{f"fonts/playfair-display-{s}-600-normal.woff2": f"{PLAYFAIR}/files/playfair-display-{s}-600-normal.woff2"
+       for s in SUBSETS},
+    **{f"fonts/source-sans-3-{s}-{w}-normal.woff2": f"{SOURCE_SANS}/files/source-sans-3-{s}-{w}-normal.woff2"
+       for s in SUBSETS for w in (400, 600)},
+    "fonts/playfair-display-600.css": f"{PLAYFAIR}/600.css",
+    "fonts/source-sans-3-400.css": f"{SOURCE_SANS}/400.css",
+    "fonts/source-sans-3-600.css": f"{SOURCE_SANS}/600.css",
+    "fonts/OFL-playfair-display.txt": f"{PLAYFAIR}/LICENSE",
+    "fonts/OFL-source-sans-3.txt": f"{SOURCE_SANS}/LICENSE",
+    **{f"badges/{code}.png": BADGE.format(badge) for code, badge in BADGE_CODES.items()},
+    "art/starry-night.jpg": COMMONS.format("Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg"),
+    "art/pearl-earring.jpg": COMMONS.format("1665_Girl_with_a_Pearl_Earring.jpg"),
+}
