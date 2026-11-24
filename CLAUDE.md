@@ -35,6 +35,8 @@ diff <(tr -d '\r' < ../learn_to_read/docs/privacy-policy.md) <(tr -d '\r' < syll
 - **Jekyll is on.** The `.nojekyll` file was deleted on purpose. Jekyll is what turns `privacy-policy.md` into
   `privacy-policy.html`, and that `.html` URL is the one the apps' Settings screens and Play Console link to (it is
   `privacyPolicyUrl` in each app's `gradle.properties`). The `.md` URL is served as raw `text/markdown`.
+- **Jekyll publishes every file it isn't told to skip.** Any file that isn't part of the site, such as this
+  `CLAUDE.md`, goes in `exclude` in `_config.yml`. Leave `README.md` served: it is the policies' contact page.
 - **Policy paths must not change.** Each policy also promises that new versions "will be published at this address".
 - **`README.md`** holds the contact email and the list of apps. Every policy's **Contact** line links to
   `https://forio-dk.github.io/README.md`, and `index.html` redirects there.

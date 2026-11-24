@@ -1,0 +1,60 @@
+# ---- Gradle ----
+.gradle/
+# Anchored: a bare "build/" also swallows any source package named build.
+/build/
+/*/build/
+!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
+
+# ---- Android build output ----
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+bin/
+gen/
+out/
+release/
+captures/
+
+# ---- Local configuration (machine-specific, never commit) ----
+local.properties
+
+# ---- Signing material (never commit) ----
+*.jks
+*.keystore
+keystore.properties
+
+# ---- Android Studio / IntelliJ ----
+.idea/*
+!.idea/codeStyles/
+!.idea/inspectionProfiles/
+*.iml
+.navigation/
+.cxx/
+
+# ---- NDK / native ----
+obj/
+.externalNativeBuild/
+
+# ---- Logs & profiling ----
+*.log
+*.hprof
+
+# ---- OS noise ----
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- Superpowers tooling scratch space ----
+.superpowers/
+docs/superpowers/plans/
+docs/superpowers/specs/
+
+# Claude Code session worktrees. Each is a whole second checkout of this repo, so
+# unignored a `git add -A` in any session would commit one into the repository.
+.claude/worktrees/
+
+# Python bytecode
+__pycache__/
