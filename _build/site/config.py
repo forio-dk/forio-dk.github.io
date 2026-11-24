@@ -12,6 +12,7 @@ SHARED_URL = "/assets"
 PLAYFAIR = "https://cdn.jsdelivr.net/npm/@fontsource/playfair-display@5.3.0"
 SOURCE_SANS = "https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.3.1"
 MONTSERRAT = "https://cdn.jsdelivr.net/npm/@fontsource/montserrat@5.3.0"  # Atlas Hunt's headings, as in its store graphics
+NUNITO = "https://cdn.jsdelivr.net/npm/@fontsource/nunito@5.3.0"  # Syllabee's headings: rounded, for young readers
 SUBSETS = ("latin", "latin-ext", "cyrillic")
 BADGE = "https://play.google.com/intl/en_us/badges/static/images/badges/{}_badge_web_generic.png"
 COMMONS = "https://commons.wikimedia.org/wiki/Special:FilePath/{}?width=1200"
@@ -135,6 +136,9 @@ VENDOR: dict[str, str] = {
     **{f"fonts/montserrat-{s}-700-normal.woff2": f"{MONTSERRAT}/files/montserrat-{s}-700-normal.woff2" for s in SUBSETS},
     "fonts/montserrat-700.css": f"{MONTSERRAT}/700.css",
     "fonts/OFL-montserrat.txt": f"{MONTSERRAT}/LICENSE",
+    **{f"fonts/nunito-{s}-800-normal.woff2": f"{NUNITO}/files/nunito-{s}-800-normal.woff2" for s in SUBSETS},
+    "fonts/nunito-800.css": f"{NUNITO}/800.css",
+    "fonts/OFL-nunito.txt": f"{NUNITO}/LICENSE",
     **{f"badges/{lang.code}.png": BADGE.format(lang.badge) for lang in LANGS},
     "art/starry-night.jpg": COMMONS.format("Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg"),
     "art/pearl-earring.jpg": COMMONS.format("1665_Girl_with_a_Pearl_Earring.jpg"),

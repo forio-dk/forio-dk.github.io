@@ -22,6 +22,11 @@ Downloaded once by `fetch_vendor.py`; each file and its source URL.
 - `fonts/montserrat-cyrillic-700-normal.woff2`: https://cdn.jsdelivr.net/npm/@fontsource/montserrat@5.3.0/files/montserrat-cyrillic-700-normal.woff2
 - `fonts/montserrat-700.css`: https://cdn.jsdelivr.net/npm/@fontsource/montserrat@5.3.0/700.css
 - `fonts/OFL-montserrat.txt`: https://cdn.jsdelivr.net/npm/@fontsource/montserrat@5.3.0/LICENSE
+- `fonts/nunito-latin-800-normal.woff2`: https://cdn.jsdelivr.net/npm/@fontsource/nunito@5.3.0/files/nunito-latin-800-normal.woff2
+- `fonts/nunito-latin-ext-800-normal.woff2`: https://cdn.jsdelivr.net/npm/@fontsource/nunito@5.3.0/files/nunito-latin-ext-800-normal.woff2
+- `fonts/nunito-cyrillic-800-normal.woff2`: https://cdn.jsdelivr.net/npm/@fontsource/nunito@5.3.0/files/nunito-cyrillic-800-normal.woff2
+- `fonts/nunito-800.css`: https://cdn.jsdelivr.net/npm/@fontsource/nunito@5.3.0/800.css
+- `fonts/OFL-nunito.txt`: https://cdn.jsdelivr.net/npm/@fontsource/nunito@5.3.0/LICENSE
 - `badges/en.png`: https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png
 - `badges/da.png`: https://play.google.com/intl/en_us/badges/static/images/badges/da_badge_web_generic.png
 - `badges/it.png`: https://play.google.com/intl/en_us/badges/static/images/badges/it_badge_web_generic.png

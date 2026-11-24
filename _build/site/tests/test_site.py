@@ -8,13 +8,14 @@ from urllib.parse import urlsplit
 from PIL import Image
 
 from atlashunt import gallery_shots
-from config import APPS, ART_WIDGET, ATLAS_HUNT, LANGS, ROOT, SITE_URL, page_file
+from config import APPS, ART_WIDGET, ATLAS_HUNT, LANGS, ROOT, SITE_URL, SYLLABEE, page_file
 from tests.test_render import Tags
 
 ASSETS = ART_WIDGET.assets
 CSS = ROOT / "assets" / "site.css"
 ATLAS_THEME = ATLAS_HUNT.assets / "theme.css"
-CSS_FILES = [CSS, ASSETS / "theme.css", ATLAS_THEME]
+SYLLABEE_THEME = SYLLABEE.assets / "theme.css"
+CSS_FILES = [CSS, ASSETS / "theme.css", ATLAS_THEME, SYLLABEE_THEME]
 POLICY_BLOBS = {
     "artwidget/privacy-policy.md": "f918c89c82a0fb2b8b6995b715848743abb632f1",
     "atlashunt/privacy-policy.md": "712154b31602b8bcb454efe4576031d4472d8a25",
@@ -142,6 +143,18 @@ class SiteTest(unittest.TestCase):
         cyrillic = [face for face in faces if "montserrat-cyrillic-700-normal.woff2" in face]
         self.assertEqual(len(cyrillic), 1)
         self.assertIn("U+0400-045F", cyrillic[0])
+
+    def test_syllabee_theme_rules(self):
+        theme = SYLLABEE_THEME.read_text(encoding="utf-8")
+        self.assertEqual(theme.count("@font-face"), 3)
+        self.assertEqual(theme.count("font-display: swap"), 3)
+        faces = theme.split("@font-face")[1:]
+        cyrillic = [face for face in faces if "nunito-cyrillic-800-normal.woff2" in face]
+        self.assertEqual(len(cyrillic), 1)
+        self.assertIn("U+0400-045F", cyrillic[0])
+        # The hero's tilted cards stay inside the page; long theme names wrap inside their tiles.
+        self.assertRegex(theme, r"(?m)^body \{[^}]*overflow-x: clip;")
+        self.assertRegex(theme, r"\.tile \.name \{[^}]*overflow-wrap: anywhere;")
 
     def test_shared_rules_use_tokens(self):
         # Outside :root, the shared stylesheet names no Art Widget colour, so a theme changes colours through the tokens
