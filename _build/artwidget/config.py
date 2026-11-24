@@ -25,6 +25,9 @@ VENDOR: dict[str, str] = {
     **{f"fonts/source-sans-3-{s}-{w}-normal.woff2": f"{SOURCE_SANS}/files/source-sans-3-{s}-{w}-normal.woff2"
        for s in SUBSETS for w in (400, 600)},
     "fonts/playfair-display-600.css": f"{PLAYFAIR}/600.css",
+    # The heading font as TrueType, which Pillow needs to draw the Forio logo's F.
+    "fonts/playfair-display-latin-600-normal.ttf":
+        "https://cdn.jsdelivr.net/fontsource/fonts/playfair-display@5.3.0/latin-600-normal.ttf",
     "fonts/source-sans-3-400.css": f"{SOURCE_SANS}/400.css",
     "fonts/source-sans-3-600.css": f"{SOURCE_SANS}/600.css",
     "fonts/OFL-playfair-display.txt": f"{PLAYFAIR}/LICENSE",

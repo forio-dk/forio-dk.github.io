@@ -5,6 +5,8 @@ import unittest
 from pathlib import Path
 from urllib.parse import urlsplit
 
+from PIL import Image
+
 from config import ASSETS, LANGS, ROOT, SITE_URL, page_file
 from tests.test_render import Tags
 
@@ -115,3 +117,10 @@ class SiteTest(unittest.TestCase):
 
     def test_video_size(self):
         self.assertLessEqual((ASSETS / "video" / "preview.mp4").stat().st_size, 6 * 1024 * 1024)
+
+    def test_favicon(self):
+        with Image.open(ROOT / "favicon.ico") as icon:
+            self.assertEqual(icon.format, "ICO")
+            self.assertEqual(sorted(icon.info["sizes"]), [(16, 16), (32, 32), (48, 48)])
+        with Image.open(ROOT / "apple-touch-icon.png") as touch:
+            self.assertEqual((touch.format, touch.size), ("PNG", (180, 180)))

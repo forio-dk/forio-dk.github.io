@@ -12,6 +12,7 @@ Downloaded once by `fetch_vendor.py`; each file and its source URL.
 - `fonts/source-sans-3-cyrillic-400-normal.woff2`: https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.3.1/files/source-sans-3-cyrillic-400-normal.woff2
 - `fonts/source-sans-3-cyrillic-600-normal.woff2`: https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.3.1/files/source-sans-3-cyrillic-600-normal.woff2
 - `fonts/playfair-display-600.css`: https://cdn.jsdelivr.net/npm/@fontsource/playfair-display@5.3.0/600.css
+- `fonts/playfair-display-latin-600-normal.ttf`: https://cdn.jsdelivr.net/fontsource/fonts/playfair-display@5.3.0/latin-600-normal.ttf
 - `fonts/source-sans-3-400.css`: https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.3.1/400.css
 - `fonts/source-sans-3-600.css`: https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.3.1/600.css
 - `fonts/OFL-playfair-display.txt`: https://cdn.jsdelivr.net/npm/@fontsource/playfair-display@5.3.0/LICENSE

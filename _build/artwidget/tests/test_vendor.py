@@ -4,12 +4,12 @@ from PIL import Image
 
 from config import LOCAL_VENDOR, VENDOR, VENDOR_DIR
 
-MAGIC = {".woff2": b"wOF2", ".png": b"\x89PNG", ".jpg": b"\xff\xd8\xff"}
+MAGIC = {".woff2": b"wOF2", ".png": b"\x89PNG", ".jpg": b"\xff\xd8\xff", ".ttf": b"\x00\x01\x00\x00"}
 
 
 class VendorTest(unittest.TestCase):
     def test_manifest_size(self):
-        self.assertEqual(len(VENDOR), 22)  # 9 fonts, 3 font CSS, 2 licences, 6 badges, 2 artworks
+        self.assertEqual(len(VENDOR), 23)  # 9 web fonts + the logo's TTF, 3 font CSS, 2 licences, 6 badges, 2 artworks
 
     def test_files_present_and_typed(self):
         for name in VENDOR:

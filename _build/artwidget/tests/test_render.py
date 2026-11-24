@@ -157,7 +157,7 @@ class HomeTest(unittest.TestCase):
     def setUpClass(cls):
         pictures = {key: Picture(f"/artwidget/assets/img/apps/{key}-96.webp",
                                  f"/artwidget/assets/img/apps/{key}-96.webp 96w", 96, 96)
-                    for key in ("art_widget", "atlas_hunt", "syllabee")}
+                    for key in ("art_widget", "atlas_hunt", "syllabee", "forio")}
         cls.html = render_home(pictures)
         cls.tags = Tags(cls.html)
 
@@ -183,3 +183,8 @@ class HomeTest(unittest.TestCase):
 
     def test_no_javascript(self):
         self.assertNotIn("<script", self.html)
+
+    def test_logo(self):
+        self.assertEqual([a["href"] for a in self.tags.find("link", rel="icon")], ["/favicon.ico"])
+        self.assertEqual([a["href"] for a in self.tags.find("link", rel="apple-touch-icon")], ["/apple-touch-icon.png"])
+        self.assertEqual(len(self.tags.find("img", src="/artwidget/assets/img/apps/forio-96.webp")), 1)

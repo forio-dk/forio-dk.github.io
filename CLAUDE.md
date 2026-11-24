@@ -66,7 +66,11 @@ Google Play. They are generated; never edit them by hand.
 - **Edited by hand:** `_build/artwidget/template.html`, `_build/artwidget/strings/<code>.toml` (every language has
   English's keys; facts come from that language's store listing) and `artwidget/assets/site.css`.
 - **Generated:** `artwidget/**/index.html`, `artwidget/assets/{img,badges,fonts,video}/`, the root `index.html`
-  (from `_build/artwidget/home.html`), `sitemap.xml`, `robots.txt`.
+  (from `_build/artwidget/home.html`), `favicon.ico`, `apple-touch-icon.png`, `sitemap.xml`, `robots.txt`.
+- **The Forio logo** (a cream serif F hung in a gold frame on the navy wall) is drawn by `forio_mark()` in
+  `_build/artwidget/assets.py` from the vendored Playfair Display TTF. The root `favicon.ico` and
+  `apple-touch-icon.png` are what browsers show for every page that names no icon of its own, `README.md` and the
+  policies included; the Art Widget pages keep Art Widget's icon.
 - **`_build/` is never published:** Jekyll skips folders starting with `_`.
 - **No third-party requests:** fonts, images, badges and video are served from `/artwidget/assets/`. Keep it so; the
   page advertises an app whose policy says it collects nothing itself.

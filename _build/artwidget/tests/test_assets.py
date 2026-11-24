@@ -6,7 +6,9 @@ from pathlib import Path
 
 from PIL import Image
 
-from assets import Picture, favicons, og_jpeg, responsive_webp, transcode_video
+from config import VENDOR_DIR
+
+from assets import Picture, favicons, forio_mark, og_jpeg, responsive_webp, transcode_video
 
 
 def gradient(path: Path, size: tuple[int, int], mode: str = "RGB") -> Path:
@@ -75,3 +77,22 @@ class VideoTest(unittest.TestCase):
         before = self.out.stat().st_mtime_ns
         transcode_video(self.source, self.out, self.poster)
         self.assertEqual(self.out.stat().st_mtime_ns, before)
+
+
+class ForioMarkTest(unittest.TestCase):
+    """The Forio logo: a cream serif F hung in a gold frame on the navy wall."""
+
+    FONT = VENDOR_DIR / "fonts" / "playfair-display-latin-600-normal.ttf"
+
+    def test_rounded_mark(self):
+        mark = forio_mark(self.FONT, 100)
+        self.assertEqual((mark.size, mark.mode), ((100, 100), "RGBA"))
+        self.assertEqual(mark.getpixel((1, 1))[3], 0)  # rounded corner
+        r, g, b, a = mark.getpixel((22, 50))  # left side of the frame
+        self.assertTrue(r > 180 and g > 120 and b < 110 and a == 255, (r, g, b, a))
+        self.assertEqual(mark.getpixel((30, 72))[:3], (0x1B, 0x33, 0x58))  # inside the frame, below the F's foot
+        cream = sum(1 for x in range(35, 65) for y in range(35, 67) if mark.getpixel((x, y))[0] > 230)
+        self.assertGreater(cream, 60)  # the F
+
+    def test_square_mark(self):
+        self.assertEqual(forio_mark(self.FONT, 100, rounded=False).getpixel((1, 1))[3], 255)

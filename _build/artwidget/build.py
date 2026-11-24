@@ -12,7 +12,7 @@ from pathlib import Path
 
 from PIL import Image
 
-from assets import Picture, favicons, og_jpeg, responsive_webp, transcode_video
+from assets import Picture, favicons, forio_mark, og_jpeg, responsive_webp, transcode_video
 from config import ASSETS, ASSETS_URL, LANGS, ROOT, VENDOR_DIR, Lang, page_file
 from render import render_home, render_page
 from sitemap import ROBOTS_TXT, render_sitemap
@@ -50,6 +50,18 @@ def badge(lang: Lang) -> Picture:
         return Picture(f"{ASSETS_URL}/badges/{lang.code}.png", "", image.width, image.height)
 
 
+def forio_logo() -> Picture:
+    """Draws the Forio logo: favicon.ico and apple-touch-icon.png at the site root, which browsers also use for the
+    pages that name no icon (README.md, the policies), and the home page's top-bar mark."""
+    font = VENDOR_DIR / "fonts" / "playfair-display-latin-600-normal.ttf"
+    forio_mark(font, 256).save(ROOT / "favicon.ico", sizes=[(16, 16), (32, 32), (48, 48)])
+    forio_mark(font, 180, rounded=False).save(ROOT / "apple-touch-icon.png", optimize=True)
+    master = ASSETS / "img" / "apps" / "forio-512.png"
+    master.parent.mkdir(parents=True, exist_ok=True)
+    forio_mark(font, 512).save(master, optimize=True)
+    return webp(master, "img/apps", "forio", (64, 128))
+
+
 def build(art_widget: Path) -> None:
     listings = art_widget / "docs" / "listings"
     default_graphics = listings / LANGS[0].listing / "graphics"
@@ -78,6 +90,7 @@ def build(art_widget: Path) -> None:
         "art_widget": webp(default_graphics / "icon-512.png", "img/apps", "art-widget", (96, 192)),
         "atlas_hunt": webp(VENDOR_DIR / "icons" / "atlas-hunt.png", "img/apps", "atlas-hunt", (96, 192)),
         "syllabee": webp(VENDOR_DIR / "icons" / "syllabee.png", "img/apps", "syllabee", (96, 192)),
+        "forio": forio_logo(),
     }
     write_text(ROOT / "index.html", render_home(apps))
 
