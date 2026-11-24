@@ -138,6 +138,42 @@ h1, h2, h3, .brand { font-weight: 700; }
 }
 .gallery figcaption { margin-top: 8px; color: var(--sky); font-size: .8125rem; line-height: 1.35; text-align: center; }
 
+/* Each shot opens enlarged in a popover: as tall as the screen allows, on a dimmed page */
+.zoom { display: block; padding: 0; border: 0; border-radius: 18px; background: none; cursor: zoom-in; }
+.zoom img { transition: transform .15s ease-out; }
+.zoom:hover img { transform: translateY(-3px); }
+.zoomed { padding: 0; border: 0; background: transparent; overflow: visible; }
+.zoomed::backdrop { background: rgba(4, 16, 24, .85); }
+.zoomed .large {
+  width: auto;
+  height: min(88vh, calc(92vw * 16 / 9));
+  aspect-ratio: 9 / 16;
+  background: var(--bezel) center / cover no-repeat;
+  border: 6px solid var(--bezel);
+  border-radius: 26px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .6);
+}
+.close {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--sky);
+  color: var(--wall);
+  font: 700 1.625rem/1 var(--sans);
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, .4);
+}
+@media (prefers-reduced-motion: reduce) {
+  .zoom img { transition: none; }
+}
+
 /* Free and full version: the full version's card in the store's wine, with the sparkles' gold */
 .plan.full { border-color: var(--spark); }
 .plan.full .note { color: var(--spark); }

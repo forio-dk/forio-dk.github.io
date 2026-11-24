@@ -74,6 +74,7 @@ text = "The world as it was on 1 June 1816, in 1914 and in 1989."
 [gallery]
 heading = "A closer look"
 sub = "{count} more screens from the app."
+close = "Close"
 
 [gallery.captions]
 explore-names = "Explore the map with names"

@@ -145,6 +145,7 @@ class AtlasEnglishTest(unittest.TestCase):
     def test_gallery_captions(self):
         self.assertEqual(list(self.en["gallery"]["captions"]), SCREENS)
         self.assertIn("{count}", self.en["gallery"]["sub"])
+        self.assertEqual(self.en["gallery"]["close"], "Close")
 
 
 ATLAS_SIBLING = ROOT.parent / "atlas_hunt"

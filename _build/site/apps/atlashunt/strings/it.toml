@@ -75,6 +75,7 @@ text = "Il mondo com'era il 1° giugno 1816, nel 1914 e nel 1989."  # new
 [gallery]
 heading = "Da vicino"  # new
 sub = "Altre {count} schermate dell'app."  # new
+close = "Chiudi"  # new
 
 [gallery.captions]
 explore-names = "Esplora la mappa con i nomi"  # new

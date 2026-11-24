@@ -7,6 +7,7 @@ from html.parser import HTMLParser
 from jinja2.exceptions import UndefinedError
 
 from artwidget import COMMONS_PAGES, POSTER_URL, VIDEO_URL
+from atlashunt import Shot
 from assets import Picture
 from config import ART_WIDGET, ATLAS_HUNT, LANGS, page_url, play_url
 from render import render_home, render_page
@@ -228,8 +229,9 @@ def atlas_strings() -> dict:
 def render_atlas(lang=EN, strings=None, gallery_size=15) -> str:
     pictures = {key: fake(f"/atlashunt/assets/img/{key}-1.webp") for key in ATLAS_KEYS}
     pictures["badge"] = Picture(f"/assets/badges/{lang.code}.png", "", 646, 250)
-    gallery = [(screen, fake(f"/atlashunt/assets/img/en/gallery/{screen}-160.webp"))
-               for screen in SCREENS[:gallery_size]]
+    gallery = [Shot(screen, fake(f"/atlashunt/assets/img/en/gallery/{screen}-160.webp"),
+                    f"/atlashunt/assets/img/en/gallery/{screen}-540.webp",
+                    f"/atlashunt/assets/img/en/gallery/{screen}-1080.webp") for screen in SCREENS[:gallery_size]]
     return render_page(ATLAS_HUNT, lang, strings or atlas_strings(), pictures, gallery=gallery,
                        video=f"/atlashunt/assets/video/{lang.code}.mp4",
                        poster=f"/atlashunt/assets/video/{lang.code}-poster.webp")
@@ -300,6 +302,30 @@ class AtlasRenderTest(unittest.TestCase):
         self.assertEqual(len(images), 15)
         self.assertEqual({a.get("loading") for a in images}, {"lazy"})
         self.assertEqual(images[0]["alt"], "Explore the map with names")
+
+    def test_gallery_zoomable(self):
+        buttons = [a for a in self.tags.find("button") if "popovertarget" in a and "popovertargetaction" not in a]
+        self.assertEqual([a["popovertarget"] for a in buttons], [f"zoom-{screen}" for screen in SCREENS])
+        for screen in SCREENS:
+            with self.subTest(screen=screen):
+                popover = self.tags.find("div", id=f"zoom-{screen}")
+                self.assertEqual(len(popover), 1)
+                self.assertIn("popover", popover[0])
+                close = self.tags.find("button", popovertarget=f"zoom-{screen}", popovertargetaction="hide")
+                self.assertEqual([a.get("aria-label") for a in close], ["Close"])
+        # The enlarged shot is a background image, which browsers fetch only once the popover is open (a lazy
+        # <img> in a closed popover is fetched with the page).
+        large = self.tags.find("div", **{"class": "large", "role": "img", "aria-label": "Rivers of South America"})
+        self.assertEqual(len(large), 1)
+        style = large[0]["style"]
+        self.assertIn("url('/atlashunt/assets/img/en/gallery/rivers-540.webp')", style)
+        self.assertIn("image-set(url('/atlashunt/assets/img/en/gallery/rivers-540.webp') 1x, "
+                      "url('/atlashunt/assets/img/en/gallery/rivers-1080.webp') 2x)", style)
+        popovers = self.html.split('<div class="zoomed"', 1)[1]
+        self.assertNotIn("<img", popovers.split("</section>", 1)[0])
+
+    def test_no_zoom_without_gallery(self):
+        self.assertNotIn("popover", render_atlas(gallery_size=0))
 
     def test_levels(self):
         level_images = [a for a in self.tags.find("img") if "/img/level_" in a["src"]]

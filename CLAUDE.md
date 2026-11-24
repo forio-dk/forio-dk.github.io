@@ -68,7 +68,8 @@ that present an app and link to Google Play. All of them are generated; never ed
   `feature-graphic.png` (the share image) and `video.mp4`; the level tiles use the en-US `leaderboard-*-512.png` icons
   (they have no text). The `home-N-<screen>.png` shots appear as the "A closer look" gallery on a page only when that
   page's listing has them (today en-US only), in N order; a shot whose `<screen>` has no caption in that language's
-  `gallery.captions` stops the build.
+  `gallery.captions` stops the build. Each shot opens enlarged in a popover (`popovertarget`, no script); the enlarged
+  shot is a background image so that browsers fetch it only when it is opened.
 - **Tests:** `(cd _build/site && python -X utf8 -m unittest -v)`. `tests/test_site.py` checks the committed
   output, the home page included: links resolve, no third-party requests, hreflang is reciprocal per app, and all
   three `privacy-policy.md` files are untouched (their git blobs are pinned).

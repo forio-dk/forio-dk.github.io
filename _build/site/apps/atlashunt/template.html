@@ -67,13 +67,22 @@
     <h2>{{ s.gallery.heading }}</h2>
     <p class="sub">{{ s.gallery.sub | replace("{count}", gallery | length | string) }}</p>
     <div class="gallery" tabindex="0" role="region" aria-label="{{ s.gallery.heading }}">
-    {% for screen, picture in gallery %}
+    {% for shot in gallery %}
       <figure>
-        {{ img(picture, s.gallery.captions[screen], "160px") }}
-        <figcaption>{{ s.gallery.captions[screen] }}</figcaption>
+        <button class="zoom" type="button" popovertarget="zoom-{{ shot.screen }}">{{ img(shot.thumb, s.gallery.captions[shot.screen], "160px") }}</button>
+        <figcaption>{{ s.gallery.captions[shot.screen] }}</figcaption>
       </figure>
     {% endfor %}
     </div>
+    {# Each shot enlarged: a popover the shot's button opens, with no script; Esc or a click outside closes it too. The
+       shot is a background image, which browsers fetch only once the popover shows it (they fetch a lazy <img> in a
+       closed popover with the page). #}
+    {% for shot in gallery %}
+    <div class="zoomed" id="zoom-{{ shot.screen }}" popover>
+      <div class="large" role="img" aria-label="{{ s.gallery.captions[shot.screen] }}" style="background-image: url('{{ shot.large_1x }}'); background-image: image-set(url('{{ shot.large_1x }}') 1x, url('{{ shot.large_2x }}') 2x)"></div>
+      <button class="close" type="button" popovertarget="zoom-{{ shot.screen }}" popovertargetaction="hide" aria-label="{{ s.gallery.close }}">×</button>
+    </div>
+    {% endfor %}
   </section>
 
   {% endif %}

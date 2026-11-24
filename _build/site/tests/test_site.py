@@ -21,6 +21,7 @@ POLICY_BLOBS = {
     "syllabee/privacy-policy.md": "0a694112f7a71f03e41caf4fda66205846e2742c",
 }
 HOME = ROOT / "index.html"
+STYLE_URL = re.compile(r"""url\(\s*["']?([^"')]+)["']?\s*\)""")
 ATLAS_SIBLING = ROOT.parent / "atlas_hunt"
 OUTBOUND_HOSTS = {"play.google.com", "commons.wikimedia.org"}
 REQUEST_RELS = {"stylesheet", "preload", "icon", "apple-touch-icon"}
@@ -43,6 +44,7 @@ def requested_urls(tags: Tags) -> list[str]:
     urls += [entry.split()[0] for t, a in tags.tags if t == "img" and a.get("srcset")
              for entry in a["srcset"].split(",")]
     urls += [a["poster"] for t, a in tags.tags if t == "video" and "poster" in a]
+    urls += [url for t, a in tags.tags if "style" in a for url in STYLE_URL.findall(a["style"])]
     urls += [a["href"] for t, a in tags.tags if t == "link" and a.get("rel") in REQUEST_RELS]
     return urls
 
@@ -163,6 +165,17 @@ class SiteTest(unittest.TestCase):
 
     def test_atlas_card_links_page(self):
         self.assertEqual(len(self.tags["home"].find("a", href="/atlashunt/")), 1)
+
+    def test_gallery_has_large_shots(self):
+        # The strip's thumbnails at 160 and 320; each popover's shot at 540 and 1080, as tall as the screen allows.
+        tags = self.tags["atlashunt/en"]
+        shots = [a for a in tags.find("img") if "/gallery/" in a["src"]]
+        self.assertEqual(len(shots), 15)
+        for shot in shots:
+            widths = [int(entry.split()[1].rstrip("w")) for entry in shot["srcset"].split(",")]
+            self.assertEqual(widths, [160, 320])
+        large = [url for url in requested_urls(tags) if "/gallery/" in url and url.endswith(("-540.webp", "-1080.webp"))]
+        self.assertEqual(len(set(large)), 30)
 
     def test_favicon(self):
         with Image.open(ROOT / "favicon.ico") as icon:

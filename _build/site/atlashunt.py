@@ -5,9 +5,11 @@ Every page shows its own listing's Play screenshots and video. The home-N-<scree
 appear as a gallery on a page only when that page's listing has them, each with its caption from the strings.
 """
 import re
+from dataclasses import dataclass
 from pathlib import Path
 
 from assets import favicons, og_jpeg, transcode_video
+from assets import Picture
 from config import ATLAS_HUNT, LANGS, page_file
 from output import app_webp, badge, write_text
 from render import render_page
@@ -20,6 +22,15 @@ STEPS = {"step_1": "phone-2-europe.png", "step_2": "phone-5-card.png", "step_3":
 LEVELS = {"level_earth": "leaderboard-world-512.png", "level_space": "leaderboard-space-512.png",
           "level_flags": "leaderboard-flags-512.png", "level_currencies": "leaderboard-currencies-512.png"}
 HOME_SHOT = re.compile(r"home-(\d+)-([a-z0-9-]+)\.png")
+
+
+@dataclass(frozen=True)
+class Shot:
+    """A gallery shot: its thumbnail in the strip, and the shot enlarged in its popover at 1x and 2x."""
+    screen: str
+    thumb: Picture
+    large_1x: str
+    large_2x: str
 
 
 def gallery_shots(graphics: Path) -> list[tuple[str, Path]]:
@@ -40,6 +51,13 @@ def gallery_problems(repo: Path, strings: dict[str, dict]) -> list[str]:
             if screen not in strings[lang.code]["gallery"]["captions"]]
 
 
+def gallery_shot(screen: str, path: Path, folder: str) -> Shot:
+    """The strip's thumbnail at 160 and 320 px, and the popover's shot at 540 and 1080 px wide."""
+    large = app_webp(ATLAS_HUNT, path, folder, screen, (540, 1080))
+    return Shot(screen, app_webp(ATLAS_HUNT, path, folder, screen, (160, 320)), large.src,
+                large.srcset.split(", ")[1].split()[0])
+
+
 def build_pages(repo: Path, strings: dict[str, dict]) -> None:
     default = graphics(repo, LANGS[0].listing)
     favicons(default / "icon-512.png", ASSETS / "img")
@@ -53,8 +71,7 @@ def build_pages(repo: Path, strings: dict[str, dict]) -> None:
         for key, name in (HERO | STEPS).items():
             pictures[key] = app_webp(ATLAS_HUNT, listing / name, f"img/{lang.code}", key.replace("_", "-"),
                                      (200, 400))
-        gallery = [(screen, app_webp(ATLAS_HUNT, path, f"img/{lang.code}/gallery", screen, (160, 320)))
-                   for screen, path in gallery_shots(listing)]
+        gallery = [gallery_shot(screen, path, f"img/{lang.code}/gallery") for screen, path in gallery_shots(listing)]
         og_jpeg(listing / "feature-graphic.png", ASSETS / "img" / lang.code / "og.jpg")
         video = ASSETS / "video" / f"{lang.code}.mp4"
         poster = ASSETS / "video" / f"{lang.code}-poster.webp"

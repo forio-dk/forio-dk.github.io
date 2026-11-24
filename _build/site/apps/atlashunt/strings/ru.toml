@@ -75,6 +75,7 @@ text = "Мир, каким он был 1 июня 1816 года, в 1914 и в 1
 [gallery]
 heading = "Поближе"  # new
 sub = "Ещё {count} экранов приложения."  # new
+close = "Закрыть"  # new
 
 [gallery.captions]
 explore-names = "Изучайте карту с названиями"  # new
