@@ -45,7 +45,7 @@ def build_home(repos: dict[App, Path]) -> None:
 
     apps = {
         "art_widget": icon(listing_graphics(repos[ART_WIDGET], LANGS[0]) / "icon-512.png", "art-widget"),
-        "atlas_hunt": icon(VENDOR_DIR / "icons" / "atlas-hunt.png", "atlas-hunt"),
+        "atlas_hunt": icon(listing_graphics(repos[ATLAS_HUNT], LANGS[0]) / "icon-512.png", "atlas-hunt"),
         "syllabee": icon(VENDOR_DIR / "icons" / "syllabee.png", "syllabee"),
         "forio": forio_logo(),
     }

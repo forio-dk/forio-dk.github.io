@@ -90,8 +90,9 @@ that present an app and link to Google Play. All of them are generated; never ed
 - **`_build/` is never published:** Jekyll skips folders starting with `_`.
 - **No third-party requests:** fonts, images, badges and videos are served from `/assets/` and `/<app>/assets/`. Keep
   it so; the pages advertise apps whose policies say they collect nothing themselves.
-- **Vendor files** (fonts, Google Play badges, the two Commons paintings, and the Atlas Hunt and Syllabee icons copied
-  from their repos) are fetched once by `_build/site/fetch_vendor.py`, with their sources in `vendor/SOURCES.md`.
+- **Vendor files** (fonts, Google Play badges, the two Commons paintings, and the Syllabee icon copied from its repo)
+  are fetched once by `_build/site/fetch_vendor.py`, with their sources in `vendor/SOURCES.md`. The home page's Art
+  Widget and Atlas Hunt icons are read from their repos at build time.
 
 ## Adding an app
 
@@ -104,4 +105,5 @@ that present an app and link to Google Play. All of them are generated; never ed
    rebuild.
 5. Optionally give it a landing page like Art Widget's and Atlas Hunt's: an `App` in `config.py` (and in `APPS`),
    `_build/site/apps/<app>/template.html` extending `base.html`, its `strings/<code>.toml`, a builder module added to
-   `BUILDERS` in `build.py`, and `<app>/assets/theme.css`.
+   `BUILDERS` in `build.py`, and `<app>/assets/theme.css`. Its home card's icon then comes from its repo in
+   `build_home()`, and leaves `LOCAL_VENDOR`.
