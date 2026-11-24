@@ -1,11 +1,13 @@
 import unittest
+from pathlib import Path
 from unittest import mock
 
 from PIL import Image
 
 import config
 from config import ART_WIDGET, ATLAS_HUNT, LANGS
-from pages import app_icon, phone_shots, write_page
+import pages
+from pages import app_icon, language_video, phone_shots, write_page
 from strings import load_strings
 from tests.test_assets import gradient, temporary_folder
 from tests.test_render import ATLAS_KEYS, fake
@@ -35,6 +37,14 @@ class PagesTest(unittest.TestCase):
         self.assertEqual(list(shots), ["step_1"])
         self.assertEqual(shots["step_1"].src, "/atlashunt/assets/img/da/step-1-200.webp")
         self.assertTrue((self.root / "atlashunt" / "assets" / "img" / "da" / "step-1-400.webp").is_file())
+
+    def test_language_video(self):
+        with mock.patch.object(pages, "transcode_video") as transcode:
+            urls = language_video(ATLAS_HUNT, Path("listing"), LANGS[1])
+        video = self.root / "atlashunt" / "assets" / "video"
+        transcode.assert_called_once_with(Path("listing/video.mp4"), video / "da.mp4", video / "da-poster.webp")
+        self.assertEqual(urls, {"video": "/atlashunt/assets/video/da.mp4",
+                                "poster": "/atlashunt/assets/video/da-poster.webp"})
 
     def test_write_page(self):
         gradient(self.graphics / "feature-graphic.png", (1024, 500))

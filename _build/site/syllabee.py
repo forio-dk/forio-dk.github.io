@@ -13,7 +13,8 @@ from pathlib import Path
 from types import ModuleType
 
 from config import SYLLABEE
-from output import prune, write_text
+from output import app_webp, badge, prune, write_text
+from pages import app_icon, language_video, phone_shots, write_page
 
 # Theme: the drawing on its tile, one that every language's pack uses in that theme (tests/test_syllabee.py checks).
 THEMES: dict[str, str] = {
@@ -102,3 +103,18 @@ def store_problems(repo: Path, strings: dict[str, dict]) -> list[str]:
     errors += [f"{name}: its licence needs an attribution the page doesn't give"
                for name in sorted(names & NEEDS_ATTRIBUTION)]
     return errors
+
+
+def build_pages(repo: Path, strings: dict[str, dict]) -> None:
+    tools = store_tools(repo)
+    urls = write_drawings(repo, tools)
+    themes, colouring = tiles(THEMES, urls, tools), tiles(COLOURING, urls, tools)
+    icon = app_icon(SYLLABEE, SYLLABEE.graphics(repo, SYLLABEE.langs[0]))
+    for lang in SYLLABEE.langs:
+        graphics = SYLLABEE.graphics(repo, lang)
+        pictures = {"icon": icon, "badge": badge(lang),
+                    "hero": app_webp(SYLLABEE, graphics / HERO["hero"], f"img/{lang.code}", "hero", (240, 480)),
+                    **phone_shots(SYLLABEE, graphics, lang, GAMES | COLOURING_SHOT)}
+        write_page(SYLLABEE, lang, graphics, strings[lang.code], pictures, syllables=tools.WORDS[lang.code][2],
+                   cards=[urls[name] for name in tools.CARDS[lang.code]], themes=themes, colouring=colouring,
+                   **language_video(SYLLABEE, SYLLABEE.listing(repo, lang), lang))

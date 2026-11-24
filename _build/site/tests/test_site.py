@@ -8,7 +8,8 @@ from urllib.parse import urlsplit
 from PIL import Image
 
 from atlashunt import gallery_shots
-from config import APPS, ART_WIDGET, ATLAS_HUNT, LANGS, ROOT, SITE_URL, SYLLABEE, page_file
+from syllabee import NEEDS_ATTRIBUTION
+from config import APPS, ART_WIDGET, ATLAS_HUNT, LANGS, ROOT, SITE_URL, SYLLABEE, page_file, play_url
 from tests.test_render import Tags
 
 ASSETS = ART_WIDGET.assets
@@ -197,6 +198,36 @@ class SiteTest(unittest.TestCase):
                 video = ATLAS_HUNT.assets / "video" / f"{lang.code}.mp4"
                 self.assertLessEqual(video.stat().st_size, 6 * 1024 * 1024)
                 self.assertTrue((ATLAS_HUNT.assets / "video" / f"{lang.code}-poster.webp").is_file())
+
+    def test_syllabee_videos(self):
+        for lang in SYLLABEE.langs:
+            with self.subTest(code=lang.code):
+                video = SYLLABEE.assets / "video" / f"{lang.code}.mp4"
+                self.assertLessEqual(video.stat().st_size, 6 * 1024 * 1024)
+                self.assertTrue((SYLLABEE.assets / "video" / f"{lang.code}-poster.webp").is_file())
+
+    def test_syllabee_pages_name_their_own_app(self):
+        packages = {SYLLABEE.package_in(lang) for lang in SYLLABEE.langs}
+        for lang in SYLLABEE.langs:
+            key = f"syllabee/{lang.code}"
+            html, tags = self.pages[key], self.tags[key]
+            with self.subTest(page=key):
+                self.assertEqual(len(tags.find("a", href=play_url(SYLLABEE, lang))), 2)
+                self.assertEqual([p for p in packages - {SYLLABEE.package_in(lang)} if p in html], [])
+                self.assertEqual([a["content"] for a in tags.find("meta", property="og:image")],
+                                 [f"{SITE_URL}/syllabee/assets/img/{lang.code}/og.jpg"])
+                self.assertEqual(len(tags.find("source", src=f"/syllabee/assets/video/{lang.code}.mp4")), 1)
+
+    def test_syllabee_drawings(self):
+        used = {url for key, tags in self.tags.items() if key.startswith("syllabee/")
+                for url in requested_urls(tags) if "/img/art/" in url}
+        self.assertTrue(used)
+        for url in used:
+            with self.subTest(url=url):
+                self.assertTrue(local_file(url).read_text(encoding="utf-8").startswith("<svg"))
+                self.assertNotIn(Path(url).stem, NEEDS_ATTRIBUTION)
+        folder = SYLLABEE.assets / "img" / "art"
+        self.assertEqual({path.name for path in folder.iterdir()}, {Path(url).name for url in used})
 
     @unittest.skipUnless(ATLAS_SIBLING.is_dir(), "needs ../atlas_hunt")
     def test_gallery_matches_listings(self):

@@ -117,7 +117,7 @@ SYLLABEE = App("syllabee", "Syllabee", "dk.forio.syllabee", "learn_to_read", "#6
                          Flavour("ru", "Слогарик", "dk.forio.slogarik"),
                          Flavour("uk", "Складарик", "dk.forio.skladaryk")),
                listings="docs/store", listing_folder="code", graphics_folder="")
-APPS: tuple[App, ...] = (ART_WIDGET, ATLAS_HUNT)
+APPS: tuple[App, ...] = (ART_WIDGET, ATLAS_HUNT, SYLLABEE)
 
 # Each file in vendor/, relative to VENDOR_DIR, and where it was downloaded from.
 VENDOR: dict[str, str] = {

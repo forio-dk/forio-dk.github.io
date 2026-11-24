@@ -4,7 +4,8 @@ import unittest
 from pathlib import Path
 
 from build import problems
-from config import APPS, ART_WIDGET, ATLAS_HUNT
+from config import APPS, ART_WIDGET, ATLAS_HUNT, SYLLABEE
+from tests.test_syllabee import fake_repo
 
 
 class ProblemsTest(unittest.TestCase):
@@ -16,6 +17,8 @@ class ProblemsTest(unittest.TestCase):
         self.repos = {}
         for app in APPS:
             self.repos[app] = self.root / app.repo
+            if app == SYLLABEE:
+                fake_repo(self.root)
             for lang in app.langs:
                 app.graphics(self.repos[app], lang).mkdir(parents=True, exist_ok=True)
             (self.apps / app.slug / "strings").mkdir(parents=True)
@@ -54,5 +57,14 @@ class ProblemsTest(unittest.TestCase):
         (self.repos[ATLAS_HUNT] / "docs" / "listings" / "da-DK" / "graphics" / "home-3-oceans.png").write_bytes(b"")
         self.assertEqual(self.check(), ["apps/atlashunt/strings/da.toml: no caption for home-3-oceans.png"])
 
-    def test_both_apps_checked(self):
-        self.assertEqual(set(self.repos), {ART_WIDGET, ATLAS_HUNT})
+    def test_missing_learn_to_read_repository(self):
+        errors = self.check(syllabee=self.root / "elsewhere")
+        self.assertEqual(len(errors), 1)
+        self.assertIn("is not the Syllabee repository (no docs/store); pass --learn-to-read", errors[0])
+
+    def test_syllabee_missing_shot(self):
+        (self.repos[SYLLABEE] / "docs" / "store" / "ru" / "phone-4-build.png").unlink()
+        self.assertEqual(self.check(), ["docs/store/ru/phone-4-build.png: missing"])
+
+    def test_every_app_checked(self):
+        self.assertEqual(set(self.repos), {ART_WIDGET, ATLAS_HUNT, SYLLABEE})

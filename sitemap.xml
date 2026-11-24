@@ -123,4 +123,36 @@
     <xhtml:link rel="alternate" hreflang="uk" href="https://forio-dk.github.io/atlashunt/uk/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://forio-dk.github.io/atlashunt/"/>
   </url>
+  <url>
+    <loc>https://forio-dk.github.io/syllabee/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://forio-dk.github.io/syllabee/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://forio-dk.github.io/syllabee/da/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://forio-dk.github.io/syllabee/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://forio-dk.github.io/syllabee/uk/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://forio-dk.github.io/syllabee/"/>
+  </url>
+  <url>
+    <loc>https://forio-dk.github.io/syllabee/da/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://forio-dk.github.io/syllabee/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://forio-dk.github.io/syllabee/da/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://forio-dk.github.io/syllabee/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://forio-dk.github.io/syllabee/uk/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://forio-dk.github.io/syllabee/"/>
+  </url>
+  <url>
+    <loc>https://forio-dk.github.io/syllabee/ru/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://forio-dk.github.io/syllabee/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://forio-dk.github.io/syllabee/da/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://forio-dk.github.io/syllabee/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://forio-dk.github.io/syllabee/uk/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://forio-dk.github.io/syllabee/"/>
+  </url>
+  <url>
+    <loc>https://forio-dk.github.io/syllabee/uk/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://forio-dk.github.io/syllabee/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://forio-dk.github.io/syllabee/da/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://forio-dk.github.io/syllabee/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://forio-dk.github.io/syllabee/uk/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://forio-dk.github.io/syllabee/"/>
+  </url>
 </urlset>

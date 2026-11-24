@@ -8,10 +8,10 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 
-from assets import Picture, transcode_video
+from assets import Picture
 from config import ATLAS_HUNT, LANGS
 from output import app_webp, badge, prune
-from pages import app_icon, phone_shots, write_page
+from pages import app_icon, language_video, phone_shots, write_page
 
 ASSETS = ATLAS_HUNT.assets
 # Picture key: the listing's Play screenshot it shows.
@@ -80,9 +80,5 @@ def build_pages(repo: Path, strings: dict[str, dict]) -> None:
         folder = ASSETS / "img" / lang.code / "gallery"
         prune(folder, {folder / f"{shot.screen}-{width}.webp" for shot in gallery
                        for width in THUMB_WIDTHS + LARGE_WIDTHS})
-        video = ASSETS / "video" / f"{lang.code}.mp4"
-        poster = ASSETS / "video" / f"{lang.code}-poster.webp"
-        transcode_video(ATLAS_HUNT.listing(repo, lang) / "video.mp4", video, poster)
         write_page(ATLAS_HUNT, lang, graphics, strings[lang.code], pictures, gallery=gallery,
-                   video=f"{ATLAS_HUNT.assets_url}/video/{video.name}",
-                   poster=f"{ATLAS_HUNT.assets_url}/video/{poster.name}")
+                   **language_video(ATLAS_HUNT, ATLAS_HUNT.listing(repo, lang), lang))

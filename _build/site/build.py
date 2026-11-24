@@ -1,7 +1,8 @@
-"""Generates the site: each app's pages (see artwidget.py and atlashunt.py), the home page index.html with the
-Forio logo, and sitemap.xml and robots.txt.
+"""Generates the site: each app's pages (see artwidget.py, atlashunt.py and syllabee.py), the home page index.html with
+the Forio logo, and sitemap.xml and robots.txt.
 
-Run from the repository root: python -X utf8 _build/site/build.py [--art-widget ../art_widget] [--atlas-hunt ../atlas_hunt]
+Run from the repository root: python -X utf8 _build/site/build.py [--art-widget ../art_widget]
+[--atlas-hunt ../atlas_hunt] [--learn-to-read ../learn_to_read]
 It reads each app's store graphics and preview video from the app's repository and the downloads in vendor/, and
 writes only what changed, so a second run leaves git status clean. The stylesheets are hand-written.
 """
@@ -13,17 +14,20 @@ from pathlib import Path
 
 import artwidget
 import atlashunt
+import syllabee
 from assets import Picture, forio_mark
-from config import ART_WIDGET, ATLAS_HUNT, BUILD, LANGS, ROOT, SHARED, VENDOR_DIR, App
+from config import ART_WIDGET, ATLAS_HUNT, BUILD, LANGS, ROOT, SHARED, SYLLABEE, VENDOR_DIR, App
 from output import copy_file, shared_webp, write_text
 from render import render_home
 from sitemap import ROBOTS_TXT, render_sitemap
 from strings import load_strings, shape_errors
 
 BUILDERS: dict[App, Callable[[Path, dict[str, dict]], None]] = {ART_WIDGET: artwidget.build_pages,
-                                                              ATLAS_HUNT: atlashunt.build_pages}
+                                                              ATLAS_HUNT: atlashunt.build_pages,
+                                                              SYLLABEE: syllabee.build_pages}
 # What else stops an app's build once its repository and strings are fine.
-CHECKS: dict[App, Callable[[Path, dict[str, dict]], list[str]]] = {ATLAS_HUNT: atlashunt.gallery_problems}
+CHECKS: dict[App, Callable[[Path, dict[str, dict]], list[str]]] = {ATLAS_HUNT: atlashunt.gallery_problems,
+                                                                   SYLLABEE: syllabee.store_problems}
 
 
 def forio_logo() -> Picture:
