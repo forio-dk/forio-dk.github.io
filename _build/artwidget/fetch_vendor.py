@@ -2,12 +2,12 @@
 the app icons listed in config.LOCAL_VENDOR from the sibling repositories.
 
 Run from the repository root: python -X utf8 _build/artwidget/fetch_vendor.py [--force]
-The files are committed, so the generator never needs the network; --force downloads them all again.
+The files are committed, so the generator never needs the network; --force downloads and copies them all again.
 """
 import argparse
-import shutil
 import sys
 import urllib.request
+from collections.abc import Callable
 
 from config import LOCAL_VENDOR, ROOT, VENDOR, VENDOR_DIR
 
@@ -28,24 +28,24 @@ def write_sources() -> None:
     (VENDOR_DIR / "SOURCES.md").write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
 
 
+def fetch(name: str, read: Callable[[], bytes], verb: str, force: bool) -> None:
+    """Writes vendor/<name> from read(), unless it is already there (or force)."""
+    path = VENDOR_DIR / name
+    if path.is_file() and not force:
+        return
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(read())
+    print(f"{verb} {name}")
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("--force", action="store_true", help="download every file again")
+    parser.add_argument("--force", action="store_true", help="download and copy every file again")
     args = parser.parse_args(argv)
     for name, url in VENDOR.items():
-        path = VENDOR_DIR / name
-        if path.is_file() and not args.force:
-            continue
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_bytes(download(url))
-        print(f"downloaded {name}")
+        fetch(name, lambda url=url: download(url), "downloaded", args.force)
     for name, source in LOCAL_VENDOR.items():
-        path = VENDOR_DIR / name
-        if path.is_file() and not args.force:
-            continue
-        path.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(ROOT.parent / source, path)
-        print(f"copied {name}")
+        fetch(name, (ROOT.parent / source).read_bytes, "copied", args.force)
     write_sources()
     return 0
 
