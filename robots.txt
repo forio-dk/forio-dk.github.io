@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://forio-dk.github.io/sitemap.xml

@@ -13,7 +13,8 @@ lives in a sibling repo:
 | Atlas Hunt | `../atlas_hunt` | `dk.forio.atlashunt` | `atlashunt/privacy-policy.md` | `https://forio-dk.github.io/atlashunt/privacy-policy.html` |
 | Stavebi, Syllabee, Складарик, Слогарик | `../learn_to_read` | `dk.forio.stavebi`, `.syllabee`, `.skladaryk`, `.slogarik` | `syllabee/privacy-policy.md` | `https://forio-dk.github.io/syllabee/privacy-policy.html` (one URL for all four flavours) |
 
-There is no build, lint or test step. Pushing to `main` publishes the site.
+Pushing to `main` publishes the site. Only the Art Widget home page has a build step and tests (see below); everything
+else is published as it is.
 
 ## Policies are copies: edit them in the app repo
 
@@ -44,6 +45,29 @@ diff <(tr -d '\r' < ../learn_to_read/docs/privacy-policy.md) <(tr -d '\r' < syll
 - **`google3f02f6a48fbc475d.html`** verifies `https://forio-dk.github.io/` as a Search Console property. Atlas Hunt's
   OAuth branding verification needs it, so it must stay at the root unchanged (see `../atlas_hunt/docs/play-console.md`).
 - **`app-ads.txt`** is the AdMob publisher declaration. AdMob reads it from the domain root for every app's ads.
+- **`sitemap.xml` and `robots.txt`** at the root are generated with the Art Widget page; the sitemap lists its six
+  language versions.
+
+## Art Widget home page
+
+`/artwidget/` (English) and `/artwidget/{da,it,ro,ru,uk}/` are a landing page that presents the app and links to
+Google Play. They are generated; never edit them by hand.
+
+- **Generator:** `python -X utf8 _build/artwidget/build.py` from the repo root (needs Jinja2, Pillow and ffmpeg; see
+  `_build/artwidget/requirements.txt`). It reads `../art_widget/docs/listings/<listing>/graphics` and the en-US
+  `video.mp4`, plus the committed downloads in `_build/artwidget/vendor/`, and writes only what changed: run it twice
+  and `git status` stays clean. The video is re-encoded only when `artwidget/assets/video/` lacks it.
+- **Tests:** `(cd _build/artwidget && python -X utf8 -m unittest -v)`. `tests/test_site.py` checks the committed
+  output: links resolve, no third-party requests, hreflang is reciprocal, and `artwidget/privacy-policy.md` is
+  untouched.
+- **Edited by hand:** `_build/artwidget/template.html`, `_build/artwidget/strings/<code>.toml` (every language has
+  English's keys; facts come from that language's store listing) and `artwidget/assets/site.css`.
+- **Generated:** `artwidget/**/index.html`, `artwidget/assets/{img,badges,fonts,video}/`, `sitemap.xml`, `robots.txt`.
+- **`_build/` is never published:** Jekyll skips folders starting with `_`.
+- **No third-party requests:** fonts, images, badges and video are served from `/artwidget/assets/`. Keep it so; the
+  page advertises an app whose policy says it collects nothing itself.
+- **Vendor downloads** (fonts, Google Play badges, the two Commons paintings) are fetched once by
+  `_build/artwidget/fetch_vendor.py`, with their sources in `vendor/SOURCES.md`.
 
 ## Adding an app
 
