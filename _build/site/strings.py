@@ -1,12 +1,10 @@
-"""Loads the per-language page strings and checks that every language has the same keys as English."""
+"""Loads an app's per-language page strings and checks that every language has the same keys as English."""
 import tomllib
 from collections.abc import Iterable
 from pathlib import Path
 
-from config import STRINGS
 
-
-def load_strings(codes: Iterable[str], folder: Path = STRINGS) -> dict[str, dict]:
+def load_strings(codes: Iterable[str], folder: Path) -> dict[str, dict]:
     return {code: tomllib.loads((folder / f"{code}.toml").read_text(encoding="utf-8")) for code in codes}
 
 

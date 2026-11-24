@@ -1,4 +1,4 @@
-"""Image and video processing for the Art Widget home page: WebP sets, share images, favicons, the preview video."""
+"""Image and video processing for the generated pages: WebP sets, share images, favicons, preview videos, the logo."""
 import io
 import subprocess
 from dataclasses import dataclass

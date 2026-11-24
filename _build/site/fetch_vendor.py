@@ -1,7 +1,7 @@
 """Downloads the fonts, Google Play badges and artworks listed in config.VENDOR into vendor/, once, and copies
 the app icons listed in config.LOCAL_VENDOR from the sibling repositories.
 
-Run from the repository root: python -X utf8 _build/artwidget/fetch_vendor.py [--force]
+Run from the repository root: python -X utf8 _build/site/fetch_vendor.py [--force]
 The files are committed, so the generator never needs the network; --force downloads and copies them all again.
 """
 import argparse

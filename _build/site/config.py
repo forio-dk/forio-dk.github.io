@@ -1,14 +1,11 @@
-"""Paths, languages, URLs and the list of downloaded inputs for the site generator (home page and Art Widget page)."""
+"""Paths, languages, apps, URLs and the list of downloaded inputs for the site generator (the home page and each
+app's page)."""
 from dataclasses import dataclass
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-BUILD = ROOT / "_build" / "artwidget"
+BUILD = ROOT / "_build" / "site"
 VENDOR_DIR = BUILD / "vendor"
-STRINGS = BUILD / "strings"
-SITE = ROOT / "artwidget"
-ASSETS = SITE / "assets"
-ASSETS_URL = "/artwidget/assets"
 
 PLAYFAIR = "https://cdn.jsdelivr.net/npm/@fontsource/playfair-display@5.3.0"
 SOURCE_SANS = "https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.3.1"
@@ -20,7 +17,7 @@ COMMONS = "https://commons.wikimedia.org/wiki/Special:FilePath/{}?width=1200"
 @dataclass(frozen=True)
 class Lang:
     code: str  # html lang, hreflang, Play's hl and the page's folder (English, the default, has none)
-    listing: str  # folder in ../art_widget/docs/listings
+    listing: str  # folder in each app repository's docs/listings
     name: str  # the language's own name, for the switcher
     og_locale: str
     font_subset: str  # "latin" or "cyrillic": the heading font file to preload
@@ -35,6 +32,46 @@ LANGS = (
     Lang("ru", "ru-RU", "Русский", "ru_RU", "cyrillic", "ru"),
     Lang("uk", "uk", "Українська", "uk_UA", "cyrillic", "ua"),
 )
+
+
+@dataclass(frozen=True)
+class App:
+    """An app with a page of its own: /<slug>/ in English and /<slug>/<code>/ in the other languages."""
+    slug: str  # the page's folder, apps/<slug>/ here, and the Play referrer's campaign "<slug>-home"
+    name: str
+    package: str
+    repo: str  # the app's repository, a sibling of this one
+    theme_color: str
+    category: str  # schema.org applicationCategory
+
+    @property
+    def site(self) -> Path:
+        return ROOT / self.slug
+
+    @property
+    def assets(self) -> Path:
+        return self.site / "assets"
+
+    @property
+    def assets_url(self) -> str:
+        return f"/{self.slug}/assets"
+
+    @property
+    def folder(self) -> Path:
+        return BUILD / "apps" / self.slug
+
+    @property
+    def strings(self) -> Path:
+        return self.folder / "strings"
+
+    @property
+    def template(self) -> str:
+        return f"apps/{self.slug}/template.html"
+
+
+ART_WIDGET = App("artwidget", "Art Widget", "dk.forio.artwidget", "art_widget", "#132841",
+                 "DesktopEnhancementApplication")
+APPS: tuple[App, ...] = (ART_WIDGET,)
 
 # Each file in vendor/, relative to VENDOR_DIR, and where it was downloaded from.
 VENDOR: dict[str, str] = {
@@ -61,33 +98,25 @@ LOCAL_VENDOR: dict[str, str] = {
     "icons/syllabee.png": "learn_to_read/docs/store/en/icon-512.png",
 }
 
-
 SITE_URL = "https://forio-dk.github.io"
-PACKAGE = "dk.forio.artwidget"
-REFERRER = "utm_source%3Dforio-dk.github.io%26utm_medium%3Dwebsite%26utm_campaign%3Dartwidget-home"
-VIDEO_URL = ASSETS_URL + "/video/preview.mp4"
-POSTER_URL = ASSETS_URL + "/video/preview-poster.webp"
-COMMONS_PAGES = {
-    "starry": "https://commons.wikimedia.org/wiki/File:Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
-    "pearl": "https://commons.wikimedia.org/wiki/File:1665_Girl_with_a_Pearl_Earring.jpg",
-}
 
 
 def is_default(lang: Lang) -> bool:
     return lang.code == LANGS[0].code
 
 
-def page_path(lang: Lang) -> str:
-    return "/artwidget/" if is_default(lang) else f"/artwidget/{lang.code}/"
+def page_path(app: App, lang: Lang) -> str:
+    return f"/{app.slug}/" if is_default(lang) else f"/{app.slug}/{lang.code}/"
 
 
-def page_url(lang: Lang) -> str:
-    return SITE_URL + page_path(lang)
+def page_url(app: App, lang: Lang) -> str:
+    return SITE_URL + page_path(app, lang)
 
 
-def page_file(lang: Lang) -> Path:
-    return SITE / "index.html" if is_default(lang) else SITE / lang.code / "index.html"
+def page_file(app: App, lang: Lang) -> Path:
+    return app.site / "index.html" if is_default(lang) else app.site / lang.code / "index.html"
 
 
-def play_url(lang: Lang) -> str:
-    return f"https://play.google.com/store/apps/details?id={PACKAGE}&hl={lang.code}&referrer={REFERRER}"
+def play_url(app: App, lang: Lang) -> str:
+    referrer = f"utm_source%3Dforio-dk.github.io%26utm_medium%3Dwebsite%26utm_campaign%3D{app.slug}-home"
+    return f"https://play.google.com/store/apps/details?id={app.package}&hl={lang.code}&referrer={referrer}"

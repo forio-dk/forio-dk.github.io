@@ -56,28 +56,28 @@ diff <(tr -d '\r' < ../learn_to_read/docs/privacy-policy.md) <(tr -d '\r' < syll
 `/` is the site's home page. `/artwidget/` (English) and `/artwidget/{da,it,ro,ru,uk}/` are a landing page that presents
 the app and links to Google Play. All of them are generated; never edit them by hand.
 
-- **Generator:** `python -X utf8 _build/artwidget/build.py` from the repo root (needs Jinja2, Pillow and ffmpeg; see
-  `_build/artwidget/requirements.txt`). It reads `../art_widget/docs/listings/<listing>/graphics` and the en-US
-  `video.mp4`, plus the committed downloads in `_build/artwidget/vendor/`, and writes only what changed: run it twice
+- **Generator:** `python -X utf8 _build/site/build.py` from the repo root (needs Jinja2, Pillow and ffmpeg; see
+  `_build/site/requirements.txt`). It reads `../art_widget/docs/listings/<listing>/graphics` and the en-US
+  `video.mp4`, plus the committed downloads in `_build/site/vendor/`, and writes only what changed: run it twice
   and `git status` stays clean. The video is re-encoded only when `artwidget/assets/video/` lacks it or the source video is newer.
-- **Tests:** `(cd _build/artwidget && python -X utf8 -m unittest -v)`. `tests/test_site.py` checks the committed
+- **Tests:** `(cd _build/site && python -X utf8 -m unittest -v)`. `tests/test_site.py` checks the committed
   output, the home page included: links resolve, no third-party requests, hreflang is reciprocal, and all three
   `privacy-policy.md` files are untouched (their git blobs are pinned).
-- **Edited by hand:** `_build/artwidget/template.html` (the Art Widget page), `_build/artwidget/home.html` (the home
+- **Edited by hand:** `_build/site/apps/artwidget/template.html` (the Art Widget page), `_build/site/home.html` (the home
   page, English only; its card texts are the apps' en-US store short descriptions),
-  `_build/artwidget/strings/<code>.toml` (every language has English's keys; facts come from that language's store
+  `_build/site/apps/artwidget/strings/<code>.toml` (every language has English's keys; facts come from that language's store
   listing) and `artwidget/assets/site.css` (shared by all generated pages).
 - **Generated:** `artwidget/**/index.html`, `artwidget/assets/{img,badges,fonts,video}/`, the root `index.html`
-  (from `_build/artwidget/home.html`), `favicon.ico`, `apple-touch-icon.png`, `sitemap.xml`, `robots.txt`.
+  (from `_build/site/home.html`), `favicon.ico`, `apple-touch-icon.png`, `sitemap.xml`, `robots.txt`.
 - **The Forio logo** (a cream serif F hung in a gold frame on the navy wall) is drawn by `forio_mark()` in
-  `_build/artwidget/assets.py` from the vendored Playfair Display TTF. The root `favicon.ico` and
+  `_build/site/assets.py` from the vendored Playfair Display TTF. The root `favicon.ico` and
   `apple-touch-icon.png` are what browsers show for every page that names no icon of its own, `README.md` and the
   policies included; the Art Widget pages keep Art Widget's icon.
 - **`_build/` is never published:** Jekyll skips folders starting with `_`.
 - **No third-party requests:** fonts, images, badges and video are served from `/artwidget/assets/`. Keep it so; the
   page advertises an app whose policy says it collects nothing itself.
 - **Vendor files** (fonts, Google Play badges, the two Commons paintings, and the Atlas Hunt and Syllabee icons copied
-  from their repos) are fetched once by `_build/artwidget/fetch_vendor.py`, with their sources in
+  from their repos) are fetched once by `_build/site/fetch_vendor.py`, with their sources in
   `vendor/SOURCES.md`.
 
 ## Adding an app
@@ -85,7 +85,7 @@ the app and links to Google Play. All of them are generated; never edit them by 
 1. Copy the app repo's `docs/privacy-policy.md` to `<app>/privacy-policy.md`.
 2. Add the app's name to the list in `README.md`.
 3. In the app repo's `gradle.properties`, set `privacyPolicyUrl=https://forio-dk.github.io/<app>/privacy-policy.html`.
-4. Add a card to `_build/artwidget/home.html`, linking the new policy (the home page must link every app's policy),
-   with the app's icon (add it to `LOCAL_VENDOR` in `_build/artwidget/config.py` and run `fetch_vendor.py`). Update
+4. Add a card to `_build/site/home.html`, linking the new policy (the home page must link every app's policy),
+   with the app's icon (add it to `LOCAL_VENDOR` in `_build/site/config.py` and run `fetch_vendor.py`). Update
    `HomeTest`'s expected headings and links, add the policy's blob to `POLICY_BLOBS` in `tests/test_site.py`, then
    rebuild.

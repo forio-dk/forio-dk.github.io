@@ -7,9 +7,10 @@ from urllib.parse import urlsplit
 
 from PIL import Image
 
-from config import ASSETS, LANGS, ROOT, SITE_URL, page_file
+from config import ART_WIDGET, LANGS, ROOT, SITE_URL, page_file
 from tests.test_render import Tags
 
+ASSETS = ART_WIDGET.assets
 CSS = ASSETS / "site.css"
 POLICY_BLOBS = {
     "artwidget/privacy-policy.md": "f918c89c82a0fb2b8b6995b715848743abb632f1",
@@ -49,14 +50,14 @@ def css_urls() -> list[str]:
 class SiteTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.pages = {lang.code: page_file(lang).read_text(encoding="utf-8") for lang in LANGS}
+        cls.pages = {lang.code: page_file(ART_WIDGET, lang).read_text(encoding="utf-8") for lang in LANGS}
         cls.pages["home"] = HOME.read_text(encoding="utf-8")
         cls.tags = {code: Tags(html) for code, html in cls.pages.items()}
         cls.css = CSS.read_text(encoding="utf-8")
 
     def test_pages_exist(self):
         for lang in LANGS:
-            self.assertTrue(page_file(lang).is_file(), lang.code)
+            self.assertTrue(page_file(ART_WIDGET, lang).is_file(), lang.code)
 
     def test_internal_links_resolve(self):
         for code, tags in self.tags.items():

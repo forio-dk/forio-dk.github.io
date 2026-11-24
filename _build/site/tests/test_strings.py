@@ -1,6 +1,6 @@
 import unittest
 
-from config import LANGS, ROOT, STRINGS
+from config import ART_WIDGET, LANGS, ROOT
 from strings import load_strings, shape_errors
 
 
@@ -24,7 +24,7 @@ class ShapeTest(unittest.TestCase):
         self.assertEqual(shape_errors({"m": {"t": ""}}, {"m": {}}), ["m.t: missing"])
 
     def test_english_loads(self):
-        en = load_strings(["en"])["en"]
+        en = load_strings(["en"], ART_WIDGET.strings)["en"]
         self.assertEqual(en["meta"]["title"], "Art Widget: Artwork of the Day")
         self.assertEqual(len(en["how"]["steps"]), 3)
         self.assertEqual(len(en["features"]["items"]), 6)
@@ -53,7 +53,7 @@ def listing_block(md: str, heading: str) -> str:
 class TranslationTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.strings = load_strings(CODES)
+        cls.strings = load_strings(CODES, ART_WIDGET.strings)
 
     def test_all_languages_match_english(self):
         for code in CODES[1:]:
@@ -82,7 +82,7 @@ class TranslationTest(unittest.TestCase):
     def test_review_markers(self):
         for code in CODES[1:]:
             with self.subTest(code=code):
-                self.assertTrue((STRINGS / f"{code}.toml").read_text(encoding="utf-8").startswith(MARKER))
+                self.assertTrue((ART_WIDGET.strings / f"{code}.toml").read_text(encoding="utf-8").startswith(MARKER))
 
 
 class EnglishClaimsTest(unittest.TestCase):
@@ -90,7 +90,7 @@ class EnglishClaimsTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.en = load_strings(["en"])["en"]
+        cls.en = load_strings(["en"], ART_WIDGET.strings)["en"]
 
     def test_privacy_names_only_what_the_policy_names(self):
         # Policy: "stores only the current artwork, its image and introduction and your language choice"
