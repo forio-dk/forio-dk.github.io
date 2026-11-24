@@ -10,7 +10,7 @@ from pathlib import Path
 
 from assets import Picture, transcode_video
 from config import ATLAS_HUNT, LANGS
-from output import app_webp, badge
+from output import app_webp, badge, prune
 from pages import app_icon, listing_graphics, phone_shots, write_page
 
 ASSETS = ATLAS_HUNT.assets
@@ -21,6 +21,7 @@ STEPS = {"step_1": "phone-2-europe.png", "step_2": "phone-5-card.png", "step_3":
 LEVELS = {"level_earth": "leaderboard-world-512.png", "level_space": "leaderboard-space-512.png",
           "level_flags": "leaderboard-flags-512.png", "level_currencies": "leaderboard-currencies-512.png"}
 HOME_SHOT = re.compile(r"home-(\d+)-([a-z0-9-]+)\.png")
+THUMB_WIDTHS, LARGE_WIDTHS = (160, 320), (540, 1080)
 
 
 @dataclass(frozen=True)
@@ -40,16 +41,29 @@ def gallery_shots(graphics: Path) -> list[tuple[str, Path]]:
 
 
 def gallery_problems(repo: Path, strings: dict[str, dict]) -> list[str]:
-    """A shot in a listing whose screen has no caption in that language's strings stops the build."""
-    return [f"apps/atlashunt/strings/{lang.code}.toml: no caption for {path.name}"
-            for lang in LANGS for screen, path in gallery_shots(listing_graphics(repo, lang))
-            if screen not in strings[lang.code]["gallery"]["captions"]]
+    """What stops the build in a listing's gallery shots: a home-*.png file not named home-<N>-<screen>.png (it would
+    be left out), two shots of the same screen (one would overwrite the other's images), or a screen without a caption
+    in that language's strings."""
+    errors = []
+    for lang in LANGS:
+        graphics = listing_graphics(repo, lang)
+        where = graphics.relative_to(repo).as_posix()
+        errors += [f"{where}/{path.name}: name it home-<N>-<screen>.png, <screen> in lowercase letters, digits and "
+                   "hyphens" for path in sorted(graphics.glob("home-*.png")) if not HOME_SHOT.fullmatch(path.name)]
+        first: dict[str, Path] = {}
+        for screen, path in gallery_shots(graphics):
+            if screen in first:
+                errors.append(f"{where}: {first[screen].name} and {path.name} are the same screen, {screen}")
+            first.setdefault(screen, path)
+        errors += [f"apps/atlashunt/strings/{lang.code}.toml: no caption for {path.name}"
+                   for screen, path in gallery_shots(graphics) if screen not in strings[lang.code]["gallery"]["captions"]]
+    return errors
 
 
 def gallery_shot(screen: str, path: Path, folder: str) -> Shot:
     """The strip's thumbnail at 160 and 320 px, and the popover's shot at 540 and 1080 px wide."""
-    large = app_webp(ATLAS_HUNT, path, folder, screen, (540, 1080))
-    return Shot(screen, app_webp(ATLAS_HUNT, path, folder, screen, (160, 320)), large.src,
+    large = app_webp(ATLAS_HUNT, path, folder, screen, LARGE_WIDTHS)
+    return Shot(screen, app_webp(ATLAS_HUNT, path, folder, screen, THUMB_WIDTHS), large.src,
                 large.srcset.split(", ")[1].split()[0])
 
 
@@ -63,6 +77,9 @@ def build_pages(repo: Path, strings: dict[str, dict]) -> None:
         graphics = listing_graphics(repo, lang)
         pictures = shared | phone_shots(ATLAS_HUNT, graphics, lang, HERO | STEPS) | {"badge": badge(lang)}
         gallery = [gallery_shot(screen, path, f"img/{lang.code}/gallery") for screen, path in gallery_shots(graphics)]
+        folder = ASSETS / "img" / lang.code / "gallery"
+        prune(folder, {folder / f"{shot.screen}-{width}.webp" for shot in gallery
+                       for width in THUMB_WIDTHS + LARGE_WIDTHS})
         video = ASSETS / "video" / f"{lang.code}.mp4"
         poster = ASSETS / "video" / f"{lang.code}-poster.webp"
         transcode_video(graphics.parent / "video.mp4", video, poster)

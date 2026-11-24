@@ -1,6 +1,7 @@
 import unittest
 
 from config import ART_WIDGET, ATLAS_HUNT, LANGS, ROOT
+from plural import CATEGORIES
 from strings import load_strings, shape_errors
 
 
@@ -144,7 +145,8 @@ class AtlasEnglishTest(unittest.TestCase):
 
     def test_gallery_captions(self):
         self.assertEqual(list(self.en["gallery"]["captions"]), SCREENS)
-        self.assertIn("{count}", self.en["gallery"]["sub"])
+        self.assertEqual(list(self.en["gallery"]["sub"]), list(CATEGORIES))
+        self.assertTrue(all("{count}" in form for form in self.en["gallery"]["sub"].values()))
         self.assertEqual(self.en["gallery"]["close"], "Close")
 
 
@@ -175,7 +177,7 @@ class AtlasTranslationTest(unittest.TestCase):
                 self.assertIn("130+", s["hero"]["facts"])
                 self.assertIn("130+", s["levels"]["sub"])
                 self.assertIn("30+", s["levels"]["items"][0]["text"])
-                self.assertIn("{count}", s["gallery"]["sub"])
+                self.assertTrue(all("{count}" in form for form in s["gallery"]["sub"].values()))
                 self.assertEqual([item["key"] for item in s["levels"]["items"]],
                                  [item["key"] for item in self.strings["en"]["levels"]["items"]])
                 for text in all_strings(s):
@@ -184,6 +186,8 @@ class AtlasTranslationTest(unittest.TestCase):
     def test_romanian_numbers_take_de(self):
         # Romanian puts "de" between a number of 20 or more and its noun, as the ro listing does ("160 de jocuri").
         ro = self.strings["ro"]
+        self.assertIn("de ecrane", ro["gallery"]["sub"]["other"])
+        self.assertNotIn("de ecrane", ro["gallery"]["sub"]["few"])
         self.assertIn("130+ de jocuri", ro["hero"]["facts"])
         self.assertIn("130+ de jocuri", ro["levels"]["sub"])
         self.assertIn("30+ de țări", ro["levels"]["items"][0]["text"])

@@ -65,13 +65,10 @@
   {% if gallery %}
   <section class="closer">
     <h2>{{ s.gallery.heading }}</h2>
-    <p class="sub">{{ s.gallery.sub | replace("{count}", gallery | length | string) }}</p>
+    <p class="sub">{{ s.gallery.sub[plural(lang.code, gallery | length)] | replace("{count}", gallery | length | string) }}</p>
     <div class="gallery" tabindex="0" role="region" aria-label="{{ s.gallery.heading }}">
     {% for shot in gallery %}
-      <figure>
-        <button class="zoom" type="button" popovertarget="zoom-{{ shot.screen }}">{{ img(shot.thumb, s.gallery.captions[shot.screen], "160px") }}</button>
-        <figcaption>{{ s.gallery.captions[shot.screen] }}</figcaption>
-      </figure>
+      <button class="zoom" type="button" popovertarget="zoom-{{ shot.screen }}">{{ img(shot.thumb, "", "160px") }}<span class="caption">{{ s.gallery.captions[shot.screen] }}</span></button>
     {% endfor %}
     </div>
     {# Each shot enlarged: a popover the shot's button opens, with no script; Esc or a click outside closes it too. The

@@ -290,6 +290,14 @@ class AtlasRenderTest(unittest.TestCase):
     def test_gallery_count(self):
         self.assertIn("15 more screens from the app.", self.html)
         self.assertIn("2 more screens from the app.", render_atlas(gallery_size=2))
+        self.assertIn("1 more screen from the app.", render_atlas(gallery_size=1))
+
+    def test_gallery_count_plural_forms(self):
+        ru = load_strings(["ru"], ATLAS_HUNT.strings)["ru"]
+        for size, text in ((1, "Ещё 1 экран приложения."), (2, "Ещё 2 экрана приложения."),
+                           (5, "Ещё 5 экранов приложения."), (15, "Ещё 15 экранов приложения.")):
+            with self.subTest(size=size):
+                self.assertIn(text, render_atlas(RU, ru, gallery_size=size))
 
     def test_gallery_keyboard_reachable(self):
         strip = self.tags.find("div", **{"class": "gallery"})
@@ -301,7 +309,15 @@ class AtlasRenderTest(unittest.TestCase):
         images = [a for a in self.tags.find("img") if "/gallery/" in a["src"]]
         self.assertEqual(len(images), 15)
         self.assertEqual({a.get("loading") for a in images}, {"lazy"})
-        self.assertEqual(images[0]["alt"], "Explore the map with names")
+
+    def test_gallery_caption_read_once(self):
+        # The caption is the shot's button text, so a screen reader reads it once: the thumbnail's alt is empty.
+        strip = self.html.split('<div class="gallery"', 1)[1].split("</div>", 1)[0]
+        strip_tags = Tags("<div" + strip)
+        self.assertEqual({a["alt"] for a in strip_tags.find("img")}, {""})
+        self.assertEqual(strip.count("Explore the map with names"), 1)
+        button = strip.split('popovertarget="zoom-explore-names">', 1)[1].split("</button>", 1)[0]
+        self.assertIn('<span class="caption">Explore the map with names</span>', button)
 
     def test_gallery_zoomable(self):
         buttons = [a for a in self.tags.find("button") if "popovertarget" in a and "popovertargetaction" not in a]

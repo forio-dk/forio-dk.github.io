@@ -162,6 +162,11 @@ class SiteTest(unittest.TestCase):
             with self.subTest(code=lang.code):
                 shots = gallery_shots(ATLAS_SIBLING / "docs" / "listings" / lang.listing / "graphics")
                 self.assertEqual('class="gallery"' in self.pages[f"atlashunt/{lang.code}"], bool(shots))
+                # Exactly the listing's shots are published: a removed or renamed shot leaves no file behind.
+                folder = ATLAS_HUNT.assets / "img" / lang.code / "gallery"
+                published = {path.name for path in folder.glob("*")} if folder.is_dir() else set()
+                self.assertEqual(published, {f"{screen}-{width}.webp" for screen, _ in shots
+                                             for width in (160, 320, 540, 1080)})
 
     def test_atlas_card_links_page(self):
         self.assertEqual(len(self.tags["home"].find("a", href="/atlashunt/")), 1)

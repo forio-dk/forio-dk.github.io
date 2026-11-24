@@ -129,17 +129,27 @@ h1, h2, h3, .brand { font-weight: 700; }
   scroll-snap-type: x mandatory;
   scrollbar-color: rgba(111, 208, 242, .5) transparent;
 }
-.gallery figure { flex: 0 0 160px; margin: 0; scroll-snap-align: start; }
 .gallery img {
   width: 160px;
   border: 5px solid var(--bezel);
   border-radius: 18px;
   box-shadow: 0 10px 24px rgba(0, 0, 0, .35);
 }
-.gallery figcaption { margin-top: 8px; color: var(--sky); font-size: .8125rem; line-height: 1.35; text-align: center; }
+.caption { display: block; margin-top: 8px; color: var(--sky); font-size: .8125rem; line-height: 1.35; }
 
 /* Each shot opens enlarged in a popover: as tall as the screen allows, on a dimmed page */
-.zoom { display: block; padding: 0; border: 0; border-radius: 18px; background: none; cursor: zoom-in; }
+.zoom {
+  flex: 0 0 160px;
+  padding: 0;
+  border: 0;
+  border-radius: 18px;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: center;
+  cursor: zoom-in;
+  scroll-snap-align: start;
+}
 .zoom img { transition: transform .15s ease-out; }
 .zoom:hover img { transform: translateY(-3px); }
 .zoomed { padding: 0; border: 0; background: transparent; overflow: visible; }

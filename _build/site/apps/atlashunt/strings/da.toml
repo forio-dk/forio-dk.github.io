@@ -74,8 +74,13 @@ text = "Verden, som den så ud den 1. juni 1816, i 1914 og i 1989."  # new
 
 [gallery]
 heading = "Se nærmere"  # new
-sub = "{count} skærme mere fra appen."  # new
 close = "Luk"  # new
+
+[gallery.sub]
+one = "{count} skærm mere fra appen."  # new
+few = "{count} skærme mere fra appen."  # new
+many = "{count} skærme mere fra appen."  # new
+other = "{count} skærme mere fra appen."  # new
 
 [gallery.captions]
 explore-names = "Udforsk kortet med navne"  # new

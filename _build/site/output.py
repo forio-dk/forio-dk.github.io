@@ -24,6 +24,14 @@ def copy_file(src: Path, dst: Path) -> None:
     shutil.copyfile(src, dst)
 
 
+def prune(folder: Path, keep: set[Path]) -> None:
+    """Deletes the files in folder that this build did not write (keep), such as a removed screenshot's images."""
+    if folder.is_dir():
+        for path in folder.iterdir():
+            if path.is_file() and path not in keep:
+                path.unlink()
+
+
 def app_webp(app: App, src: Path, folder: str, stem: str, widths: tuple[int, ...]) -> Picture:
     """A WebP set under <app>/assets/<folder>, served at the matching URL."""
     return responsive_webp(src, app.assets / folder, f"{app.assets_url}/{folder}", stem, widths)

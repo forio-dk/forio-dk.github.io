@@ -74,8 +74,13 @@ text = "Світ, яким він був 1 червня 1816 року, у 1914 �
 
 [gallery]
 heading = "Ближче"  # new
-sub = "Ще {count} екранів застосунку."  # new
 close = "Закрити"  # new
+
+[gallery.sub]
+one = "Ще {count} екран застосунку."  # new
+few = "Ще {count} екрани застосунку."  # new
+many = "Ще {count} екранів застосунку."  # new
+other = "Ще {count} екрана застосунку."  # new
 
 [gallery.captions]
 explore-names = "Досліджуйте карту з назвами"  # new

@@ -74,8 +74,13 @@ text = "Lumea așa cum era la 1 iunie 1816, în 1914 și în 1989."  # new
 
 [gallery]
 heading = "De aproape"  # new
-sub = "Încă {count} ecrane din aplicație."  # new
 close = "Închide"  # new
+
+[gallery.sub]
+one = "Încă {count} ecran din aplicație."  # new
+few = "Încă {count} ecrane din aplicație."  # new
+many = "Încă {count} de ecrane din aplicație."  # new
+other = "Încă {count} de ecrane din aplicație."  # new
 
 [gallery.captions]
 explore-names = "Explorează harta cu nume"  # new

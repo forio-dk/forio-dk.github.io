@@ -7,9 +7,11 @@ from jinja2.exceptions import UndefinedError
 
 from assets import Picture
 from config import BUILD, LANGS, SHARED_URL, SITE_URL, App, Lang, page_path, page_url, play_url
+from plural import plural_category
 
 ENV = Environment(loader=FileSystemLoader(BUILD), autoescape=True, undefined=StrictUndefined,
                   trim_blocks=True, lstrip_blocks=True, keep_trailing_newline=True)
+ENV.globals["plural"] = plural_category  # plural(code, n): the form of a counted string to use, see plural.py
 
 
 def og_image_url(app: App, lang: Lang) -> str:
