@@ -1,4 +1,5 @@
 import json
+import os
 import subprocess
 import tempfile
 import unittest
@@ -6,9 +7,8 @@ from pathlib import Path
 
 from PIL import Image
 
-from config import VENDOR_DIR
-
 from assets import Picture, favicons, forio_mark, og_jpeg, responsive_webp, transcode_video
+from config import VENDOR_DIR
 
 
 def gradient(path: Path, size: tuple[int, int], mode: str = "RGB") -> Path:
@@ -17,9 +17,16 @@ def gradient(path: Path, size: tuple[int, int], mode: str = "RGB") -> Path:
     return path
 
 
+def temporary_folder(cleanup) -> Path:
+    """A temporary folder that the test case deletes when it is done (cleanup: addCleanup or addClassCleanup)."""
+    folder = tempfile.TemporaryDirectory()
+    cleanup(folder.cleanup)
+    return Path(folder.name)
+
+
 class AssetsTest(unittest.TestCase):
     def setUp(self):
-        self.tmp = Path(tempfile.mkdtemp())
+        self.tmp = temporary_folder(self.addCleanup)
         self.shot = gradient(self.tmp / "shot.png", (1080, 2160))
 
     def test_responsive_webp(self):
@@ -54,7 +61,7 @@ class AssetsTest(unittest.TestCase):
 class VideoTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.tmp = Path(tempfile.mkdtemp())
+        cls.tmp = temporary_folder(cls.addClassCleanup)
         cls.source = cls.tmp / "src.mp4"
         subprocess.run(["ffmpeg", "-y", "-v", "error", "-f", "lavfi", "-i",
                         "testsrc=size=1080x1920:rate=30:duration=2", "-c:v", "libx264", "-pix_fmt", "yuv420p",
@@ -77,6 +84,12 @@ class VideoTest(unittest.TestCase):
         before = self.out.stat().st_mtime_ns
         transcode_video(self.source, self.out, self.poster)
         self.assertEqual(self.out.stat().st_mtime_ns, before)
+
+    def test_transcode_redoes_stale_output(self):
+        stale = self.source.stat().st_mtime_ns - 10 ** 10  # the output is older than its source video
+        os.utime(self.out, ns=(stale, stale))
+        transcode_video(self.source, self.out, self.poster)
+        self.assertGreater(self.out.stat().st_mtime_ns, self.source.stat().st_mtime_ns)
 
 
 class ForioMarkTest(unittest.TestCase):

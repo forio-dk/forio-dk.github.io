@@ -1,7 +1,13 @@
+import contextlib
+import io
+import tempfile
 import unittest
+from pathlib import Path
+from unittest import mock
 
 from PIL import Image
 
+import fetch_vendor
 from config import LOCAL_VENDOR, VENDOR, VENDOR_DIR
 
 MAGIC = {".woff2": b"wOF2", ".png": b"\x89PNG", ".jpg": b"\xff\xd8\xff", ".ttf": b"\x00\x01\x00\x00"}
@@ -43,3 +49,15 @@ class VendorTest(unittest.TestCase):
             with self.subTest(name=name):
                 self.assertTrue((VENDOR_DIR / name).read_bytes().startswith(MAGIC[".png"]))
                 self.assertIn(f"`{name}`: ../{source}", sources)
+
+
+class FetchVendorTest(unittest.TestCase):
+    def test_missing_sibling_repository(self):
+        with (tempfile.TemporaryDirectory() as tmp,
+              mock.patch.object(fetch_vendor, "VENDOR", {}),
+              mock.patch.object(fetch_vendor, "LOCAL_VENDOR", {"icons/x.png": "no_such_repo/icon.png"}),
+              mock.patch.object(fetch_vendor, "VENDOR_DIR", Path(tmp)),
+              contextlib.redirect_stderr(io.StringIO()) as err):
+            self.assertEqual(fetch_vendor.main([]), 2)
+        self.assertIn("no_such_repo", err.getvalue())
+        self.assertIn("icon.png", err.getvalue())

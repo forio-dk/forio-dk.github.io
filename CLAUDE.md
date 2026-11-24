@@ -59,7 +59,7 @@ the app and links to Google Play. All of them are generated; never edit them by 
 - **Generator:** `python -X utf8 _build/artwidget/build.py` from the repo root (needs Jinja2, Pillow and ffmpeg; see
   `_build/artwidget/requirements.txt`). It reads `../art_widget/docs/listings/<listing>/graphics` and the en-US
   `video.mp4`, plus the committed downloads in `_build/artwidget/vendor/`, and writes only what changed: run it twice
-  and `git status` stays clean. The video is re-encoded only when `artwidget/assets/video/` lacks it.
+  and `git status` stays clean. The video is re-encoded only when `artwidget/assets/video/` lacks it or the source video is newer.
 - **Tests:** `(cd _build/artwidget && python -X utf8 -m unittest -v)`. `tests/test_site.py` checks the committed
   output, the home page included: links resolve, no third-party requests, hreflang is reciprocal, and all three
   `privacy-policy.md` files are untouched (their git blobs are pinned).

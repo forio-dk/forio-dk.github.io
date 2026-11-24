@@ -89,7 +89,7 @@ items = [
 ]
 
 [privacy]
-heading = "Nessun account. Nessuna analisi propria."  # new
+heading = "Nessun account. Nessuna statistica d'uso propria."  # new
 text = "L'app di per sé non raccoglie nulla. Salva sul telefono solo l'opera corrente, la sua immagine e introduzione e la lingua scelta. Il banner della versione gratuita è di Google AdMob, che nello Spazio economico europeo, nel Regno Unito e in Svizzera chiede prima il tuo consenso."  # new
 link = "Leggi l'informativa sulla privacy (in inglese)"  # new
 

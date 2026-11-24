@@ -56,9 +56,10 @@ def favicons(src: Path, out_dir: Path) -> None:
 def transcode_video(src: Path, out: Path, poster: Path) -> None:
     """Re-encodes the preview video at 720x1280 without sound, and writes its frame at 1 s as the poster.
 
-    Does nothing when both files exist, since x264 output is not worth re-encoding on every build.
+    Does nothing when both files exist and are newer than the source, since x264 output is not worth re-encoding on
+    every build.
     """
-    if out.is_file() and poster.is_file():
+    if all(path.is_file() and path.stat().st_mtime_ns >= src.stat().st_mtime_ns for path in (out, poster)):
         return
     out.parent.mkdir(parents=True, exist_ok=True)
     poster.parent.mkdir(parents=True, exist_ok=True)

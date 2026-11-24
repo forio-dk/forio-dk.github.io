@@ -124,3 +124,15 @@ class SiteTest(unittest.TestCase):
             self.assertEqual(sorted(icon.info["sizes"]), [(16, 16), (32, 32), (48, 48)])
         with Image.open(ROOT / "apple-touch-icon.png") as touch:
             self.assertEqual((touch.format, touch.size), ("PNG", (180, 180)))
+
+    def test_hero_painting_has_a_middle_size(self):
+        starry = [a for a in self.tags["en"].find("img") if a["src"].startswith("/artwidget/assets/img/starry")]
+        widths = [int(entry.split()[1].rstrip("w")) for entry in starry[0]["srcset"].split(",")]
+        self.assertEqual(widths, [480, 720, 960])
+
+    def test_readme_served(self):
+        # Every policy's Contact line links to /README.md
+        self.assertTrue((ROOT / "README.md").is_file())
+        excluded = [line.strip()[2:].strip() for line in (ROOT / "_config.yml").read_text(encoding="utf-8").splitlines()
+                    if line.strip().startswith("- ")]
+        self.assertNotIn("README.md", excluded)

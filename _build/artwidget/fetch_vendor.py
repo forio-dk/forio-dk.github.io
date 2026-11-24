@@ -44,8 +44,12 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     for name, url in VENDOR.items():
         fetch(name, lambda url=url: download(url), "downloaded", args.force)
-    for name, source in LOCAL_VENDOR.items():
-        fetch(name, (ROOT.parent / source).read_bytes, "copied", args.force)
+    try:
+        for name, source in LOCAL_VENDOR.items():
+            fetch(name, (ROOT.parent / source).read_bytes, "copied", args.force)
+    except FileNotFoundError as error:
+        print(f"{error.filename} is missing: clone the app's repository next to this one", file=sys.stderr)
+        return 2
     write_sources()
     return 0
 

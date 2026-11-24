@@ -1,4 +1,4 @@
-"""Paths, URLs and the list of downloaded inputs for the Art Widget home page generator."""
+"""Paths, languages, URLs and the list of downloaded inputs for the site generator (home page and Art Widget page)."""
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -15,8 +15,26 @@ SOURCE_SANS = "https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.3.1"
 SUBSETS = ("latin", "latin-ext", "cyrillic")
 BADGE = "https://play.google.com/intl/en_us/badges/static/images/badges/{}_badge_web_generic.png"
 COMMONS = "https://commons.wikimedia.org/wiki/Special:FilePath/{}?width=1200"
-# Page language code -> Google's badge code; Google names the Ukrainian badge "ua" ("uk" is a 404).
-BADGE_CODES = {"en": "en", "da": "da", "it": "it", "ro": "ro", "ru": "ru", "uk": "ua"}
+
+
+@dataclass(frozen=True)
+class Lang:
+    code: str  # html lang, hreflang, Play's hl and the page's folder (English, the default, has none)
+    listing: str  # folder in ../art_widget/docs/listings
+    name: str  # the language's own name, for the switcher
+    og_locale: str
+    font_subset: str  # "latin" or "cyrillic": the heading font file to preload
+    badge: str  # Google's code for the Get it on Google Play badge; Ukrainian's is "ua" ("uk" is a 404)
+
+
+LANGS = (
+    Lang("en", "en-US", "English", "en_US", "latin", "en"),
+    Lang("da", "da-DK", "Dansk", "da_DK", "latin", "da"),
+    Lang("it", "it-IT", "Italiano", "it_IT", "latin", "it"),
+    Lang("ro", "ro", "Română", "ro_RO", "latin", "ro"),
+    Lang("ru", "ru-RU", "Русский", "ru_RU", "cyrillic", "ru"),
+    Lang("uk", "uk", "Українська", "uk_UA", "cyrillic", "ua"),
+)
 
 # Each file in vendor/, relative to VENDOR_DIR, and where it was downloaded from.
 VENDOR: dict[str, str] = {
@@ -32,7 +50,7 @@ VENDOR: dict[str, str] = {
     "fonts/source-sans-3-600.css": f"{SOURCE_SANS}/600.css",
     "fonts/OFL-playfair-display.txt": f"{PLAYFAIR}/LICENSE",
     "fonts/OFL-source-sans-3.txt": f"{SOURCE_SANS}/LICENSE",
-    **{f"badges/{code}.png": BADGE.format(badge) for code, badge in BADGE_CODES.items()},
+    **{f"badges/{lang.code}.png": BADGE.format(lang.badge) for lang in LANGS},
     "art/starry-night.jpg": COMMONS.format("Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg"),
     "art/pearl-earring.jpg": COMMONS.format("1665_Girl_with_a_Pearl_Earring.jpg"),
 }
@@ -43,24 +61,6 @@ LOCAL_VENDOR: dict[str, str] = {
     "icons/syllabee.png": "learn_to_read/docs/store/en/icon-512.png",
 }
 
-
-@dataclass(frozen=True)
-class Lang:
-    code: str  # html lang, hreflang, Play's hl and the page's folder (English, the default, has none)
-    listing: str  # folder in ../art_widget/docs/listings
-    name: str  # the language's own name, for the switcher
-    og_locale: str
-    font_subset: str  # "latin" or "cyrillic": the heading font file to preload
-
-
-LANGS = (
-    Lang("en", "en-US", "English", "en_US", "latin"),
-    Lang("da", "da-DK", "Dansk", "da_DK", "latin"),
-    Lang("it", "it-IT", "Italiano", "it_IT", "latin"),
-    Lang("ro", "ro", "Română", "ro_RO", "latin"),
-    Lang("ru", "ru-RU", "Русский", "ru_RU", "cyrillic"),
-    Lang("uk", "uk", "Українська", "uk_UA", "cyrillic"),
-)
 
 SITE_URL = "https://forio-dk.github.io"
 PACKAGE = "dk.forio.artwidget"

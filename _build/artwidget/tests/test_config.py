@@ -18,3 +18,6 @@ class ConfigTest(unittest.TestCase):
             play_url(LANGS[0]),
             "https://play.google.com/store/apps/details?id=dk.forio.artwidget&hl=en"
             "&referrer=utm_source%3Dforio-dk.github.io%26utm_medium%3Dwebsite%26utm_campaign%3Dartwidget-home")
+
+    def test_badge_codes(self):
+        self.assertEqual([lang.badge for lang in LANGS], ["en", "da", "it", "ro", "ru", "ua"])

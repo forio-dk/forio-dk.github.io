@@ -85,11 +85,11 @@ items = [
     "Fără reclame",  # new
     "Toate tipurile: sculpturi, desene, gravuri, mozaicuri, tapiserii, vitralii, ouă Fabergé și altele",  # new
     "O operă nouă chiar la fiecare 2 ore",  # new
-    "Economizorul de ecran și imaginea de fundal și pe ecranul de blocare, mișcându-se încet",  # new
+    "Economizorul de ecran, plus imaginea de fundal pe ecranul de blocare, care se mișcă încet",  # new
 ]
 
 [privacy]
-heading = "Fără cont. Fără analize proprii."  # new
+heading = "Fără cont. Fără statistici proprii."  # new
 text = "Aplicația în sine nu colectează nimic. Păstrează pe telefon doar opera curentă, imaginea și introducerea ei și limba aleasă. Bannerul din versiunea gratuită vine de la Google AdMob, care în Spațiul Economic European, Regatul Unit și Elveția îți cere mai întâi consimțământul."  # new
 link = "Citește politica de confidențialitate (în engleză)"  # new
 

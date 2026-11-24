@@ -8,12 +8,13 @@ writes only what changed, so a second run leaves git status clean. artwidget/ass
 import argparse
 import shutil
 import sys
+import tomllib
 from pathlib import Path
 
 from PIL import Image
 
 from assets import Picture, favicons, forio_mark, og_jpeg, responsive_webp, transcode_video
-from config import ASSETS, ASSETS_URL, LANGS, ROOT, VENDOR_DIR, Lang, page_file
+from config import ASSETS, ASSETS_URL, LANGS, ROOT, STRINGS, VENDOR_DIR, Lang, page_file
 from render import render_home, render_page
 from sitemap import ROBOTS_TXT, render_sitemap
 from strings import load_strings, shape_errors
@@ -70,7 +71,7 @@ def build(art_widget: Path) -> None:
     favicons(default_graphics / "icon-512.png", ASSETS / "img")
     shared = {
         "icon": webp(default_graphics / "icon-512.png", "img", "icon", (64, 128)),
-        "starry": webp(VENDOR_DIR / "art" / "starry-night.jpg", "img", "starry-night", (480, 960)),
+        "starry": webp(VENDOR_DIR / "art" / "starry-night.jpg", "img", "starry-night", (480, 720, 960)),
         "pearl": webp(VENDOR_DIR / "art" / "pearl-earring.jpg", "img", "pearl-earring", (240, 480)),
     }
     for font in sorted((VENDOR_DIR / "fonts").glob("*.woff2")) + sorted((VENDOR_DIR / "fonts").glob("OFL-*.txt")):
@@ -98,14 +99,22 @@ def build(art_widget: Path) -> None:
     write_text(ROOT / "robots.txt", ROBOTS_TXT)
 
 
-def problems(art_widget: Path) -> list[str]:
-    """What stops a build: a missing Art Widget repository, or a language whose strings differ from English's."""
+def problems(art_widget: Path, strings_dir: Path = STRINGS) -> list[str]:
+    """What stops a build: a missing Art Widget repository, a strings file that is missing or not valid TOML, or a
+    language whose strings differ from English's."""
     if not (art_widget / "docs" / "listings").is_dir():
         return [f"{art_widget} is not the Art Widget repository (no docs/listings); pass --art-widget"]
-    strings = load_strings(lang.code for lang in LANGS)
-    english = strings[LANGS[0].code]
-    return [f"strings/{lang.code}.toml: {error}" for lang in LANGS[1:]
-            for error in shape_errors(english, strings[lang.code])]
+    strings, errors = {}, []
+    for lang in LANGS:
+        try:
+            strings.update(load_strings([lang.code], strings_dir))
+        except (OSError, tomllib.TOMLDecodeError) as error:
+            errors.append(f"strings/{lang.code}.toml: {error}")
+    english = strings.get(LANGS[0].code)
+    if english is not None:
+        errors += [f"strings/{code}.toml: {error}" for code, other in strings.items() if code != LANGS[0].code
+                   for error in shape_errors(english, other)]
+    return errors
 
 
 def main(argv: list[str] | None = None) -> int:

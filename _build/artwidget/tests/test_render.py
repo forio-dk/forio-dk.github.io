@@ -125,7 +125,7 @@ DESCRIPTIONS = (
     "A famous work of art on your home screen, a different one every day.",
     "Find countries, rivers and mountains on a map, then read about each one.",
     "Learn to read by syllables: four gentle games with pictures and a friendly voice",
-    "Also Stavebi, Складарик and Слогарик",
+    "Also Stavebi, ",
 )
 
 
@@ -188,3 +188,7 @@ class HomeTest(unittest.TestCase):
         self.assertEqual([a["href"] for a in self.tags.find("link", rel="icon")], ["/favicon.ico"])
         self.assertEqual([a["href"] for a in self.tags.find("link", rel="apple-touch-icon")], ["/apple-touch-icon.png"])
         self.assertEqual(len(self.tags.find("img", src="/artwidget/assets/img/apps/forio-96.webp")), 1)
+
+    def test_cyrillic_names_tagged(self):
+        self.assertIn('<span lang="uk">Складарик</span>', self.html)
+        self.assertIn('<span lang="ru">Слогарик</span>', self.html)

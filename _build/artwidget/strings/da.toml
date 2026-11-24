@@ -85,7 +85,7 @@ items = [
     "Ingen reklamer",  # new
     "Alle typer: skulpturer, tegninger, grafik, mosaikker, gobeliner, glasmalerier, Fabergé-æg og mere",  # new
     "Et nyt værk helt ned til hver 2. time",  # new
-    "Pauseskærmen og baggrunden også på låseskærmen, i langsom bevægelse",  # new
+    "Pauseskærmen og en levende baggrund på låseskærmen, der bevæger sig langsomt",  # new
 ]
 
 [privacy]

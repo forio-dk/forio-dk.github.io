@@ -1,4 +1,4 @@
-"""Renders one language's Art Widget home page from template.html."""
+"""Renders the generated pages: each language's Art Widget page (template.html) and the home page (home.html)."""
 from jinja2 import Environment, FileSystemLoader, StrictUndefined
 from jinja2.exceptions import UndefinedError
 
