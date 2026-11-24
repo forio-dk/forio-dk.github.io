@@ -21,7 +21,7 @@
     {% for url in cards %}
       <div class="pic pic-{{ loop.index }}">{{ drawing(url, lazy=False) }}</div>
     {% endfor %}
-      <div class="phone">{{ img(p.hero, s.hero.shot_alt, "(min-width: 960px) 240px, 46vw", lazy=False, priority=True) }}</div>
+      <div class="phone">{{ img(p.hero, s.hero.shot_alt, "(min-width: 560px) 240px, 46vw", lazy=False, priority=True) }}</div>
     </div>
   </section>
 
@@ -45,9 +45,9 @@
     <ul class="tiles">
     {% for tile in themes %}
       <li class="tile" style="--bar: {{ tile.colour }}">
-        {% if tile.locked %}<span class="lock">{{ lock() }}<span class="visually-hidden">{{ s.themes.locked }}</span></span>{% endif %}
+        {% if tile.locked %}<span class="lock" aria-hidden="true">{{ lock() }}</span>{% endif %}
         {{ drawing(tile.drawing) }}
-        <span class="name">{{ s.themes.names[tile.key] }}</span>
+        <span class="name">{{ s.themes.names[tile.key] }}</span>{% if tile.locked %}<span class="visually-hidden"> ({{ s.themes.locked }})</span>{% endif %}
         {% if tile.key in s.themes.notes %}<span class="note">{{ s.themes.notes[tile.key] }}</span>{% endif %}
       </li>
     {% endfor %}

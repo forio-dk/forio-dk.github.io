@@ -491,9 +491,15 @@ class SyllabeeRenderTest(unittest.TestCase):
     def test_accessible_tiles(self):
         tiles = self.html.split('<ul class="tiles">', 1)[1].split("</ul>", 1)[0].split('<li class="tile"')[1:]
         self.assertEqual(len(tiles), 16)
-        hidden = '<span class="visually-hidden">In the full version</span>'
+        # A screen reader reads a locked tile as "Food (In the full version)": the name first, the lock's text after
+        # it; the lock icon itself is hidden.
+        hidden = '<span class="visually-hidden"> (In the full version)</span>'
         self.assertEqual([key for key, tile in zip(THEMES, tiles) if hidden in tile],
                          [key for key in THEMES if key in FULL_THEMES])
+        for tile in tiles:
+            if hidden in tile:
+                self.assertLess(tile.index('class="name"'), tile.index(hidden))
+                self.assertIn('<span class="lock" aria-hidden="true">', tile)
         card_urls = {art(name) for name in CARDS}
         drawings = [a for a in self.tags.find("img") if "/img/art/" in a["src"]]
         drawn = [a for a in drawings if a["src"] not in card_urls]
@@ -505,6 +511,8 @@ class SyllabeeRenderTest(unittest.TestCase):
         hero = [a for a in self.tags.find("img") if a["src"].startswith("/syllabee/assets/img/en/hero")]
         self.assertEqual(len(hero), 1)
         self.assertEqual((hero[0].get("fetchpriority"), hero[0].get("loading")), ("high", None))
+        # The stage caps the phone at about 240 px from a 560 px window, so 1x screens there fetch hero-240.
+        self.assertEqual(hero[0]["sizes"], "(min-width: 560px) 240px, 46vw")
         self.assertEqual(hero[0]["alt"], "The themes: Animals, Flowers, Fruits, Vegetables, Vehicles and Bugs")
 
     def test_colouring(self):
