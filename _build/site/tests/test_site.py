@@ -161,6 +161,12 @@ class SiteTest(unittest.TestCase):
         self.assertRegex(theme, r"(?m)^\.tiles \{[^}]*grid-template-columns: repeat\(2, 1fr\);")
         self.assertRegex(theme, r"@media \(min-width: 480px\) \{\s*\.tiles \{ grid-template-columns: repeat\(3, 1fr\); \}")
 
+    def test_syllabee_stage_stays_under_the_language_menu(self):
+        # The hero's phone and cards are stacked with z-index inside the stage; isolating the stage keeps them under the
+        # top bar's language menu, which they once covered.
+        theme = SYLLABEE_THEME.read_text(encoding="utf-8")
+        self.assertRegex(theme, r"(?m)^\.stage \{[^}]*isolation: isolate;")
+
     def test_syllabee_panel_classes_style_only_panels(self):
         # A game's panel carries the game's key as a class ("panel colouring"); a rule for that class alone would
         # restyle the panel too (the Coloring group's layout once pushed the Coloring panel down).

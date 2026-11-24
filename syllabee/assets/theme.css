@@ -76,7 +76,8 @@ h1, h2, h3, .brand { font-weight: 800; }
 .syl.on::after { background: var(--accent); }
 .hy { width: 14px; height: 5px; margin-top: .7em; border-radius: 3px; background: rgba(214, 199, 245, .7); }
 .hero .lead { max-width: 26em; color: var(--text); }
-.stage { position: relative; width: 100%; max-width: 520px; margin: 0 auto; aspect-ratio: 1; }
+/* isolation keeps the phone's and cards' z-indexes inside the stage, under the top bar's language menu */
+.stage { position: relative; isolation: isolate; width: 100%; max-width: 520px; margin: 0 auto; aspect-ratio: 1; }
 .stage .phone {
   position: absolute;
   top: 50%;
