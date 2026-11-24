@@ -34,6 +34,12 @@ VENDOR: dict[str, str] = {
     "art/pearl-earring.jpg": COMMONS.format("1665_Girl_with_a_Pearl_Earring.jpg"),
 }
 
+# Files copied once from the sibling app repositories (paths relative to ROOT.parent), for the home page's app cards.
+LOCAL_VENDOR: dict[str, str] = {
+    "icons/atlas-hunt.png": "atlas_hunt/docs/listings/en-US/graphics/icon-512.png",
+    "icons/syllabee.png": "learn_to_read/docs/store/en/icon-512.png",
+}
+
 
 @dataclass(frozen=True)
 class Lang:

@@ -24,3 +24,8 @@ Downloaded once by `fetch_vendor.py`; each file and its source URL.
 - `badges/uk.png`: https://play.google.com/intl/en_us/badges/static/images/badges/ua_badge_web_generic.png
 - `art/starry-night.jpg`: https://commons.wikimedia.org/wiki/Special:FilePath/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg?width=1200
 - `art/pearl-earring.jpg`: https://commons.wikimedia.org/wiki/Special:FilePath/1665_Girl_with_a_Pearl_Earring.jpg?width=1200
+
+## Copied from sibling repositories
+
+- `icons/atlas-hunt.png`: ../atlas_hunt/docs/listings/en-US/graphics/icon-512.png
+- `icons/syllabee.png`: ../learn_to_read/docs/store/en/icon-512.png

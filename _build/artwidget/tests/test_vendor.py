@@ -2,7 +2,7 @@ import unittest
 
 from PIL import Image
 
-from config import VENDOR, VENDOR_DIR
+from config import LOCAL_VENDOR, VENDOR, VENDOR_DIR
 
 MAGIC = {".woff2": b"wOF2", ".png": b"\x89PNG", ".jpg": b"\xff\xd8\xff"}
 
@@ -36,3 +36,10 @@ class VendorTest(unittest.TestCase):
         sources = (VENDOR_DIR / "SOURCES.md").read_text(encoding="utf-8")
         for url in VENDOR.values():
             self.assertIn(url, sources)
+
+    def test_local_copies(self):
+        sources = (VENDOR_DIR / "SOURCES.md").read_text(encoding="utf-8")
+        for name, source in LOCAL_VENDOR.items():
+            with self.subTest(name=name):
+                self.assertTrue((VENDOR_DIR / name).read_bytes().startswith(MAGIC[".png"]))
+                self.assertIn(f"`{name}`: ../{source}", sources)

@@ -48,3 +48,9 @@ def render_page(lang: Lang, s: dict, pictures: dict[str, Picture], langs: tuple[
         lang=lang, s=s, p=pictures, langs=langs, default=langs[0], page_url=page_url, page_path=page_path,
         play=play_url(lang), og_image=og_image_url(lang), json_ld=json_ld(lang, s), assets=ASSETS_URL,
         video=VIDEO_URL, poster=POSTER_URL, commons=COMMONS_PAGES)
+
+
+def render_home(pictures: dict[str, Picture]) -> str:
+    """The site's home page, English only: a card per app. pictures holds the art_widget, atlas_hunt and syllabee
+    icons."""
+    return ENV.get_template("home.html").render(p=pictures, site=SITE_URL + "/", assets=ASSETS_URL)
