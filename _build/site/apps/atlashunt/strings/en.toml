@@ -2,14 +2,14 @@
 
 [meta]
 title = "Atlas Hunt: Map Quiz"
-description = "Find countries, rivers and mountains on a map, then read about each one. Free for Android: 130+ map games in six languages, offline."
-og_image_alt = "Atlas Hunt: find countries, rivers and mountains on a map, then read about each one"
+description = "Geography quiz: find countries, capitals and rivers on a map. Flags quiz too. Free for Android: 130+ map games in six languages, offline."
+og_image_alt = "Atlas Hunt. Geography quiz: find countries, capitals and rivers on a map. Flags quiz too."
 
 [nav]
 languages = "Language"
 
 [hero]
-lead = "Find countries, rivers and mountains on a map, then read about each one."
+lead = "Geography quiz: find countries, capitals and rivers on a map. Flags quiz too."
 facts = "Free · 130+ games · Six languages · Works offline"
 badge_alt = "Get it on Google Play"
 alts = [
@@ -20,7 +20,7 @@ alts = [
 
 [how]
 heading = "How it plays"
-sub = "No labels, no hints: only the shapes of the countries, rivers and mountains."
+sub = "No labels, no hints: only the countries, capitals and rivers on a blank map."
 
 [[how.steps]]
 heading = "Pick a game, find each place"

@@ -133,7 +133,7 @@ class RenderTest(unittest.TestCase):
 
 DESCRIPTIONS = (
     "A famous work of art on your home screen, a different one every day.",
-    "Find countries, rivers and mountains on a map, then read about each one.",
+    "Geography quiz: find countries, capitals and rivers on a map. Flags quiz too.",
     "Learn to read by syllables: four gentle games with pictures and a friendly voice",
     "Also Stavebi, ",
 )

@@ -3,14 +3,14 @@
 
 [meta]
 title = "Atlas Hunt: Map Quiz"
-description = "Găsește țări, râuri și munți pe hartă, apoi citește despre fiecare. Gratuit pentru Android: peste 130 de jocuri pe hărți, în șase limbi, offline."  # new
-og_image_alt = "Atlas Hunt: găsește țări, râuri și munți pe hartă, apoi citește despre fiecare"  # new
+description = "Quiz de geografie: găsește țări, capitale și râuri pe hartă. Și steagurile. Gratuit pentru Android: peste 130 de jocuri pe hărți, în șase limbi, offline."
+og_image_alt = "Atlas Hunt. Quiz de geografie: găsește țări, capitale și râuri pe hartă. Și steagurile."
 
 [nav]
 languages = "Limba"  # new
 
 [hero]
-lead = "Găsește țări, râuri și munți pe hartă, apoi citește despre fiecare."
+lead = "Quiz de geografie: găsește țări, capitale și râuri pe hartă. Și steagurile."
 facts = "Gratuit · 130+ de jocuri · Șase limbi · Funcționează offline"  # new
 badge_alt = "Descarcă de pe Google Play"  # new
 alts = [
@@ -21,7 +21,7 @@ alts = [
 
 [how]
 heading = "Cum se joacă"  # new
-sub = "Fără nume, fără indicii: doar formele țărilor, râurilor și munților."  # new
+sub = "Fără nume, fără indicii: doar țări, capitale și râuri pe o hartă goală."
 
 [[how.steps]]
 heading = "Alege un joc, găsește fiecare loc"  # new

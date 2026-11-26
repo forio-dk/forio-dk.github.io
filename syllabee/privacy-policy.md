@@ -1,4 +1,4 @@
-# Privacy policy: Stavebi, Syllabee, Складарик and Слогарик
+# Privacy policy: Stavebi, Syllabee, Silabina, Складарик and Слогарик
 
 **Effective date:** 15 November 2026
 
@@ -6,10 +6,10 @@
 
 ## Who the app is for
 
-Stavebi, Syllabee, Складарик and Слогарик are one reading app in four languages, for children under 13 who are
-learning to read Danish (Stavebi), English (Syllabee), Ukrainian (Складарик) or Russian (Слогарик), and for the parents
-who choose it for them. This policy covers all four: they collect, store and share exactly the same things, and "the
-app" below means any of them.
+Stavebi, Syllabee, Silabina, Складарик and Слогарик are one reading app in five languages, for children under 13 who
+are learning to read Danish (Stavebi), English (Syllabee), Romanian (Silabina), Ukrainian (Складарик) or Russian
+(Слогарик), and for the parents who choose it for them. This policy covers all five: they collect, store and share
+exactly the same things, and "the app" below means any of them.
 
 ## What the app itself collects
 

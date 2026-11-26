@@ -3,14 +3,14 @@
 
 [meta]
 title = "Atlas Hunt: Map Quiz"
-description = "Find lande, floder og bjerge på et kort, og læs så om hvert af dem. Gratis til Android: 130+ kortspil på seks sprog, offline."  # new
-og_image_alt = "Atlas Hunt: find lande, floder og bjerge på et kort, og læs så om hvert af dem"  # new
+description = "Quiz i geografi: find lande, hovedstæder og floder på et kort. Plus en flagquiz. Gratis til Android: 130+ kortspil på seks sprog, offline."
+og_image_alt = "Atlas Hunt. Quiz i geografi: find lande, hovedstæder og floder på et kort. Plus en flagquiz."
 
 [nav]
 languages = "Sprog"  # new
 
 [hero]
-lead = "Find lande, floder og bjerge på et kort, og læs så om hvert af dem."
+lead = "Quiz i geografi: find lande, hovedstæder og floder på et kort. Plus en flagquiz."
 facts = "Gratis · 130+ spil · Seks sprog · Virker offline"  # new
 badge_alt = "Hent i Google Play"  # new
 alts = [
@@ -21,7 +21,7 @@ alts = [
 
 [how]
 heading = "Sådan spiller du"  # new
-sub = "Ingen navne, ingen hints: kun omridsene af lande, floder og bjerge."  # new
+sub = "Ingen navne, ingen hints: kun lande, hovedstæder og floder på et tomt kort."
 
 [[how.steps]]
 heading = "Vælg et spil, og find hvert sted"  # new

@@ -20,7 +20,7 @@ CSS_FILES = [CSS, ASSETS / "theme.css", ATLAS_THEME, SYLLABEE_THEME]
 POLICY_BLOBS = {
     "artwidget/privacy-policy.md": "f918c89c82a0fb2b8b6995b715848743abb632f1",
     "atlashunt/privacy-policy.md": "712154b31602b8bcb454efe4576031d4472d8a25",
-    "syllabee/privacy-policy.md": "0a694112f7a71f03e41caf4fda66205846e2742c",
+    "syllabee/privacy-policy.md": "7d844b386b611ccaf15bab42513bc296163e5636",
 }
 HOME = ROOT / "index.html"
 STYLE_URL = re.compile(r"""url\(\s*["']?([^"')]+)["']?\s*\)""")

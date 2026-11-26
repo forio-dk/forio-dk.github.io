@@ -3,14 +3,14 @@
 
 [meta]
 title = "Atlas Hunt: Map Quiz"
-description = "Trova paesi, fiumi e montagne sulla mappa, poi leggi di ciascuno. Gratis per Android: oltre 130 giochi sulle mappe in sei lingue, offline."  # new
-og_image_alt = "Atlas Hunt: trova paesi, fiumi e montagne sulla mappa, poi leggi di ciascuno"  # new
+description = "Quiz di geografia: trova paesi, capitali e fiumi sulla mappa. E le bandiere. Gratis per Android: oltre 130 giochi sulle mappe in sei lingue, offline."
+og_image_alt = "Atlas Hunt. Quiz di geografia: trova paesi, capitali e fiumi sulla mappa. E le bandiere."
 
 [nav]
 languages = "Lingua"  # new
 
 [hero]
-lead = "Trova paesi, fiumi e montagne sulla mappa, poi leggi di ciascuno."
+lead = "Quiz di geografia: trova paesi, capitali e fiumi sulla mappa. E le bandiere."
 facts = "Gratis · 130+ giochi · Sei lingue · Funziona offline"  # new
 badge_alt = "Disponibile su Google Play"  # new
 alts = [
@@ -21,7 +21,7 @@ alts = [
 
 [how]
 heading = "Come si gioca"  # new
-sub = "Niente nomi, niente indizi: solo le forme di paesi, fiumi e montagne."  # new
+sub = "Niente nomi, niente indizi: solo paesi, capitali e fiumi su una mappa muta."
 
 [[how.steps]]
 heading = "Scegli un gioco, trova ogni luogo"  # new
